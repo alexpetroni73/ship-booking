@@ -26,6 +26,12 @@ const routes = [
   },
 
   {
+    path: '/ship/:id?',
+    name: 'ship',
+    component: () => import('../views/Ship.vue')
+  },
+
+  {
     path: '/cruises',
     name: 'cruises',
     component: () => import('../views/Cruises.vue')
@@ -60,6 +66,7 @@ const routes = [
     name: 'settings',
     component: () => import('../views/Settings.vue')
   },
+
 ]
 
 const router = new VueRouter({

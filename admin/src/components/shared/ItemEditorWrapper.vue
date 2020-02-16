@@ -86,7 +86,7 @@
 
             <v-btn
             v-else
-            @click="onAdd()"
+            @click="onCreate()"
             :color="btnColor"
             >
               Add
@@ -248,23 +248,23 @@ export default {
 
   methods: {
     onAddNew () {
-      this.$emit('addNewItem')
+      this.$emit('add-new-item')
     },
 
     onDelete () {
-      this.requireDeleteConfiramtion ? this.showConfirmDialog = true : this.$emit('deleteItem')
+      this.requireDeleteConfiramtion ? this.showConfirmDialog = true : this.$emit('delete-item')
     },
 
     onReload () {
-      this.$emit('reloadItem')
+      this.$emit('reload-item')
     },
 
-    onAdd () {
-      this.$emit('addItem')
+    onCreate () {
+      this.$emit('create-item')
     },
 
     onUpdate () {
-      this.$emit('updateItem')
+      this.$emit('update-item')
     },
 
     closeConfirmDeleteDialog () {
@@ -273,7 +273,7 @@ export default {
 
     confirmDelete () {
       this.closeConfirmDeleteDialog()
-      this.$emit('deleteItem')
+      this.$emit('delete-item')
     },
 
     cancelDelete () {
