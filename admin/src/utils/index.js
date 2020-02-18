@@ -108,10 +108,14 @@ const isAnObject = (obj) => {
   return obj && obj.__proto__ &&  obj.__proto__.constructor.name === 'Object'
 }
 
+// return the single property of an object, null otherwise
 const objectSingleProperty = (obj) => {
-  if(!isAnObject(obj)) { throw new Error("The obj provided should be an Object") }
+  if(!isAnObject(obj)) return
   let keys = Object.keys(obj)
-  if(keys.length != 1) { throw new Error("The obj provided should have a single property") }
+  if(keys.length != 1) {
+    console.log("Error: The Object provided should have a single property")
+    return
+  }
   return obj[keys[0]]
 }
 

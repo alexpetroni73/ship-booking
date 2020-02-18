@@ -24,10 +24,10 @@ export default {
 
   mixins: [EditStateMixin, ErrorMixin],
 
-  model: {
-    prop: 'id',
-    event: 'change'
-  },
+  // model: {
+  //   prop: 'id',
+  //   event: 'change'
+  // },
 
   props: {
     id: {
@@ -43,6 +43,7 @@ export default {
 
   data () {
     return {
+      item: null, // original item, null for a new item
       editedItem: this.getDefaultItem(),
       isLoading: false,
 
@@ -83,26 +84,20 @@ export default {
     setNewItem () {
       this.clearError()
       this.isLoading = false
+      this.item = null
       this.editedItem = this.getDefaultItem()
       this.setAddNewState()
-      this.busEmit('item-loaded', null)
+      this.notifiy('item-changed', null)
     },
 
-    async loadItem (emit = 'item-loaded') {
+    async loadItem () {
       this.clearError()
       this.isLoading = true
       try{
         let result = await this.loadCurrentItem()
-        if(!result) {
-          return this.itemError(`No item found for ${this.id}`)
-        }
-        this.editedItem = result
-        this.setEditState()
+        this.handleLoadResult(result.data)
           // console.log('.... itemLoaded  %o', this.editedItem)
-        if(emit){
-          this.$emit(emit, this.editedItem)
-        }
-        this.busEmit('item-loaded', this.id)
+        this.notifiy('item-changed', this.id)
       }catch(error){
         // console.log('error %o', error)
         this.itemError(error.message)
@@ -116,13 +111,11 @@ export default {
       this.isLoading = true
       try{
         let result = await this.createFromCurrentItem()
-        let id = this.extractCreatedItemId(result)
+        let id = this.extractCreatedItemId(result.data)
         if(id){
-          this.$emit('item-created', id)
-          this.busEmit('item-created', id)
-          this.$emit('change', id)
+          this.notifiy('item-created', id)
         }else{
-          this.itemError("No item key provided in addItem() result.)")
+          throw new Error("No item key provided in addItem() result.")
         }
       }catch(error){
         // console.log('error %o', error)
@@ -136,11 +129,9 @@ export default {
       this.clearError()
       this.isLoading = true
       try{
-        this.editedItem = await this.updateCurrentItem()
-        this.setEditState()
-
-        this.$emit('item-updated', this.id)
-        this.busEmit('item-updated', this.id)
+        let result = await this.updateCurrentItem()
+        this.handleUpdateResult(result.data)
+        this.notifiy('item-updated', this.id)
       }catch(error){
         // console.log('error %o', error)
         this.itemError(error.message)
@@ -154,9 +145,7 @@ export default {
       this.isLoading = true
       try{
         await this.deleteCurrentItem()
-        this.$emit('item-deleted', this.id)
-        this.busEmit('item-deleted', this.id)
-        this.$emit('change', null)
+        this.notifiy('item-deleted', this.id)
       }catch(error){
         // console.log('error %o', error)
         this.itemError(error.message)
@@ -169,46 +158,60 @@ export default {
     async loadCurrentItem () {
       if(!this.gqlQueries.read) { throw new Error('No graphql read query defined!')}
 
-      let result = await this.$apollo.query({
+      return await this.$apollo.query({
         query: this.gqlQueries.read,
         variables: this.queryLoadVariables()
       })
-
-      return this.parseLoadedItem(result.data)
     },
 
     async createFromCurrentItem () {
       if(!this.gqlQueries.create) { throw new Error('No create graphql mutation defined!')}
 
-      let result = await this.$apollo.mutate({
+      return await this.$apollo.mutate({
         mutation: this.gqlQueries.create,
         variables: this.queryCreateVariables(),
       })
-
-      return this.parseCreateItemResult(result.data)
     },
 
     async updateCurrentItem () {
       if(!this.gqlQueries.update) { throw new Error('No update graphql mutation defined!')}
 
-      let result = await this.$apollo.mutate({
+      return await this.$apollo.mutate({
         mutation: this.gqlQueries.update,
         variables: this.queryUpdateVariables(),
       })
-
-      return this.parseUpdateItemResult(result.data)
     },
 
     async deleteCurrentItem () {
       if(!this.gqlQueries.delete) { throw new Error('No delete graphql mutation defined!')}
 
-      let result = await this.$apollo.mutate({
+      return await this.$apollo.mutate({
         mutation: this.gqlQueries.delete,
         variables: this.queryDeleteVariables(),
       })
-
-      return this.parseDeleteItemResult(result.data)
     },
+
+    // ------------------------- Apollo result handlers -------------------------
+    handleLoadResult (data) {
+      let resultObj = utils.objectSingleProperty(data)
+      if(!resultObj) {
+        throw new Error(`No item found for ${this.id}`)
+      }
+      this.item = resultObj
+      this.editedItem = this.parseLoadedItem(resultObj)
+      this.setEditState()
+    },
+
+    handleUpdateResult (data) {
+      let resultObj = utils.objectSingleProperty(data)
+      if(!resultObj) {
+        throw new Error(`Empty result on update ${this.id}`)
+      }
+      this.item = resultObj
+      this.editedItem = this.parseUpdateItemResult(resultObj)
+      this.setEditState()
+    },
+    // -------------------------   -------------------------
 
     reloadItem () {
       this.updateEditedItem(this.id)
@@ -223,6 +226,11 @@ export default {
       this.$emit('error', msg)
     },
 
+    notifiy(event, value){
+      this.$emit(event, value)
+      this.busEmit(event, value)
+    },
+
     // ------------------------- Hooks -------------------------
     // to be rewrite for cases where parentId is needed etc.
     itemKey () {
@@ -234,21 +242,20 @@ export default {
     },
 
     // hook for loaded items
-    parseLoadedItem (data) {
-      let resultObj = utils.objectSingleProperty(data)
-      return utils.isAnObject(resultObj) ? this.removeTypenameFromInput(utils.jsonCopy(resultObj)) : resultObj
+    parseLoadedItem (item) {
+      return utils.isAnObject(item) ? this.removeTypenameFromInput(utils.jsonCopy(item)) : item
     },
 
-    parseCreateItemResult (data) {
-      return this.parseLoadedItem(data)
+    parseCreateItemResult (item) {
+      return this.parseLoadedItem(item)
     },
 
-    parseUpdateItemResult (data) {
-      return this.parseLoadedItem(data)
+    parseUpdateItemResult (item) {
+      return this.parseLoadedItem(item)
     },
 
-    parseDeleteItemResult (data) {
-      return this.parseLoadedItem(data)
+    parseDeleteItemResult (item) {
+      return this.parseLoadedItem(item)
     },
 
     // hook for parsing editedItem for input
@@ -286,8 +293,9 @@ export default {
       return this.itemKey()
     },
 
-    extractCreatedItemId (result) {
-      return this.extractItemKey(result)
+    extractCreatedItemId (data) {
+      let item = utils.objectSingleProperty(data)
+      return this.extractItemKey(item)
     },
 
     busEmit (event, val) {
