@@ -25,9 +25,7 @@ export default {
 
   },
 
-  mixins: {
-
-  },
+  mixins: [],
 
   model: {
 

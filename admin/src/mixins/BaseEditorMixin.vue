@@ -1,0 +1,75 @@
+<script>
+import EditStateMixin from '@/mixins/EditStateMixin'
+import ErrorMixin from '@/mixins/ErrorMixin'
+import * as utils from '@/utils'
+
+export default {
+  mixins: [EditStateMixin, ErrorMixin],
+
+  props: {
+    id: {
+      required: true,
+    },
+
+    busName: {
+      type: String,
+    },
+  },
+
+  data () {
+    return {
+      editedItem: this.getDefaultItem(),
+      isLoading: false,
+      bus: utils.bus,
+    }
+  },
+
+  methods: {
+    getDefaultItem () {
+      throw new Error ("getDefaultItem() should be overwritten in component")
+    },
+
+    // to be rewrite for cases where parentId is needed etc.
+    itemKey () {
+      return { id: this.id }
+    },
+
+    busEmit (event, val) {
+      if(this.busName) {
+        this.bus.$emit(this.busName + '-' + event, val)
+      }
+    },
+
+    removeTypenameFromInput (input) {
+      return utils.deleteObjField(input, '__typename')
+    },
+
+    itemError (msg) {
+      this.setError(msg)
+      this.$emit('error', msg)
+    },
+
+    notifiy(event, value){
+      this.$emit(event, value)
+      this.busEmit(event, value)
+    },
+
+    // return an object that contain only the fields that are specified in defaultItem
+    parseToConformDefaultModel (item) {
+      let defaultProps = Object.keys(this.getDefaultItem())
+      let stripped = utils.filterObject(item, (value, prop) => {
+        return defaultProps.indexOf(prop) != -1
+      })
+
+      return this.removeTypenameFromInput(stripped)
+    },
+
+    // hook for parsing editedItem for input
+    parseItemForInput (item) {
+      return item
+    },
+  },
+
+
+}
+</script>

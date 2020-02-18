@@ -1,51 +1,21 @@
 <script>
-import EditStateMixin from '@/mixins/EditStateMixin'
-import ErrorMixin from '@/mixins/ErrorMixin'
 import * as utils from '@/utils'
+import BaseEditorMixin from '@/mixins/BaseEditorMixin'
 
 export default {
-  name: '',
-
-  components: {
-
-  },
-
-  directives: {
-
-  },
-
-  filters: {
-
-  },
-
-  extends: {
-
-  },
-
-  mixins: [EditStateMixin, ErrorMixin],
-
-  // model: {
-  //   prop: 'id',
-  //   event: 'change'
-  // },
+  mixins: [BaseEditorMixin],
 
   props: {
-    id: {
-      required: true,
-    },
-
-    busName: {
-      type: String,
-    },
-
+    reloadAfterUpdate: {
+      type: Boolean,
+      default: false
+    }
 
   },
 
   data () {
     return {
       item: null, // original item, null for a new item
-      editedItem: this.getDefaultItem(),
-      isLoading: false,
 
       // to be overwritten in component
       gqlQueries: {
@@ -54,8 +24,6 @@ export default {
         update: null,
         delete: null,
       },
-
-      bus: utils.bus,
     }
   },
 
@@ -73,10 +41,6 @@ export default {
   },
 
   methods: {
-    getDefaultItem () {
-      throw new Error ("getDefaultItem() should be overwritten in component")
-    },
-
     updateEditedItem (id) {
       id ? this.loadItem() : this.setNewItem()
     },
@@ -175,7 +139,7 @@ export default {
 
     async updateCurrentItem () {
       if(!this.gqlQueries.update) { throw new Error('No update graphql mutation defined!')}
-
+      console.log('this.queryUpdateVariables()  %o ', this.queryUpdateVariables())
       return await this.$apollo.mutate({
         mutation: this.gqlQueries.update,
         variables: this.queryUpdateVariables(),
@@ -207,9 +171,14 @@ export default {
       if(!resultObj) {
         throw new Error(`Empty result on update ${this.id}`)
       }
-      this.item = resultObj
-      this.editedItem = this.parseUpdateItemResult(resultObj)
-      this.setEditState()
+
+      if(this.reloadAfterUpdate){
+        this.reloadItem()
+      }else{
+        this.item = resultObj
+        this.editedItem = this.parseUpdateItemResult(resultObj)
+        // this.setEditState()
+      }
     },
     // -------------------------   -------------------------
 
@@ -219,16 +188,6 @@ export default {
 
     addNewItem () {
       this.$emit('add-new-item')
-    },
-
-    itemError (msg) {
-      this.setError(msg)
-      this.$emit('error', msg)
-    },
-
-    notifiy(event, value){
-      this.$emit(event, value)
-      this.busEmit(event, value)
     },
 
     // ------------------------- Hooks -------------------------
@@ -243,7 +202,7 @@ export default {
 
     // hook for loaded items
     parseLoadedItem (item) {
-      return utils.isAnObject(item) ? this.removeTypenameFromInput(utils.jsonCopy(item)) : item
+      return utils.isAnObject(item) ? this.parseToConformDefaultModel(item) : item
     },
 
     parseCreateItemResult (item) {
@@ -252,21 +211,6 @@ export default {
 
     parseUpdateItemResult (item) {
       return this.parseLoadedItem(item)
-    },
-
-    parseDeleteItemResult (item) {
-      return this.parseLoadedItem(item)
-    },
-
-    // hook for parsing editedItem for input
-    // default accept only the fields as the 'defaultItem'
-    parseItemForInput (item) {
-      return utils.filterObject(item, this.filterInputObject)
-    },
-
-    filterInputObject (value, prop) {
-      let defaultProps = Object.keys(this.getDefaultItem())
-      return defaultProps.indexOf(prop) != -1
     },
 
     // ------------------------- GraphQl query/mutations variables Hooks -------------------------
@@ -296,16 +240,6 @@ export default {
     extractCreatedItemId (data) {
       let item = utils.objectSingleProperty(data)
       return this.extractItemKey(item)
-    },
-
-    busEmit (event, val) {
-      if(this.busName) {
-        this.bus.$emit(this.busName + '-' + event, val)
-      }
-    },
-
-    removeTypenameFromInput (input) {
-      return utils.deleteObjField(input, '__typename')
     },
   },
 }

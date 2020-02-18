@@ -1,12 +1,9 @@
 <template>
-  <div class="about">
-    <h1>This is an ship Editor</h1>
     <ShipEditor
     :id="id"
     v-on="onEditorEvents"
     >
     </ShipEditor>
-  </div>
 </template>
 
 <script>

@@ -14,7 +14,8 @@
               :color="btnColor"
               left
               title="Add new"
-              >mdi-plus
+              >
+              mdi-plus
             </v-icon>
 
             <v-spacer></v-spacer>
@@ -80,6 +81,7 @@
             v-if="isEditState"
             @click="onUpdate()"
             :color="btnColor"
+            :disabled="disableSubmitBtn"
             >
               Update
             </v-btn>
@@ -88,6 +90,7 @@
             v-else
             @click="onCreate()"
             :color="btnColor"
+            :disabled="disableSubmitBtn"
             >
               Add
             </v-btn>
@@ -123,30 +126,15 @@ export default {
     ConfirmationDialog,
   },
 
-  directives: {
-
-  },
-
-  filters: {
-
-  },
-
-  extends: {
-
-  },
-
-  mixins: {
-
-  },
-
-  model: {
-
-  },
-
   props: {
     editState: {
       type: String,
       default: EditState.NEW
+    },
+
+    disableSubmitBtn: {
+      type: Boolean,
+      default: false,
     },
 
     error: {
