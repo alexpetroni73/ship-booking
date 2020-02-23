@@ -105,7 +105,7 @@ const sameArrayContent = function (a, b) {
 }
 
 const isAnObject = (obj) => {
-  return obj && obj.__proto__ &&  obj.__proto__.constructor.name === 'Object'
+  return obj && obj.__proto__ && obj.__proto__.constructor && obj.__proto__.constructor.name === 'Object'
 }
 
 // return the single property of an object, null otherwise

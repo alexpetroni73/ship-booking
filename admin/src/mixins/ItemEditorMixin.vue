@@ -33,15 +33,15 @@ export default {
   watch: {
     'id': {
       handler (val) {
-        this.updateEditedItem(val)
+        this.onItemIdChanged(val)
       },
       immediate: true
     }
   },
 
   methods: {
-    updateEditedItem (id) {
-      id ? this.loadItem() : this.setNewItem()
+    onItemIdChanged (id) {
+      id ? this.loadCurrentItem() : this.setNewItem()
     },
 
     setNewItem () {
@@ -53,7 +53,7 @@ export default {
       this.notifiy('item-changed', null)
     },
 
-    async loadItem () {
+    async loadCurrentItem () {
       this.clearError()
       this.isLoading = true
       try{
@@ -138,7 +138,6 @@ export default {
 
     async apolloUpdateCurrentItem () {
       if(!this.gqlQueries.update) { throw new Error('No update graphql mutation defined!')}
-      console.log('this.queryUpdateVariables()  %o ', this.queryUpdateVariables())
       return await this.$apollo.mutate({
         mutation: this.gqlQueries.update,
         variables: this.queryUpdateVariables(),
@@ -161,6 +160,7 @@ export default {
         throw new Error(`No item found for ${this.id}`)
       }
       this.item = resultObj
+      // console.log('handleLoadResult resultObj %o', resultObj)
       this.editedItem = this.parseLoadedItem(resultObj)
       this.setEditState()
     },
@@ -182,7 +182,7 @@ export default {
     // -------------------------   -------------------------
 
     reloadItem () {
-      this.updateEditedItem(this.id)
+      this.onItemIdChanged(this.id)
     },
 
     addNewItem () {

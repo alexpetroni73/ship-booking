@@ -23,6 +23,7 @@
       :items="features[t.slug]"
       v-model="editedItem[t.features]"
       :featuresText.sync="editedItem[t.featuresText]"
+      :title="t.title"
       >
       </ShipFeaturesEditor>
    </v-card>
@@ -36,24 +37,11 @@
     >
     <v-btn
     color="primary"
-    @click="updateTest"
+    @click="updateItem"
     >Update</v-btn>
     </v-col>
   </v-row>
 </v-container>
-<!-- <v-card
-flat
-class="my-3"
->
-<v-card-actions>
-  <v-spacer></v-spacer>
-    <v-btn
-    color="primary"
-    @click="updateTest"
-    >Update</v-btn>
-  <v-spacer></v-spacer>
-</v-card-actions>
-</v-card> -->
 </div>
 </template>
 
@@ -120,19 +108,19 @@ export default {
   },
 
   watch: {
-    'editedItem': {
-      handler: (val) => {
-      console.log('editedItem %o', val)
-      },
-      immediate: true,
-    },
-    'editedItem.shipFeatures': function (val){
-      console.log('editedItem.shipFeatures %o', val)
-    },
-
-    'editedItem.shipFeaturesText': function (val){
-      console.log('editedItem.shipFeaturesText %s', val)
-    }
+    // 'editedItem': {
+    //   handler: (val) => {
+    //   console.log('editedItem %o', val)
+    //   },
+    //   immediate: true,
+    // },
+    // 'editedItem.shipFeatures': function (val){
+    //   console.log('editedItem.shipFeatures %o', val)
+    // },
+    //
+    // 'editedItem.shipFeaturesText': function (val){
+    //   console.log('editedItem.shipFeaturesText %s', val)
+    // }
   },
 
   methods: {
@@ -151,11 +139,6 @@ export default {
 
     selectedFeaturesFor (slug) {
       return this.item && this.item[slug]
-    },
-
-    updateTest () {
-      console.log('this.editedItem %o', this.editedItem)
-      this.updateItem()
     },
   },
 

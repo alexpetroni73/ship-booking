@@ -27,7 +27,8 @@
     <v-textarea
       :value="featuresText"
       @change="onFeatureTextChange($event)"
-      label="Features Text"
+      :label="featureTextLabel"
+      outlined
     ></v-textarea>
    </v-col>
  </v-row>
@@ -69,12 +70,22 @@ export default {
 
     featuresText: {
       type: String,
-    }
+    },
+
+    title: {
+      type: String
+    },
   },
 
   data () {
     return {
       sel: []
+    }
+  },
+
+  computed: {
+    featureTextLabel () {
+      return this.title ? this.title + " Text" : "Features Texte"
     }
   },
 
@@ -84,7 +95,6 @@ export default {
     },
 
     onFeatureTextChange (event) {
-      console.log('onFeatureTextChange %o', event)
       this.$emit('update:featuresText', event)
     }
   },

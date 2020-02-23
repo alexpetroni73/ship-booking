@@ -58,8 +58,7 @@ export default {
       this.clearError()
       this.isLoading = true
       try{
-        let result = await this.apolloUpdateCurrentItem()
-        console.log('updateItem result %o', result)
+        await this.apolloUpdateCurrentItem()
         this.notifiy('item-updated', this.id)
       }catch(error){
         // console.log('error %o', error)
@@ -90,16 +89,11 @@ export default {
     },
 
     parseParentItem () {
-      this.editedItem = this.parseItemToConformDefaultModel(this.getDefaultItem(), this.item)
+      this.editedItem = this.parseItemToConformDefaultModel(this.item)
     },
 
     // ------------------------- Hooks -------------------------
 
-    // hook for updated item
-
-    // parseUpdateItemResult (item) {
-    //   return this.parseItemToConformDefaultModel(item)
-    // },
 
 
     // ------------------------- GraphQl query/mutations variables Hooks -------------------------

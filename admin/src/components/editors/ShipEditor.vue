@@ -64,6 +64,7 @@
               v-model="editedItem.excerpt"
               label="Excerpt"
               hint="The short description visible on ship list page"
+              outlined
             ></v-textarea>
          </v-col>
 
@@ -74,6 +75,7 @@
              v-model="editedItem.description"
              label="Description"
              hint="The description that will appear on ship presentation page"
+             outlined
            ></v-textarea>
         </v-col>
       </v-row>
@@ -336,14 +338,14 @@ export default {
         excerpt: '',
         description: '',
         image: '',
-        shipFeatures: [],
-        shipFeaturesText: '',
-        foodAndDrinksFeatures: [],
-        foodAndDrinksFeaturesText: '',
-        divingFeatures: [],
-        divingFeaturesText: '',
-        gearRental: '',
-        gearRentalText: '',
+        // shipFeatures: [],
+        // shipFeaturesText: '',
+        // foodAndDrinksFeatures: [],
+        // foodAndDrinksFeaturesText: '',
+        // divingFeatures: [],
+        // divingFeaturesText: '',
+        // gearRental: '',
+        // gearRentalText: '',
         shipLayout: '',
         shipLayoutText: '',
         shipSpecifications: {
@@ -360,8 +362,8 @@ export default {
           freshwaterMaker: false
         },
         shipSpecificationsText: '',
-        navSafteyFeatures: [],
-        navSafteyFeaturesText: '',
+        // navSafteyFeatures: [],
+        // navSafteyFeaturesText: '',
         cabins: [],
         cabinsText: '',
       }
@@ -378,6 +380,14 @@ export default {
     onUpdate () {
       this.updateItem()
     },
+
+    resetTabs () {
+      this.tab = 'tab-basic'
+    },
+  },
+
+  created () {
+    this.$on('item-changed', this.resetTabs)
   }
 }
 
