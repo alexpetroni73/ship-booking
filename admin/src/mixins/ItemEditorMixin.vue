@@ -9,8 +9,7 @@ export default {
     reloadAfterUpdate: {
       type: Boolean,
       default: false
-    }
-
+    },
   },
 
   data () {
@@ -58,7 +57,7 @@ export default {
       this.clearError()
       this.isLoading = true
       try{
-        let result = await this.loadCurrentItem()
+        let result = await this.apolloLoadCurrentItem()
         this.handleLoadResult(result.data)
           // console.log('.... itemLoaded  %o', this.editedItem)
         this.notifiy('item-changed', this.id)
@@ -74,7 +73,7 @@ export default {
       this.clearError()
       this.isLoading = true
       try{
-        let result = await this.createFromCurrentItem()
+        let result = await this.apolloCreateFromCurrentItem()
         let id = this.extractCreatedItemId(result.data)
         if(id){
           this.notifiy('item-created', id)
@@ -93,7 +92,7 @@ export default {
       this.clearError()
       this.isLoading = true
       try{
-        let result = await this.updateCurrentItem()
+        let result = await this.apolloUpdateCurrentItem()
         this.handleUpdateResult(result.data)
         this.notifiy('item-updated', this.id)
       }catch(error){
@@ -108,7 +107,7 @@ export default {
       this.clearError()
       this.isLoading = true
       try{
-        await this.deleteCurrentItem()
+        await this.apolloDeleteCurrentItem()
         this.notifiy('item-deleted', this.id)
       }catch(error){
         // console.log('error %o', error)
@@ -119,7 +118,7 @@ export default {
     },
 
     // ------------------------- ApolloGraphQl -------------------------
-    async loadCurrentItem () {
+    async apolloLoadCurrentItem () {
       if(!this.gqlQueries.read) { throw new Error('No graphql read query defined!')}
 
       return await this.$apollo.query({
@@ -128,7 +127,7 @@ export default {
       })
     },
 
-    async createFromCurrentItem () {
+    async apolloCreateFromCurrentItem () {
       if(!this.gqlQueries.create) { throw new Error('No create graphql mutation defined!')}
 
       return await this.$apollo.mutate({
@@ -137,7 +136,7 @@ export default {
       })
     },
 
-    async updateCurrentItem () {
+    async apolloUpdateCurrentItem () {
       if(!this.gqlQueries.update) { throw new Error('No update graphql mutation defined!')}
       console.log('this.queryUpdateVariables()  %o ', this.queryUpdateVariables())
       return await this.$apollo.mutate({
@@ -146,7 +145,7 @@ export default {
       })
     },
 
-    async deleteCurrentItem () {
+    async apolloDeleteCurrentItem () {
       if(!this.gqlQueries.delete) { throw new Error('No delete graphql mutation defined!')}
 
       return await this.$apollo.mutate({
@@ -202,15 +201,15 @@ export default {
 
     // hook for loaded items
     parseLoadedItem (item) {
-      return utils.isAnObject(item) ? this.parseToConformDefaultModel(item) : item
+      return this.parseItemToConformDefaultModel(item)
     },
 
     parseCreateItemResult (item) {
-      return this.parseLoadedItem(item)
+      return this.parseItemToConformDefaultModel(item)
     },
 
     parseUpdateItemResult (item) {
-      return this.parseLoadedItem(item)
+      return this.parseItemToConformDefaultModel(item)
     },
 
     // ------------------------- GraphQl query/mutations variables Hooks -------------------------

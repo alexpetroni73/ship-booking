@@ -60,7 +60,7 @@ const categoryChildren = (categories, cat = {}) => {
 
 const deleteObjField = (obj, field, deep = true) => {
   if(!field || !obj) return obj
-  if(!(obj.__proto__ && obj.__proto__.constructor.name === 'Object') && !Array.isArray(obj)){ // if not obj or array, return it
+  if(!(obj.__proto__ && obj.__proto__.constructor.name === 'Object') && !Array.isArray(obj)){ // if it is not an Obj or Array, return it
     return obj
   }
 
@@ -119,6 +119,20 @@ const objectSingleProperty = (obj) => {
   return obj[keys[0]]
 }
 
+// merge deep o1 properties with the o2 ones if present
+const mergeObjectsToLeft = (o1, o2) => {
+  if(!o2 || !isAnObject(o2)) return o1
+  if(!isAnObject(o1)) { throw new Error('First argument should be an object.')}
+  return Object.keys(o1).reduce((acc, prop) => {
+    if(o2[prop] === undefined) {
+      acc[prop] = o1[prop]
+    }else{
+      acc[prop] = isAnObject(o1[prop]) ? mergeObjectsToLeft(o1[prop], o2[prop]) : o2[prop]
+    }
+    return acc
+  }, {})
+}
+
 
 export {
   bus,
@@ -135,4 +149,5 @@ export {
   sameArrayContent,
   isAnObject,
   objectSingleProperty,
+  mergeObjectsToLeft,
 }

@@ -1,6 +1,27 @@
 <template>
-    <v-container fluid>
-      <slot name="top">
+    <div>
+      <slot name="top" v-bind="{
+        isAddNewState,
+        isEditState,
+        disableAddNewBtn,
+        disableReloadBtn,
+        disableDeleteBtn,
+        title,
+        editState,
+        disableSubmitBtn,
+        name,
+        error,
+        hideAddNewBtn,
+        hideReloadBtn,
+        hideDeleteBtn,
+        btnColor,
+        showToolbar,
+        showActionButtons,
+        editTitle,
+        addNewTitle,
+        requireDeleteConfiramtion,
+        deleteConfirmationMsg,
+      }">
         <v-toolbar
         v-if="showToolbar"
         color="white elevation-1"
@@ -47,36 +68,52 @@
              >
              mdi-delete
            </v-icon>
-
         </v-toolbar>
       </slot>
 
-      <v-row v-if="error">
-        <v-col
-        sm="12"
-        >
-        <v-alert type="error">
-          {{ error }}
-        </v-alert>
-        </v-col>
-      </v-row>
+      <slot name="error-display" v-bind="{error}">
+          <v-alert v-if="error" type="error">
+            {{ error }}
+          </v-alert>
+      </slot>
 
-      <v-row>
-        <v-col
-        sm="12"
-        >
-          <slot>
-            form editor
-          </slot>
-        </v-col>
-      </v-row>
+      <slot>
+        form editor
+      </slot>
 
-      <v-row v-if="showActionButtons">
+
+      <slot name="action-buttons" v-bind="{showActionButtons, isEditState, disableSubmitBtn, btnColor}">
+      <v-card
+      v-if="showActionButtons"
+      flat
+      >
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn
+        v-if="isEditState"
+        @click="onUpdate()"
+        :color="btnColor"
+        :disabled="disableSubmitBtn"
+        >
+          Update
+        </v-btn>
+
+        <v-btn
+        v-else
+        @click="onCreate()"
+        :color="btnColor"
+        :disabled="disableSubmitBtn"
+        >
+          Add
+        </v-btn>
+        <v-spacer></v-spacer>
+      </v-card-actions>
+      </v-card>
+      <!-- <v-row v-if="showActionButtons">
         <v-col
         sm="12"
         class="text-center"
         >
-          <slot name="bottom">
             <v-btn
             v-if="isEditState"
             @click="onUpdate()"
@@ -94,9 +131,9 @@
             >
               Add
             </v-btn>
-          </slot>
         </v-col>
-      </v-row>
+      </v-row> -->
+      </slot>
 
       <ConfirmationDialog
       :confirmDialog="showConfirmDialog"
@@ -106,7 +143,7 @@
       >
       </ConfirmationDialog>
 
-    </v-container>
+    </div>
 </template>
 
 <script>
@@ -135,6 +172,10 @@ export default {
     disableSubmitBtn: {
       type: Boolean,
       default: false,
+    },
+
+    name: { // name of the edited item
+      type: String,
     },
 
     error: {
@@ -176,10 +217,6 @@ export default {
     addNewTitle: {
       type: String,
       default: 'Add New'
-    },
-
-    name: {
-      type: String,
     },
 
     requireDeleteConfiramtion: {

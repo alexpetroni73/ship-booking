@@ -24,7 +24,6 @@ fragment ShipData on Ship{
     cruisingSpeed
     engines
     maxGuests
-    cabins
     bathrooms
     tenders
     waterCapacity

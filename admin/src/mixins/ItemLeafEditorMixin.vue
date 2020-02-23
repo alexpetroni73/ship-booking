@@ -1,5 +1,5 @@
 <script>
-import * as utils from '@/utils'
+// import * as utils from '@/utils'
 import BaseEditorMixin from '@/mixins/BaseEditorMixin'
 
 export default {
@@ -27,12 +27,6 @@ export default {
     item: {
       required: true,
     },
-
-    reloadAfterUpdate: {
-      type: Boolean,
-      default: false
-    }
-
   },
 
   data () {
@@ -49,22 +43,23 @@ export default {
   watch: {
     'item': {
       handler (val) {
-        this.updateEditedItem(val)
+        this.syncEditedItem(val)
       },
       immediate: true
     }
   },
 
   methods: {
-    updateEditedItem (item) {
-      ? this.loadItem() : this.setNewItem()
+    syncEditedItem (item) {
+      item ? this.parseParentItem() : this.setDefaultItem()
     },
 
     async updateItem () {
       this.clearError()
       this.isLoading = true
       try{
-        let result = await this.updateCurrentItem()
+        let result = await this.apolloUpdateCurrentItem()
+        console.log('updateItem result %o', result)
         this.notifiy('item-updated', this.id)
       }catch(error){
         // console.log('error %o', error)
@@ -75,7 +70,7 @@ export default {
     },
 
     // ------------------------- ApolloGraphQl -------------------------
-    async updateCurrentItem () {
+    async apolloUpdateCurrentItem () {
       if(!this.gqlUpdateQuery) { throw new Error('No update graphql mutation defined!')}
 
       return await this.$apollo.mutate({
@@ -87,16 +82,24 @@ export default {
     // -------------------------   -------------------------
 
     reloadItem () {
-      this.updateEditedItem(this.id)
+      this.syncEditedItem(this.id)
+    },
+
+    setDefaultItem () {
+      this.editedItem = this.getDefaultItem()
+    },
+
+    parseParentItem () {
+      this.editedItem = this.parseItemToConformDefaultModel(this.getDefaultItem(), this.item)
     },
 
     // ------------------------- Hooks -------------------------
 
     // hook for updated item
 
-    parseUpdateItemResult (item) {
-      return utils.isAnObject(item) ? this.parseToConformDefaultModel(item) : item
-    },
+    // parseUpdateItemResult (item) {
+    //   return this.parseItemToConformDefaultModel(item)
+    // },
 
 
     // ------------------------- GraphQl query/mutations variables Hooks -------------------------

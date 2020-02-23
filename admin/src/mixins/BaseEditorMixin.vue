@@ -54,14 +54,15 @@ export default {
       this.busEmit(event, value)
     },
 
-    // return an object that contain only the fields that are specified in defaultItem
-    parseToConformDefaultModel (item) {
-      let defaultProps = Object.keys(this.getDefaultItem())
-      let stripped = utils.filterObject(item, (value, prop) => {
-        return defaultProps.indexOf(prop) != -1
-      })
-
-      return this.removeTypenameFromInput(stripped)
+    // return an object that contain only the fields that are specified in defaultItem with values (if exists) from the 'item'
+    parseItemToConformDefaultModel (item) {
+      return utils.isAnObject(item) ? utils.mergeObjectsToLeft(this.getDefaultItem(), item) : item
+      // let defaultProps = Object.keys(this.getDefaultItem())
+      // let stripped = utils.filterObject(item, (value, prop) => {
+      //   return defaultProps.indexOf(prop) != -1
+      // })
+      //
+      // return this.removeTypenameFromInput(stripped)
     },
 
     // hook for parsing editedItem for input

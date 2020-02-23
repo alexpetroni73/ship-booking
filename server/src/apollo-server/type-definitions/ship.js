@@ -104,7 +104,6 @@ const typeDef = `
     cruisingSpeed: Float
     engines: String
     maxGuests: Int
-    cabins: Int
     bathrooms: Int
     tenders: String
     waterCapacity: Int
@@ -119,7 +118,6 @@ const typeDef = `
     cruisingSpeed: Float
     engines: String
     maxGuests: Int
-    cabins: Int
     bathrooms: Int
     tenders: String
     waterCapacity: Int

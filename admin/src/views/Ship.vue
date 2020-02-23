@@ -2,8 +2,7 @@
     <ShipEditor
     :id="id"
     v-on="onEditorEvents"
-    >
-    </ShipEditor>
+    />
 </template>
 
 <script>
@@ -34,7 +33,6 @@ export default {
     },
 
     onItemCreated (id) {
-      console.log('created!!!! %s', id)
       this.$router.push({ name: 'ship', params: {id} })
     },
 
