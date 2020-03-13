@@ -1,6 +1,6 @@
 <script>
 // import * as utils from '@/utils'
-import BaseEditorMixin from '@/mixins/BaseEditorMixin'
+import BaseFormModelMixin from '@/mixins/BaseFormModelMixin'
 
 export default {
   name: '',
@@ -21,7 +21,7 @@ export default {
 
   },
 
-  mixins: [BaseEditorMixin],
+  mixins: [BaseFormModelMixin],
 
   props: {
     item: {

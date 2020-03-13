@@ -20,7 +20,7 @@ export default {
   computed: {
     onEditorEvents () {
       return {
-        'add-new-item': this.onAddNewItem,
+        'new-item': this.onAddNewItem,
         'item-created': this.onItemCreated,
         'item-deleted': this.onItemDeleted,
       }
@@ -29,10 +29,12 @@ export default {
 
   methods: {
     onAddNewItem () {
+      console.log('ship onAddNewItem')
       this.$router.push({ name: 'ship' })
     },
 
     onItemCreated (id) {
+      console.log('ship onItemCreated')
       this.$router.push({ name: 'ship', params: {id} })
     },
 

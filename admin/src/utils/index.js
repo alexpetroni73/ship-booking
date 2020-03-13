@@ -1,21 +1,20 @@
 import Vue from 'vue'
 import moment from 'moment'
 
-const bus = new Vue()
+const EventBus = new Vue()
 
-const EditState = {
+const FormState = {
   NEW: 'new',
   EDIT: 'edit',
 }
 
-const isEditState = (val) => {
-  return val == EditState.EDIT
+const isNewForm = (val) => {
+  return val == FormState.NEW
 }
 
-const isAddNewState = (val) => {
-  return val == EditState.NEW
+const isEditForm = (val) => {
+  return val == FormState.EDIT
 }
-
 
 const jsonCopy = (val) => {
     return JSON.parse(JSON.stringify(val))
@@ -133,12 +132,35 @@ const mergeObjectsToLeft = (o1, o2) => {
   }, {})
 }
 
+const pipeEvents = function (comp, ...args) {
+  let parent = comp
+  let events = args.reduce((acc, e) => {
+    acc[e] = parentEmitter(parent, e)
+    return acc
+  }, {})
+  console.log('parent.name %s', parent.name)
+  console.log('parent %o', parent)
+  console.log('events %o', events)
+  return events
+}
+
+const parentEmitter = function (comp, event) {
+  return function (val) {
+    console.log('emit from parent val %s', val)
+    comp.$emit(event, val)
+  }
+}
+
+// const parentEmitEvent = function (val, event) {
+//   this.$emit(event, val)
+// }
+
 
 export {
-  bus,
-  EditState,
-  isEditState,
-  isAddNewState,
+  EventBus,
+  FormState,
+  isNewForm,
+  isEditForm,
   jsonCopy,
   filterObject,
   categoriesTreeAssamble,
@@ -150,4 +172,5 @@ export {
   isAnObject,
   objectSingleProperty,
   mergeObjectsToLeft,
+  pipeEvents,
 }

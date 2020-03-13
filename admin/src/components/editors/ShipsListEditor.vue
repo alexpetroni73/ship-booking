@@ -86,6 +86,7 @@ export default {
   apollo: {
     items: {
       query: SearchShips,
+      fetchPolicy: 'network-only',
       update (data) {
         console.log('data %o', data)
         return data.searchShips

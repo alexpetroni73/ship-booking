@@ -10,10 +10,10 @@
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-toolbar-title>Toolbar</v-toolbar-title>
       <v-spacer />
-      <v-app-bar-nav-icon @click.stop="drawerRight = !drawerRight" />
+      <!-- <v-app-bar-nav-icon @click.stop="drawerRight = !drawerRight" /> -->
     </v-app-bar>
 
-    <v-navigation-drawer
+    <!-- <v-navigation-drawer
       v-model="drawerRight"
       app
       clipped
@@ -29,7 +29,7 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
-    </v-navigation-drawer>
+    </v-navigation-drawer> -->
 
     <v-navigation-drawer
       v-model="drawer"

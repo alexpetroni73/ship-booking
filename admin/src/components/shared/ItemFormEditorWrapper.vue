@@ -1,13 +1,13 @@
 <template>
     <div>
       <slot name="top" v-bind="{
-        isAddNewState,
-        isEditState,
+        isNewForm,
+        isEditForm,
         disableAddNewBtn,
         disableReloadBtn,
         disableDeleteBtn,
         title,
-        editState,
+        formState,
         disableSubmitBtn,
         name,
         error,
@@ -82,57 +82,16 @@
       </slot>
 
 
-      <slot name="action-buttons" v-bind="{showActionButtons, isEditState, disableSubmitBtn, btnColor}">
-      <v-card
-      v-if="showActionButtons"
-      flat
-      >
-      <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn
-        v-if="isEditState"
-        @click="onUpdate()"
-        :color="btnColor"
-        :disabled="disableSubmitBtn"
+      <slot name="action-buttons" v-bind="{showActionButtons, formState, disableSubmitBtn, btnColor}">
+        <FormSubmitButtons
+          v-if="showActionButtons"
+          :formState="formState"
+          :btnColor="btnColor"
+          :disabled="disableSubmitBtn"
+          @create-item="onCreate"
+          @update-item="onUpdate"
         >
-          Update
-        </v-btn>
-
-        <v-btn
-        v-else
-        @click="onCreate()"
-        :color="btnColor"
-        :disabled="disableSubmitBtn"
-        >
-          Add
-        </v-btn>
-        <v-spacer></v-spacer>
-      </v-card-actions>
-      </v-card>
-      <!-- <v-row v-if="showActionButtons">
-        <v-col
-        sm="12"
-        class="text-center"
-        >
-            <v-btn
-            v-if="isEditState"
-            @click="onUpdate()"
-            :color="btnColor"
-            :disabled="disableSubmitBtn"
-            >
-              Update
-            </v-btn>
-
-            <v-btn
-            v-else
-            @click="onCreate()"
-            :color="btnColor"
-            :disabled="disableSubmitBtn"
-            >
-              Add
-            </v-btn>
-        </v-col>
-      </v-row> -->
+        </FormSubmitButtons>
       </slot>
 
       <ConfirmationDialog
@@ -148,12 +107,13 @@
 
 <script>
 
-import ConfirmationDialog from '@/components/shared/ConfirmationDialog';
+import ConfirmationDialog from '@/components/shared/ConfirmationDialog'
+import FormSubmitButtons from '@/components/shared/FormSubmitButtons'
 
 import {
-  EditState,
-  isAddNewState,
-  isEditState,
+  FormState,
+  isNewForm,
+  isEditForm,
   } from '@/utils'
 
 export default {
@@ -161,12 +121,13 @@ export default {
 
   components: {
     ConfirmationDialog,
+    FormSubmitButtons,
   },
 
   props: {
-    editState: {
+    formState: {
       type: String,
-      default: EditState.NEW
+      default: FormState.NEW
     },
 
     disableSubmitBtn: {
@@ -238,16 +199,16 @@ export default {
   },
 
   computed: {
-    isAddNewState () {
-      return isAddNewState(this.editState)
+    isNewForm () {
+      return isNewForm(this.formState)
     },
 
-    isEditState () {
-      return isEditState(this.editState)
+    isEditForm () {
+      return isEditForm(this.formState)
     },
 
     disableAddNewBtn () {
-      return this.isAddNewState
+      return this.isNewForm
     },
 
     disableReloadBtn () {
@@ -255,11 +216,11 @@ export default {
     },
 
     disableDeleteBtn () {
-      return this.isAddNewState
+      return this.isNewForm
     },
 
     title () {
-      if(isEditState(this.editState)){
+      if(isEditForm(this.formState)){
         return this.name ? this.editTitle + ' ' + this.name : this.editTitle
       }else{
         return this.addNewTitle
@@ -273,7 +234,7 @@ export default {
 
   methods: {
     onAddNew () {
-      this.$emit('add-new-item')
+      this.$emit('new-item')
     },
 
     onDelete () {
