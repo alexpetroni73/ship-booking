@@ -1,5 +1,22 @@
 <template>
-  <div class="about">
-    <h1>This is an media page</h1>
-  </div>
+    <MediaEditor />
 </template>
+
+<script>
+import MediaEditor from '@/components/editors/MediaEditor'
+
+export default {
+  components: {
+    MediaEditor,
+  },
+
+  data: () => {
+    return {
+    }
+  },
+
+  methods: {
+
+  }
+}
+</script>

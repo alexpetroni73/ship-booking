@@ -55,6 +55,7 @@ const typeDef = `
     excerpt: String
     description: String
     image: String
+    gallery: [String!]
     shipFeatures: [String!]
     shipFeaturesText: String
     foodAndDrinksFeatures: [String!]
@@ -79,6 +80,7 @@ const typeDef = `
     excerpt: String
     description: String
     image: String
+    gallery: [String!]
     shipFeatures: [String!]
     shipFeaturesText: String
     foodAndDrinksFeatures: [String!]

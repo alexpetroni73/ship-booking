@@ -16,6 +16,7 @@ export default {
         excerpt: '',
         description: '',
         image: '',
+        gallery: [],
         shipFeatures: [],
         shipFeaturesText: '',
         foodAndDrinksFeatures: [],

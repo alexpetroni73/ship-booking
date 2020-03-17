@@ -45,6 +45,16 @@
         />
       </v-tab-item>
 
+      <v-tab-item
+      value="tab-media"
+      >
+        <ShipMediaForm
+        :item="shipMediaData(item)"
+        v-bind="modelState"
+        v-on="formEvents"
+        />
+      </v-tab-item>
+
         <!-- <v-tab-item
           v-for="t in tabs"
           :key="t.slug"
@@ -119,6 +129,7 @@ import ShipFormModel from '@/components/models/ShipFormModel'
 import ItemFormEditorWrapper from '@/components/shared/ItemFormEditorWrapper'
 import ShipBasicInfoForm from '@/components/forms/ShipBasicInfoForm'
 import ShipFeaturesFormContainer from '@/components/forms/ShipFeaturesFormContainer'
+import ShipMediaForm from '@/components/forms/ShipMediaForm'
 
 
 import { pipeEvents, mergeObjectsToLeft, isNewForm } from '@/utils'
@@ -139,6 +150,7 @@ export default {
     ItemFormEditorWrapper,
     ShipBasicInfoForm,
     ShipFeaturesFormContainer,
+    ShipMediaForm,
   },
 
   data: function () {
@@ -148,6 +160,7 @@ export default {
       tabs: [
         {title: "Basic data", slug: 'basic', component: ShipBasicInfoForm},
         {title: "Features", slug: 'features', component: ShipFeaturesFormContainer},
+        {title: "Media", slug: 'media', component: ShipMediaForm},
         // {title: "Cabins", slug: 'cabins', component: ShipCabinsEditor},
       ],
     }
@@ -196,6 +209,14 @@ export default {
         gearRentalText: '',
         navSafteyFeatures: [],
         navSafteyFeaturesText: '',
+      }
+      return mergeObjectsToLeft(data, item)
+    },
+
+    shipMediaData (item) {
+      let data = {
+        image: '',
+        gallery: [],
       }
       return mergeObjectsToLeft(data, item)
     },
