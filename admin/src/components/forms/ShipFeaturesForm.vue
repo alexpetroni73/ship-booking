@@ -1,5 +1,18 @@
 <template>
   <v-container>
+    <v-row>
+      <v-col
+      sm="12"
+      >
+      <v-textarea
+        :value="featuresText"
+        @change="onFeatureTextChange($event)"
+        :label="featureTextLabel"
+        outlined
+      ></v-textarea>
+     </v-col>
+   </v-row>
+   
      <v-row>
     <template v-for="item in items">
       <v-col
@@ -19,19 +32,6 @@
     </v-col>
     </template>
   </v-row>
-
-  <v-row>
-    <v-col
-    sm="12"
-    >
-    <v-textarea
-      :value="featuresText"
-      @change="onFeatureTextChange($event)"
-      :label="featureTextLabel"
-      outlined
-    ></v-textarea>
-   </v-col>
- </v-row>
  </v-container>
 </template>
 

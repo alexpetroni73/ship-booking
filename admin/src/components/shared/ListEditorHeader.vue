@@ -21,7 +21,7 @@
     small
     :color="btnColor"
     left
-    title="Add new"
+    :title="btnTitle"
     >
      <v-icon small dark>mdi-plus</v-icon>
    </v-btn>
@@ -59,6 +59,11 @@ export default {
     searchLabel: {
       type: String,
       default: 'Search'
+    },
+
+    btnTitle: {
+      type: String,
+      default: 'Add New'
     }
   },
 

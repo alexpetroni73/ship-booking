@@ -1,5 +1,6 @@
 <template>
   <v-card
+  :class="cardClass"
   flat
   >
   <v-card-actions>
@@ -45,6 +46,11 @@ export default {
       type: String,
       default: 'primary'
     },
+
+    cardClass: {
+      type: String,
+      default: 'pb-4 mt-4'
+    }
   },
 
   data () {

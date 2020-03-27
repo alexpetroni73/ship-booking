@@ -1,10 +1,12 @@
 <template>
-    <v-card>
+    <v-card
+    >
 
       <v-tabs
        v-model="tab"
        class="elevation-2"
        vertical
+       flat
        >
         <v-tab
           v-for="t in tabs"
@@ -18,6 +20,7 @@
           v-for="t in tabs"
           :key="t.slug"
           :value="'tab-' + t.slug"
+          flat
         >
         <v-card>
           <ShipFeaturesForm

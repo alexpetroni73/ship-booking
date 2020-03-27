@@ -4,7 +4,7 @@ import { jsonCopy, FormState } from '@/utils'
 export default {
   props: {
     item: {
-      type: Object,
+      type: [Object, Array],
       required: true,
     },
 

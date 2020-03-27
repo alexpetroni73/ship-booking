@@ -12,7 +12,7 @@ export default {
     },
 
     busEventName: {
-      type: String,
+      type: [String, Array],
     },
   },
 
@@ -30,6 +30,10 @@ export default {
         formState: this.formState,
       }
     },
+
+    eventBus () {
+      return utils.EventBus
+    }
   },
 
   methods: {
@@ -37,9 +41,14 @@ export default {
       throw new Error ("getDefaultItem() should be overwritten in component")
     },
 
-    // hook that can be rewriten for cases when parentId is needed
+
     itemKey () {
-      return { id: this.id }
+      return this.parentKey() ? { id: this.id , ... this.parentKey() } : { id: this.id }
+    },
+
+    // hook that can be rewriten for cases when parentId document is needed
+    parentKey () {
+      return null
     },
 
     extractItemKey (item) {
@@ -48,7 +57,12 @@ export default {
 
     eventBusEmit (event, val) {
       if(this.busEventName) {
-        utils.EventBus.$emit(this.busEventName + '-' + event, val)
+        if(Array.isArray(this.busEventName)){
+          this.busEventName.forEach(e => utils.EventBus.$emit(e + '-' + event, val))
+        }else{
+          utils.EventBus.$emit(this.busEventName + '-' + event, val)
+          console.log('~~~~~ utils.EventBus ~~~~~ %s', this.busEventName + '-' + event)
+        }
       }
     },
 

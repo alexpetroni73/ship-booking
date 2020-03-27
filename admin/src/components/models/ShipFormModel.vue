@@ -74,7 +74,7 @@ export default {
       console.log('updateItem key %o, item %o', key, item)
       let { data: { updateShip: ship } } = await this.$apollo.mutate({
         mutation: UpdateShip,
-        variables: {...key, input:item},
+        variables: {input:item, ... key},
       })
       // console.log('%o', result.data.ship)
       console.log('ship %o', ship)

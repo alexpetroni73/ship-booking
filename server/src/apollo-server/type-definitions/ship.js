@@ -14,18 +14,17 @@ const typeDef = `
     shipGallery(id: ID!): [String!]!
     shipGalleryBy(field: String!, value: String!): [String!]!
 
-    cabin(id: ID!): Cabin
+    cabin(shipId: ID!, id: ID!): Cabin
     cabinBy(shipId: ID!, field: String!, value: String!): Cabin
     cabinBySlug(shipId: ID!, slug: String!): Cabin
 
     cabins(shipId: ID!): [Cabin!]!
-    cabinsBy(value: String, valArr: [String!]!): [Cabin!]!
-    cabinsBySlug(slugArr: [String!]!): [Cabin!]!
+    cabinsBy(shipId: ID!, value: String, valArr: [String!]!): [Cabin!]!
+    cabinsBySlug(shipId: ID!, slugArr: [String!]!): [Cabin!]!
     searchCabins(args: JSON): [Cabin!]!
-    paginatedCabins(args: JSON): PaginatedCabins!
 
-    cabinGallery(id: ID!): [String!]!
-    cabinGalleryBy(field: String!, value: String!): [String!]!
+    cabinGallery(shipId: ID!, id: ID!): [String!]!
+    cabinGalleryBy(shipId: ID!, field: String!, value: String!): [String!]!
 
   }
 
@@ -39,7 +38,7 @@ const typeDef = `
 
 
     createCabin(shipId: ID!, input: CabinInput!): Cabin
-    updateCabin(id: ID!, input: CabinInput!): Cabin
+    updateCabin(shipId: ID!, id: ID!, input: CabinInput!): Cabin
     deleteCabin(shipId: ID!, id: ID!): ID!
     deleteCabins(shipId: ID!, idArr: [ID!]!): [ID!]!
 
@@ -135,9 +134,10 @@ const typeDef = `
     slug: String
     excerpt: String
     description: String
+    order: Int
     image: String
-    cabinFeatures: [String!]
-    cabinFeaturesText: String
+    features: [String!]
+    featuresText: String
     capacity: Int
     bedding: String
     airconditioning: String
@@ -148,9 +148,10 @@ const typeDef = `
     slug: String
     excerpt: String
     description: String
+    order: Int
     image: String
-    cabinFeatures: [String!]
-    cabinFeaturesText: String
+    features: [String!]
+    featuresText: String
     capacity: Int
     bedding: String
     airconditioning: String

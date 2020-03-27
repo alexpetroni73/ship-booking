@@ -32,29 +32,26 @@ const resolvers = {
       return context.models.Ship.paginatedShips(args)
     },
 
-    cabin (_, { id }, context) {
-      return context.models.Ship.cabin(id)
+    cabin (_, { shipId, id }, context) {
+      return context.models.Ship.cabin(shipId, id)
     },
 
-    cabinBySlug (_, { slug }, context) {
-      return context.models.Ship.cabinBySlug(slug)
+    cabinBySlug (_, { shipId, slug }, context) {
+      return context.models.Ship.cabinBySlug(shipId, slug)
     },
 
-    cabins (_, { idArr }, context) {
-      return context.models.Ship.cabins(idArr)
+    cabins (_, { shipId }, context) {
+      return context.models.Ship.cabins(shipId)
     },
 
-    cabinsBySlug (_, { slugArr }, context) {
-      return context.models.Ship.cabinsBySlug(slugArr)
+    cabinsBySlug (_, { shipId, slugArr }, context) {
+      return context.models.Ship.cabinsBySlug(shipId, slugArr)
     },
 
     searchCabins (_, { args }, context) {
       return context.models.Ship.searchCabins(args)
     },
 
-    paginatedCabins (_, { args }, context) {
-      return context.models.Ship.paginatedCabins(args)
-    },
   },
 
   Mutation: {

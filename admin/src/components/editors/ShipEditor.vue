@@ -1,7 +1,7 @@
 <template>
   <ShipFormModel
   :id="id"
-  v-slot="{item, modelState, formEvents, formState}"
+  v-slot="{item, modelState, formEvents}"
   v-on="pipeUpEvents('new-item', 'item-created', 'item-deleted')"
   >
     <ItemFormEditorWrapper
@@ -20,7 +20,7 @@
         v-for="t in tabs"
         :key="t.slug"
         :href="`#tab-${t.slug}`"
-        :disabled="isDisabledTab(t.slug, formState)"
+        :disabled="isDisabledTab(t.slug, modelState.formState)"
       >
         {{ t.title }}
       </v-tab>
@@ -52,6 +52,14 @@
         :item="shipMediaData(item)"
         v-bind="modelState"
         v-on="formEvents"
+        />
+      </v-tab-item>
+
+      <v-tab-item
+      value="tab-cabins"
+      >
+        <CabinsEditor
+        :id="id"
         />
       </v-tab-item>
 
@@ -130,6 +138,7 @@ import ItemFormEditorWrapper from '@/components/shared/ItemFormEditorWrapper'
 import ShipBasicInfoForm from '@/components/forms/ShipBasicInfoForm'
 import ShipFeaturesFormContainer from '@/components/forms/ShipFeaturesFormContainer'
 import ShipMediaForm from '@/components/forms/ShipMediaForm'
+import CabinsEditor from '@/components/editors/CabinsEditor'
 
 
 import { pipeEvents, mergeObjectsToLeft, isNewForm } from '@/utils'
@@ -151,6 +160,7 @@ export default {
     ShipBasicInfoForm,
     ShipFeaturesFormContainer,
     ShipMediaForm,
+    CabinsEditor,
   },
 
   data: function () {
@@ -161,7 +171,7 @@ export default {
         {title: "Basic data", slug: 'basic', component: ShipBasicInfoForm},
         {title: "Features", slug: 'features', component: ShipFeaturesFormContainer},
         {title: "Media", slug: 'media', component: ShipMediaForm},
-        // {title: "Cabins", slug: 'cabins', component: ShipCabinsEditor},
+        {title: "Cabins", slug: 'cabins', component: CabinsEditor},
       ],
     }
   },

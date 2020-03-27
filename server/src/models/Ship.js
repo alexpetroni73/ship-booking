@@ -68,24 +68,27 @@ const paginatedShips = async function (args = {}) {
 }
 
 
-const cabin = async function (id) {
-  let agg = [
-    { $match: { "cabins._id": ObjectId(id)}},
-    { $project: { cabins:
-      { $filter : {
-        input: "$cabins",
-        as: "item",
-        cond: { $eq: ["$$item._id", ObjectId(id)]}
-      }}
-    }},
-    { $unwind: "$cabins"},
-    { "$replaceRoot": { newRoot: "$cabins" }},
-    aggExpr.addId(),
-  ]
-
-  let result = await Ship.aggregate(agg)
-  // console.log('cabin result %o', result)
-  return result[0]
+const cabin = async function (shipId, id) {
+  let c = await Ship.findOne({_id: ObjectId(shipId),  "cabins._id": ObjectId(id)}, {"cabins.$": 1})
+  console.log(' c %o', c)
+  return c && c.cabins && c.cabins[0]
+  // let agg = [
+  //   { $match: {_id: ObjectId(shipId),  "cabins._id": ObjectId(id)}},
+  //   { $project: { cabins:
+  //     { $filter : {
+  //       input: "$cabins",
+  //       as: "item",
+  //       cond: { $eq: ["$$item._id", ObjectId(id)]}
+  //     }}
+  //   }},
+  //   { $unwind: "$cabins"},
+  //   { "$replaceRoot": { newRoot: "$cabins" }},
+  //   aggExpr.addId(),
+  // ]
+  //
+  // let result = await Ship.aggregate(agg)
+  // // console.log('cabin result %o', result)
+  // return result[0]
 }
 
 const cabinBySlug = async function (slug) {
@@ -93,9 +96,11 @@ const cabinBySlug = async function (slug) {
   return (await Ship.aggregate(agg))[0]
 }
 
-const cabins = async function (idArr) {
-  let agg = [aggExpr.matchByIdArr(idArr), aggExpr.addId(), ...cabinLogoAgg()]
-  return await Ship.aggregate(agg)
+const cabins = async function (shipId) {
+  let agg = [aggExpr.matchById(shipId),  cabinsAddIdAggExpr()]
+  let result = await Ship.aggregate(agg)
+  // console.log('cabins result %o', result)
+  return result[0] && result[0].cabins ? result[0].cabins : []
 }
 
 const cabinsBySlug = async function (slugArr) {
@@ -180,10 +185,13 @@ const createCabin = async function (shipId, input) {
   // input.slug = await utils.generateUniqueSlug(Cabin, 'slug', slugSeed)
 //console.log('createCabin input %o', input)
   const result = await Ship.findByIdAndUpdate(shipId, {$push: {cabins: input}}, {new: true})
-  if(!result) return null
-  let addedCabin = result.cabins.slice(-1)[0]
+  console.log('createCabin result %o', result)
+  // if(!result) return null
+  let q = result && result.cabins && result.cabins.slice(-1)[0]
+  console.log('addedCabin  %o', q)
+  return result && result.cabins && result.cabins.slice(-1)[0]
 //console.log('addedCabin  %o', addedCabin)
-  return await cabin(addedCabin._id)
+  // return await cabin(addedCabin._id)
 }
 
 const updateCabin = async function (id, input) {
@@ -256,7 +264,7 @@ function cabinsAddIdAggExpr () {
       cabins: { $map: {
         input: "$cabins",
         as: "item",
-        in: {$mergeObjects:["$$item", {id: "$$item._id"}]}
+        in: { $mergeObjects:[ "$$item", { id: "$$item._id" } ] }
       }}
     }
   }

@@ -10,7 +10,10 @@ export default {
   },
 
   props: {
-
+    reloadAfterUpdate: {
+      type: Boolean,
+      default: false
+    },
   },
 
   data () {
@@ -27,6 +30,17 @@ export default {
         'delete-item': this.onDeleteItem,
         'reload-item': this.onReloadItem,
         'new-item': this.onNewItem,
+      }
+    },
+
+    slotParams () {
+      return {
+        item: this.item,
+        formEvents: this.formEvents,
+        modelState: this.modelState, // from BaseFormModelMixin
+        // error: this.error,
+        // loading: this.loading,
+        // formState: this.formState,
       }
     },
   },
@@ -73,10 +87,12 @@ export default {
       this.clearError()
       this.loading = true
       try{
-        let result = await this.createItem(val, this.itemKey()) // item key is provided in case the item has a parent whos id should be provided
-        let id = this.extractCreatedItemId(this.parseCreateResult(result))
+        let result = await this.createItem(val, this.parentKey()) // key is provided in case the item has a parent document whos id should be provided
+        let parsedResult = this.parseCreateResult(result)
+        let id = this.extractCreatedItemId(parsedResult)
+
+        this.notifiy('item-created', parsedResult)
         if(id){
-          this.notifiy('item-created', id)
           this.$emit('change', id)
         }else{
           throw new Error("No item key provided in createItem result.")
@@ -95,8 +111,13 @@ export default {
       this.loading = true
       try{
         let result = await this.updateItem(val, this.itemKey())
-        this.item = this.parseUpdateResult(result)
-        this.notifiy('item-updated', this.id)
+        let parsedResult = this.parseUpdateResult(result)
+        this.notifiy('item-updated', parsedResult)
+        if(this.reloadAfterUpdate){
+          return this.refreshItem()
+        }else{
+          this.item = parsedResult
+        }
       }catch(error){
         // console.log('error %o', error)
         this.itemError(error.message)
@@ -106,7 +127,7 @@ export default {
     },
 
     async onDeleteItem () {
-      console.log('onDeleteItem')
+      console.log('onDeleteItem()')
       this.clearError()
       this.loading = true
       try{
@@ -128,12 +149,16 @@ export default {
 
     //
     async loadItemForCurrentId () {
+      console.log('loadItemForCurrentId() ')
       this.clearError()
       this.loading = true
       try{
         let result = await this.loadItem(this.itemKey())
+        if(!result) {
+          throw new Error("No item found for this id")
+        }
         this.item = this.parseLoadResult(result)
-          // console.log('.... itemLoaded  %o', this.editedItem)
+          // console.log('.... itemLoaded  %o', this.item)
         this.setEditFormState()
         this.notifiy('item-loaded', this.id)
       }catch(error){
@@ -149,7 +174,6 @@ export default {
     },
 
     setDefaultItem () {
-      console.log('setDefaultItem')
       this.item = this.getDefaultItem()
       this.setNewFormState()
     },
@@ -174,14 +198,7 @@ export default {
   },
 
   render() {
-      return this.$scopedSlots.default({
-        item: this.item,
-        modelState: this.modelState,
-        formEvents: this.formEvents,
-        error: this.error,
-        loading: this.loading,
-        formState: this.formState,
-      })
-    }
+      return this.$scopedSlots.default(this.slotParams)
+  }
 }
 </script>

@@ -1,0 +1,10 @@
+#import "./fragments/CabinData.gql"
+query cabinsEditorForm ($id: ID!) {
+    ship(id: $id){
+      id
+      cabinsText
+    }
+    cabins(shipId: $id){
+      ... CabinData
+    }
+ }

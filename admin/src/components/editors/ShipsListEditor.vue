@@ -12,6 +12,7 @@
       <ListEditorHeader
       @add-new-item="onAddNewItem"
       v-model="search"
+      btnTitle="Add New Ship"
       >
       </ListEditorHeader>
     </template>

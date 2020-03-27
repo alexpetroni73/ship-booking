@@ -22,10 +22,23 @@ const schemaDefinition = {
     type: String
   },
 
+  order: {
+    type: Number,
+    default: 5,
+  },
+
   capacity: {
     type: Number,
     default: 2
-  }
+  },
+
+  features: {
+    type: [String]
+  },
+
+  featuresText: {
+    type: String
+  },
 }
 
 module.exports = buildTimestampSchema(schemaDefinition)
