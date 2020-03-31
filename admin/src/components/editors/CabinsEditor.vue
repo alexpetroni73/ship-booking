@@ -5,6 +5,7 @@
   :id="id"
   v-slot="{item, modelState, formEvents}"
   >
+  <div>
       <CabinsListForm
       v-show="isCabinsListForm"
       :item="item"
@@ -12,23 +13,28 @@
       @update-item="formEvents['update-item']"
       @edit-item="setEditorView"
       />
+    </div>
   </CabinsListFormModel>
-  </v-slide-x-transition>
+</v-slide-x-transition>
 
   <v-slide-x-reverse-transition>
     <CabinFormModel
     :shipId="id"
     busEventName="cabin"
     v-model="selectedCabinId"
-    v-slot="{item, modelState, formEvents}"
+    v-slot="{item, modelState, formEvents, cabinFeatures}"
     >
+    <div>
+    {{ modelState }}
     <CabinForm
     v-show="isCabinForm"
     :item="item"
+    :cabinFeatures="cabinFeatures"
     v-bind="modelState"
     v-on="formEvents"
     @show-list="setListView"
     />
+    </div>
     </CabinFormModel>
 
 </v-slide-x-reverse-transition>

@@ -194,7 +194,7 @@ const createCabin = async function (shipId, input) {
   // return await cabin(addedCabin._id)
 }
 
-const updateCabin = async function (id, input) {
+const updateCabin = async function (shipId, id, input) {
   // check for non-empty & unique field values if provided
   // const uniqueFieldsProvided = utils.checkNonEmptyProperties(['name', 'slug'], input, false)
   //
@@ -208,10 +208,13 @@ const updateCabin = async function (id, input) {
     acc['cabins.$.' + item] = input[item]
     return acc
   }, {})
+  console.log('updateData %o', updateData)
+  console.log('ship._id: %s, cabins._id: %s', shipId, id)
+  let s = await Ship.findOne({'_id': ObjectId(shipId), 'cabins._id': ObjectId(id)})
+  console.log('s %o', s)
+  await Ship.updateOne({'_id': ObjectId(shipId), 'cabins._id': ObjectId(id)}, {$set: updateData })
 
-  await Ship.findOneAndUpdate({'cabins._id': ObjectId(id)}, {$set: updateData})
-
-  return await cabin(id)
+  return await cabin(shipId, id)
 }
 
 const deleteCabin = async function (shipId, id) {

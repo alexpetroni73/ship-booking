@@ -1,12 +1,12 @@
 <script>
-import BaseLoadedItemFormModel from '@/components/models/BaseLoadedItemFormModel'
+import BaseItemFormModel from '@/components/models/BaseItemFormModel'
 import ShipQuery from '@/graphql/ship/Ship.gql'
 import CreateShip from '@/graphql/ship/CreateShip.gql'
 import UpdateShip from '@/graphql/ship/UpdateShip.gql'
 import DeleteShip from '@/graphql/ship/DeleteShip.gql'
 
 export default {
-  extends: BaseLoadedItemFormModel,
+  extends: BaseItemFormModel,
 
   methods: {
     getDefaultItem () {

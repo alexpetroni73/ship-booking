@@ -75,8 +75,8 @@ const resolvers = {
       return context.models.Ship.createCabin(shipId, input)
     },
 
-    updateCabin(_, { id, input }, context){
-      return context.models.Ship.updateCabin(id, input)
+    updateCabin(_, { shipId, id, input }, context){
+      return context.models.Ship.updateCabin(shipId, id, input)
     },
 
     deleteCabin(_, { shipId, id }, context){

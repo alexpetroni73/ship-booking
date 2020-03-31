@@ -1,10 +1,11 @@
 <script>
-import BaseLoadedItemFormModel from '@/components/models/BaseLoadedItemFormModel'
+import BaseItemFormModel from '@/components/models/BaseItemFormModel'
 import Cabins from '@/graphql/ship/Cabins.gql'
 import UpdateCabinsListGql from '@/graphql/ship/UpdateCabinsList.gql'
+import * as utils from '@/utils'
 
 export default {
-  extends: BaseLoadedItemFormModel,
+  extends: BaseItemFormModel,
 
   methods: {
     getDefaultItem () {
@@ -15,14 +16,18 @@ export default {
       return { shipId: this.id }
     },
 
-    async loadItem (key) {
+    async loadItem (key, fetchPolicy) {
       console.log('loadItem key %o', key)
-      let { data: {cabins}} = await this.$apollo.query({
+      let queryObj = {
         query: Cabins,
         variables: key,
-      })
+      }
+      if(fetchPolicy) {
+        queryObj.fetchPolicy = fetchPolicy
+      }
+      console.log('queryObj cabins %o', queryObj)
+      let { data: {cabins}} = await this.$apollo.query(queryObj)
       console.log('loadItem cabins %o', cabins)
-
       return cabins
     },
 
@@ -48,10 +53,15 @@ export default {
     //   return ship
     // },
 
+    cabinItemCreated (val) {
+      console.log('From LIST on cabinItemCreated %o', val)
+      this.refreshItem ()
+    }
+
   },
 
-  created () {
-    this.eventBus.$on('cabin-item-created', this.refreshItem)
+  mounted () {
+    utils.EventBus.$on('cabin-item-created', this.cabinItemCreated)
   },
 }
 </script>

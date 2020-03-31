@@ -1,12 +1,13 @@
 <script>
-import BaseLoadedItemFormModel from '@/components/models/BaseLoadedItemFormModel'
+import BaseItemFormModel from '@/components/models/BaseItemFormModel'
 
 import Cabin from '@/graphql/ship/Cabin.gql'
 import CreateCabin from '@/graphql/ship/CreateCabin.gql'
 import UpdateCabin from '@/graphql/ship/UpdateCabin.gql'
+// import CabinFeatures from '@/graphql/ship/CabinFeatures.gql'
 
 export default {
-  extends: BaseLoadedItemFormModel,
+  extends: BaseItemFormModel,
 
   props: {
     shipId: {
@@ -14,6 +15,24 @@ export default {
       required: true,
     }
   },
+
+  data () {
+    return {
+      cabinFeatures: [
+        { name: 'a', slug: 'a' },
+        { name: 'b', slug: 'b' },
+        { name: 'c', slug: 'c' },
+        { name: 'd', slug: 'd' },
+      ],
+    }
+  },
+
+  // apollo: {
+  //   cabinFeatures: {
+  //     query: CabinFeatures,
+  //     update: (data) => data.cabinFeatures,
+  //   }
+  // },
 
   methods: {
     getDefaultItem () {
@@ -69,9 +88,10 @@ export default {
         mutation: UpdateCabin,
         variables: {...key, input: item},
       })
-
-      let {updateShip: {cabinsText}, cabins = []} = result.data
-      return {cabinsText, cabins}
+      console.log('result %o', result)
+      let { data: { updateCabin } } = result
+      console.log('updateCabin cabin %o', updateCabin)
+      return updateCabin
     },
     //
     // async deleteItem (key) {
@@ -84,6 +104,10 @@ export default {
     //   console.log('ship %o', ship)
     //   return ship
     // },
+
+    extraSlotParams () {
+      return {cabinFeatures: this.cabinFeatures}
+    }
 
   },
 }
