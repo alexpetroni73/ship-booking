@@ -1,6 +1,6 @@
 #import "./fragments/ShipData.gql"
-mutation updateShip ($id: ID!, $input: ShipInput!) {
-    updateShip(id: $id, input: $input){
+mutation updateShip ($input: ShipInput!) {
+    updateShip(input: $input){
       ... ShipData
     }
  }

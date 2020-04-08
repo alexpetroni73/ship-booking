@@ -1,24 +1,16 @@
 <template>
-  <v-card>
+  <v-card
+  flat
+  >
+  <FormTopBar
+    addNewTitle="Add New Cabin"
+    v-bind="modelState"
+    v-on="formEvents"
+    :name="item.name"
+  />
+
     <v-card-text>
       <v-container>
-          <v-row>
-            <v-col
-            cols="12"
-            >
-              <BaseError
-              :error="error">
-              </BaseError>
-            </v-col>
-            <v-col
-            sm="12"
-            md="3"
-            >
-            <v-btn @click="showList">show</v-btn>
-            Cabin form
-        </v-col>
-       </v-row>
-
        <v-row>
          <v-col
          sm="12"
@@ -31,7 +23,7 @@
          sm="12"
          >
            <v-textarea
-             v-model="editedItem.excertp"
+             v-model="editedItem.excerpt"
              label="Excerpt"
              hint="Short text visible on cabins list"
              outlined
@@ -48,7 +40,31 @@
              outlined
            ></v-textarea>
         </v-col>
+      </v-row>
 
+      <v-row>
+        <v-col
+        cols="12"
+        >
+
+        <MediaSelect
+         class="pb-8"
+         title="Main image"
+         :multiple="false"
+         v-model="editedItem.image"
+        />
+
+        <MediaSelect
+         title="Gallery"
+         :multiple="true"
+         v-model="editedItem.gallery"
+         :imgWidth="150"
+        />
+
+      </v-col>
+      </v-row>
+
+      <v-row>
         <v-col
         sm="12"
         >
@@ -59,9 +75,7 @@
             outlined
           ></v-textarea>
        </v-col>
-      </v-row>
 
-      <v-row>
      <template v-for="item in cabinFeatures">
        <v-col
        :key="item.slug"
@@ -92,8 +106,9 @@
 
 <script>
 import FormMixin from '@/mixins/FormMixin'
+import FormTopBar from '@/components/shared/FormTopBar'
 import FormSubmitButtons from '@/components/shared/FormSubmitButtons'
-import BaseError from '@/components/shared/BaseError'
+import MediaSelect from '@/components/shared/MediaSelect'
 
 export default {
   mixins: [ FormMixin ],
@@ -106,8 +121,9 @@ export default {
   },
 
   components: {
+    FormTopBar,
     FormSubmitButtons,
-    BaseError,
+    MediaSelect,
   },
 
   methods: {

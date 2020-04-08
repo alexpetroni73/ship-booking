@@ -2,86 +2,79 @@
   <v-card
     max-width="600"
     class="mx-auto"
-    flat
     >
 
-    <v-card-text>
-      <v-container>
-        <!-- <v-row wrap>
-          <v-row>
-            <v-col
-            sm="12"
-            md="3"
-            >
+    <v-toolbar
+     color="cyan"
+     dark
+   >
 
-            </v-col>
+   <v-app-bar-nav-icon></v-app-bar-nav-icon>
 
-            <v-col
-            sm="12"
-            >
-              <v-textarea
-                v-model="editedItem.cabinsText"
-                label="Cabins text"
-                hint="Text on cabins page"
-                outlined
-              ></v-textarea>
-           </v-col>
-         </v-row>
-       </v-row> -->
+    <v-toolbar-title>Cabins list</v-toolbar-title>
 
-       <v-row>
-         <v-col
-         cols="12"
-         class="text-right"
-         >
-          <v-btn
-          fab
-          small
-          color="primary"
-          dark
-          @click="addNewCabin">
-          <v-icon small dark>mdi-plus</v-icon>
-        </v-btn>
-         </v-col>
+    <v-spacer></v-spacer>
 
-         <v-col
-         cols="12"
-         >
-         <template v-if="isEmptyList">
-           <div class="text-center headline empty-cabins-list">No cabins yet. Click on "+" button to add a cabin.</div>
-         </template>
+    <v-btn icon>
+      <v-icon>mdi-magnify</v-icon>
 
-         <template v-else>
-           Cabins list
-           <v-list>
-     <v-list-item
-       v-for="item in editedItem"
-       :key="item.id"
-     >
-       <v-list-item-icon>
-         <v-icon v-if="item.icon" color="pink">mdi-star</v-icon>
-       </v-list-item-icon>
+    </v-btn>
+    <v-btn
 
-       <v-list-item-content>
-         <v-list-item-title>{{ item.id }} {{ item.name}}</v-list-item-title>
-       </v-list-item-content>
+    color="primary"
+    dark
+    title="Add New Cabin"
+    @click="addNewCabin">
+    <v-icon small dark>mdi-plus</v-icon>
+  </v-btn>
+    </v-toolbar>
 
-       <v-list-item-avatar>
-         <v-img :src="item.avatar"></v-img>
-       </v-list-item-avatar>
 
-       <v-list-item-action>
-        <v-btn icon @click="editItem(item.id)">
-          <v-icon small color="grey lighten-1" title="Edit Cabin">mdi-pencil</v-icon>
-        </v-btn>
-        </v-list-item-action>
-     </v-list-item>
-   </v-list>
-         </template>
-        </v-col>
-       </v-row>
-     </v-container>
-   </v-card-text>
+    <template v-if="isEmptyList">
+      <div class="text-center headline empty-cabins-list">No cabins yet. Click on "+" button to add a cabin.</div>
+    </template>
+
+    <template v-else>
+      <v-list
+      three-line
+      >
+        <draggable v-model="editedItem" handle=".handle">
+
+        <v-list-item
+          v-for="item in editedItem"
+          :key="item.id"
+        >
+        <v-list-item-avatar size="75">
+          <cld-image
+          v-if="item.image"
+          :publicId="item.image" secure="true">
+            <cld-transformation width="150" crop="scale" />
+          </cld-image>
+          <v-img :src="item.avatar"></v-img>
+        </v-list-item-avatar>
+
+        <v-list-item-content>
+              <v-list-item-title>
+                <v-btn
+                icon title="Edit Cabin"
+                @click="editItem(item.id)"
+                >
+                    <v-icon small title="Edit Cabin">mdi-pencil</v-icon>
+                </v-btn>
+                {{ item.name }}
+              </v-list-item-title>
+              <v-list-item-subtitle v-html="item.excerpt"></v-list-item-subtitle>
+        </v-list-item-content>
+
+        <v-list-item-icon>
+          <v-btn icon class="handle">
+            <v-icon>mdi-arrow-all</v-icon>
+          </v-btn>
+        </v-list-item-icon>
+        </v-list-item>
+        </draggable>
+      </v-list>
+    </template>
 
     <FormSubmitButtons
     v-if="!isEmptyList"
@@ -94,12 +87,14 @@
 <script>
 import FormMixin from '@/mixins/FormMixin'
 import FormSubmitButtons from '@/components/shared/FormSubmitButtons'
+import draggable from 'vuedraggable'
 
 export default {
   mixins: [ FormMixin ],
 
   components: {
     FormSubmitButtons,
+    draggable,
   },
 
   computed: {
@@ -123,5 +118,13 @@ export default {
 <style scoped>
 .empty-cabins-list{
   min-height: 300px;
+}
+
+.handle {
+  cursor: grabbing;
+}
+
+.none {
+
 }
 </style>

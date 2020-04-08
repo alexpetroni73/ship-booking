@@ -132,28 +132,25 @@ const mergeObjectsToLeft = (o1, o2) => {
   }, {})
 }
 
+// take an events array and emit them from the specified component with the received value
 const pipeEvents = function (comp, ...args) {
   let parent = comp
   let events = args.reduce((acc, e) => {
     acc[e] = parentEmitter(parent, e)
     return acc
   }, {})
-  console.log('parent.name %s', parent.name)
-  console.log('parent %o', parent)
-  console.log('events %o', events)
+  // console.log('parent.name %s', parent.name)
+  // console.log('parent %o', parent)
+  // console.log('events %o', events)
   return events
 }
 
 const parentEmitter = function (comp, event) {
   return function (val) {
-    console.log('emit from parent val %s', val)
+    // console.log('emit from parent val %s', val)
     comp.$emit(event, val)
   }
 }
-
-// const parentEmitEvent = function (val, event) {
-//   this.$emit(event, val)
-// }
 
 
 export {

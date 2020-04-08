@@ -1,40 +1,64 @@
 <template>
   <div>
   <v-slide-x-transition>
-  <CabinsListFormModel
-  :id="id"
-  v-slot="{item, modelState, formEvents}"
-  >
-  <div>
-      <CabinsListForm
-      v-show="isCabinsListForm"
-      :item="item"
-      v-bind="modelState"
-      @update-item="formEvents['update-item']"
-      @edit-item="setEditorView"
-      />
-    </div>
-  </CabinsListFormModel>
-</v-slide-x-transition>
+    <CabinsListFormModel
+    :id="id"
+    v-slot="{item, modelState, formEvents}"
+    >
+        <CabinsListForm
+        v-show="showCabinsListForm"
+        :item="item"
+        v-bind="modelState"
+        @update-item="formEvents['update-item']"
+        @edit-item="setCabinEditor"
+        />
+    </CabinsListFormModel>
+  </v-slide-x-transition>
 
   <v-slide-x-reverse-transition>
     <CabinFormModel
     :shipId="id"
     busEventName="cabin"
     v-model="selectedCabinId"
+    @item-deleted="setListView"
+    @item-created="setListView"
+    @item-updated="setListView"
     v-slot="{item, modelState, formEvents, cabinFeatures}"
+    v-on="pipeUpEvents(['item-created', 'item-updated', 'item-deleted'])"
     >
-    <div>
-    {{ modelState }}
-    <CabinForm
-    v-show="isCabinForm"
-    :item="item"
-    :cabinFeatures="cabinFeatures"
-    v-bind="modelState"
-    v-on="formEvents"
-    @show-list="setListView"
-    />
-    </div>
+    <v-container
+    v-show="showCabinForm"
+    fluid>
+      <v-row>
+        <v-col
+        sm="12"
+        md="2"
+        >
+          <v-btn
+            text
+            small
+           @click="setListView"><v-icon>mdi-chevron-left</v-icon>Cabins list
+         </v-btn>
+        </v-col>
+
+        <v-col
+        sm="12"
+        md="8"
+        >
+            <CabinForm
+            :item="item"
+            :cabinFeatures="cabinFeatures"
+            v-bind="modelState"
+            v-on="formEvents"
+            />
+        </v-col>
+        <v-col
+        sm="12"
+        md="2"
+        >
+        </v-col>
+      </v-row>
+      </v-container>
     </CabinFormModel>
 
 </v-slide-x-reverse-transition>
@@ -46,6 +70,7 @@ import CabinsListFormModel from '@/components/models/CabinsListFormModel'
 import CabinFormModel from '@/components/models/CabinFormModel'
 import CabinsListForm from '@/components/forms/CabinsListForm'
 import CabinForm from '@/components/forms/CabinForm'
+
 import { pipeEvents } from '@/utils'
 
 export default {
@@ -58,28 +83,14 @@ export default {
     CabinForm,
   },
 
-  directives: {
-
-  },
-
-  filters: {
-
-  },
-
-  extends: {
-
-  },
-
-  mixins: [],
-
-  model: {
-
-  },
-
   props: {
     id: {
       type: String
-    }
+    },
+
+    activ: { // re-set the listView when CabinsEditor tab is selected
+      type: Number
+    },
   },
 
   data () {
@@ -90,17 +101,21 @@ export default {
   },
 
   computed: {
-    isCabinsListForm () {
+    showCabinsListForm () {
       return this.view == 'cabinsList'
     },
 
-    isCabinForm () {
+    showCabinForm () {
       return this.view == 'cabin'
     },
   },
 
   watch: {
-
+    activ () {
+      if(this.view != 'cabinsList'){
+        this.view = 'cabinsList'
+      }
+    }
   },
 
   methods: {
@@ -113,10 +128,12 @@ export default {
       this.view = 'cabinsList'
     },
 
-    setEditorView (id) {
+    setCabinEditor (id) {
       this.selectedCabinId = id
       this.view = 'cabin'
     },
+
+
   },
 
 }

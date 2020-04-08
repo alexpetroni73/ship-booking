@@ -36,20 +36,8 @@ const resolvers = {
       return context.models.Ship.cabin(shipId, id)
     },
 
-    cabinBySlug (_, { shipId, slug }, context) {
-      return context.models.Ship.cabinBySlug(shipId, slug)
-    },
-
     cabins (_, { shipId }, context) {
       return context.models.Ship.cabins(shipId)
-    },
-
-    cabinsBySlug (_, { shipId, slugArr }, context) {
-      return context.models.Ship.cabinsBySlug(shipId, slugArr)
-    },
-
-    searchCabins (_, { args }, context) {
-      return context.models.Ship.searchCabins(args)
     },
 
   },
@@ -59,8 +47,8 @@ const resolvers = {
       return context.models.Ship.createShip(input)
     },
 
-    updateShip(_, { id, input }, context){
-      return context.models.Ship.updateShip(id, input)
+    updateShip(_, { input }, context){
+      return context.models.Ship.updateShip(input)
     },
 
     deleteShip(_, { id }, context){
@@ -75,12 +63,16 @@ const resolvers = {
       return context.models.Ship.createCabin(shipId, input)
     },
 
-    updateCabin(_, { shipId, id, input }, context){
-      return context.models.Ship.updateCabin(shipId, id, input)
+    updateCabin(_, { shipId, input }, context){
+      return context.models.Ship.updateCabin(shipId, input)
     },
 
     deleteCabin(_, { shipId, id }, context){
       return context.models.Ship.deleteCabin(shipId, id)
+    },
+
+    updateCabins(_, { shipId, inputArr }, context){
+      return context.models.Ship.updateCabins(shipId, inputArr)
     },
 
     deleteCabins(_, { shipId, idArr }, context){

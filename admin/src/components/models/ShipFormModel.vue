@@ -11,6 +11,7 @@ export default {
   methods: {
     getDefaultItem () {
       return {
+        id: '',
         name: '',
         slug: '',
         excerpt: '',
@@ -48,47 +49,47 @@ export default {
       }
     },
 
-    async createItem (item, key) {
-      console.log('createItem key %o, item %o', key, item)
+    async createItem (item) {
+      // console.log('createItem key %o, item %o', key, item)
       let { data: { createShip: ship } } = await this.$apollo.mutate({
         mutation: CreateShip,
         variables: {input:item},
       })
       // console.log('%o', result.data.ship)
-      console.log('ship %o', ship)
+      // console.log('ship %o', ship)
       return ship
     },
 
     async loadItem (key) {
-      console.log('loadItem key %o', key)
+      // console.log('loadItem key %o', key)
       let { data: { ship: ship } } = await this.$apollo.query({
         query: ShipQuery,
         variables: key,
       })
       // console.log('%o', result.data.ship)
-      console.log('ship %o', ship)
+      // console.log('ship %o', ship)
       return ship
     },
 
     async updateItem (item, key) {
-      console.log('updateItem key %o, item %o', key, item)
+      // console.log('updateItem key %o, item %o', key, item)
       let { data: { updateShip: ship } } = await this.$apollo.mutate({
         mutation: UpdateShip,
         variables: {input:item, ... key},
       })
       // console.log('%o', result.data.ship)
-      console.log('ship %o', ship)
+      // console.log('ship %o', ship)
       return ship
     },
 
     async deleteItem (key) {
-      console.log('updateItem key %o', key)
+      // console.log('updateItem key %o', key)
       let { data: { deleteShip: ship } } = await this.$apollo.mutate({
         mutation: DeleteShip,
         variables: key,
       })
       // console.log('%o', result.data.ship)
-      console.log('ship %o', ship)
+      // console.log('ship %o', ship)
       return ship
     },
 

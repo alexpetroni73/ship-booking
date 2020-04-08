@@ -97,7 +97,7 @@ const schemaDefinition = {
   },
 
   gallery: {
-    type: [String],
+    type: [String]
   },
 }
 

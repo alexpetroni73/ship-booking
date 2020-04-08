@@ -4,17 +4,18 @@
   v-slot="{item, modelState, formEvents}"
   v-on="pipeUpEvents('new-item', 'item-created', 'item-deleted')"
   >
-    <ItemFormEditorWrapper
+  <div>
+    <FormTopBar
     addNewTitle="Add New Ship"
-    :showActionButtons="false"
     v-bind="modelState"
     v-on="formEvents"
     :name="item.name"
-    >
+    />
     <v-tabs
      v-model="tab"
      class="elevation-2"
      centered
+    @change="onTabsChange"
      >
       <v-tab
         v-for="t in tabs"
@@ -60,81 +61,17 @@
       >
         <CabinsEditor
         :id="id"
+        :activ="cabinActiv"
         />
       </v-tab-item>
-
-        <!-- <v-tab-item
-          v-for="t in tabs"
-          :key="t.slug"
-          :value="'tab-' + t.slug"
-        >
-          <component
-          :is="t.component"
-          :item="parseItemFor(item, t.slug)"
-          v-bind="modelState"
-          v-on="formEvents"
-          />
-        </v-tab-item> -->
       </v-tabs>
-    </ItemFormEditorWrapper>
+    </div>
   </ShipFormModel>
-
-
-  <!-- <ItemEditorWrapper
-  :formState="formState"
-  :error="error"
-  v-on="onEvents"
-  addNewTitle="Add New Ship"
-  :name="editedItemName"
-  :disableSubmitBtn="disableSubmitBtn"
-  :showActionButtons="false"
-  >
-  <v-tabs
-   v-model="tab"
-   class="elevation-2"
-   centered
-   >
-    <v-tab
-      v-for="t in tabs"
-      :key="t.slug"
-      :href="`#tab-${t.slug}`"
-      :disabled="isDisabledTab(t.slug)"
-    >
-      {{ t.title }}
-    </v-tab>
-
-    <v-tab-item
-      v-for="t in leafTabs"
-      :key="t.slug"
-      :value="'tab-' + t.slug"
-    >
-      <v-card>
-        <component
-        :is="t.component"
-        :id="id"
-        :item="item"
-        :formState="formState"
-        >
-       </component>
-     </v-card>
-    </v-tab-item>
-
-    <v-tab-item
-    value="tab-basic"
-    >
-
-
-    </v-tab-item>
-</v-tabs>
-
-
-
-  </ItemEditorWrapper> -->
 </template>
 
 <script>
 import ShipFormModel from '@/components/models/ShipFormModel'
-import ItemFormEditorWrapper from '@/components/shared/ItemFormEditorWrapper'
+import FormTopBar from '@/components/shared/FormTopBar'
 import ShipBasicInfoForm from '@/components/forms/ShipBasicInfoForm'
 import ShipFeaturesFormContainer from '@/components/forms/ShipFeaturesFormContainer'
 import ShipMediaForm from '@/components/forms/ShipMediaForm'
@@ -156,7 +93,7 @@ export default {
 
   components: {
     ShipFormModel,
-    ItemFormEditorWrapper,
+    FormTopBar,
     ShipBasicInfoForm,
     ShipFeaturesFormContainer,
     ShipMediaForm,
@@ -173,11 +110,9 @@ export default {
         {title: "Media", slug: 'media', component: ShipMediaForm},
         {title: "Cabins", slug: 'cabins', component: CabinsEditor},
       ],
+
+      cabinActiv: 0,
     }
-  },
-
-  computed: {
-
   },
 
   methods: {
@@ -242,6 +177,12 @@ export default {
     isDisabledTab (slug, formState) {
       return isNewForm(formState) && slug != 'basic'
     },
+
+    onTabsChange (val) {
+      if(val == 'tab-cabins') {
+        this.cabinActiv++
+      }
+    }
   },
 
   watch: {

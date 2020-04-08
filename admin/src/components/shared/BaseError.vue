@@ -1,7 +1,7 @@
 <template>
   <v-alert v-if="error" type="error">
-  {{ error }}
-</v-alert>
+    {{ error }}
+  </v-alert>
 </template>
 
 <script>

@@ -15,32 +15,22 @@ const typeDef = `
     shipGalleryBy(field: String!, value: String!): [String!]!
 
     cabin(shipId: ID!, id: ID!): Cabin
-    cabinBy(shipId: ID!, field: String!, value: String!): Cabin
-    cabinBySlug(shipId: ID!, slug: String!): Cabin
-
     cabins(shipId: ID!): [Cabin!]!
-    cabinsBy(shipId: ID!, value: String, valArr: [String!]!): [Cabin!]!
-    cabinsBySlug(shipId: ID!, slugArr: [String!]!): [Cabin!]!
-    searchCabins(args: JSON): [Cabin!]!
-
-    cabinGallery(shipId: ID!, id: ID!): [String!]!
-    cabinGalleryBy(shipId: ID!, field: String!, value: String!): [String!]!
 
   }
 
   extend type Mutation {
     createShip(input: ShipInput!): Ship
-    updateShip(id: ID!, input: ShipInput!): Ship
+    updateShip(input: ShipInput!): Ship
     deleteShip(id: ID!): ID
     deleteShips(idArr: [ID!]!): [ID!]!
 
-    updateShipGallery(id: ID!, inputArr: [String!]!): [String!]!
-
-
     createCabin(shipId: ID!, input: CabinInput!): Cabin
-    updateCabin(shipId: ID!, id: ID!, input: CabinInput!): Cabin
+    updateCabin(shipId: ID!, input: CabinInput!): Cabin
     deleteCabin(shipId: ID!, id: ID!): ID!
+
     deleteCabins(shipId: ID!, idArr: [ID!]!): [ID!]!
+    updateCabins(shipId: ID!, inputArr: [CabinInput!]!): [Cabin!]!
 
     updateCabinGallery(id: ID!, inputArr: [String!]!): [String!]!
   }
@@ -74,6 +64,7 @@ const typeDef = `
   }
 
   input ShipInput {
+    id: ID
     name: String
     slug: String
     excerpt: String
@@ -136,6 +127,7 @@ const typeDef = `
     description: String
     order: Int
     image: String
+    gallery: [String!]
     features: [String!]
     featuresText: String
     capacity: Int
@@ -144,12 +136,14 @@ const typeDef = `
   }
 
   input CabinInput {
+    id: ID
     name: String
     slug: String
     excerpt: String
     description: String
     order: Int
     image: String
+    gallery: [String!]
     features: [String!]
     featuresText: String
     capacity: Int
@@ -158,8 +152,8 @@ const typeDef = `
   }
 
   type PaginatedCabins {
-    total: Int
     items: [Cabin!]!
+    total: Int
   }
 
   type PaginatedShips {

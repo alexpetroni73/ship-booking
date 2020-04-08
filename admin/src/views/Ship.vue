@@ -29,13 +29,11 @@ export default {
 
   methods: {
     onAddNewItem () {
-      console.log('ship onAddNewItem')
       this.$router.push({ name: 'ship' })
     },
 
-    onItemCreated (id) {
-      console.log('ship onItemCreated')
-      this.$router.push({ name: 'ship', params: {id} })
+    onItemCreated (item) {
+      this.$router.push({ name: 'ship', params: {id: item.id} })
     },
 
     onItemDeleted () {

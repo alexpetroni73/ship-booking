@@ -81,6 +81,7 @@ export default {
     },
 
     extractItemKey (item) {
+      // console.log('extractItemKey item %o', item)
       return item ? item.id : null
     },
 
@@ -90,7 +91,7 @@ export default {
           this.busEventName.forEach(e => utils.EventBus.$emit(e + '-' + event, val))
         }else{
           utils.EventBus.$emit(this.busEventName + '-' + event, val)
-          console.log('~~~~~ utils.EventBus ~~~~~ %s', this.busEventName + '-' + event)
+          // console.log('~~~~~ utils.EventBus ~~~~~ %s', this.busEventName + '-' + event)
         }
       }
     },
@@ -143,13 +144,13 @@ export default {
 
     // --------------- Events listeners ---------------
     onNewItem () {
-      console.log('onNewItem')
+      // console.log('onNewItem')
       this.$emit('new-item')
       this.$emit('change', null)
     },
 
     async onCreateItem (val) {
-      console.log('onCreateItem %o', val)
+      // console.log('onCreateItem %o', val)
       this.clearError()
       this.loading = true
       try{
@@ -157,14 +158,13 @@ export default {
         let id = this.extractCreatedItemId(result)
 
         let parsedResult = this.parseCreateResult(result)
-        console.log('parsedResult %o', parsedResult)
-console.log('id %s', id)
+
         if(!id){
           throw new Error("No item key provided in createItem result.")
         }
 
         this.$emit('change', id)
-        this.notifiy('item-created', parsedResult)
+        this.notifiy('item-created', result)
 
         if(!this.reloadAfterCreate){
           this.createdItem = parsedResult
@@ -178,7 +178,7 @@ console.log('id %s', id)
     },
 
     async onUpdateItem (val) {
-      console.log('onUpdateItem %o', val)
+      // console.log('onUpdateItem %o', val)
       this.clearError()
       this.loading = true
       try{
@@ -199,7 +199,7 @@ console.log('id %s', id)
     },
 
     async onDeleteItem () {
-      console.log('onDeleteItem()')
+      // console.log('onDeleteItem()')
       this.clearError()
       this.loading = true
       try{
@@ -215,13 +215,13 @@ console.log('id %s', id)
     },
 
     onReloadItem () {
-      console.log('onReloadItem')
+      // console.log('onReloadItem')
       this.refreshItem('network-only')
     },
 
     //
     async loadItemForCurrentId (fetchPolicy) {
-      console.log('loadItemForCurrentId() fetchPolicy %s', fetchPolicy)
+      // console.log('loadItemForCurrentId() fetchPolicy %s', fetchPolicy)
       this.clearError()
       this.loading = true
       try{
@@ -246,10 +246,10 @@ console.log('id %s', id)
         if(!this.reloadAfterCreate && this.createdItem && this.extractItemKey(this.createdItem) == this.id) {
           this.setEditedItem(this.createdItem)
           this.createdItem = null
-          console.log('set from createdItem after creation')
+          // console.log('set from createdItem after creation')
         } else {
           this.loadItemForCurrentId(fetchPolicy)
-          console.log('reloaded item after creation')
+          // console.log('reloaded item after creation')
         }
       }else{
         this.setDefaultItem()
@@ -268,7 +268,7 @@ console.log('id %s', id)
     setEditedItem (item) {
       this.item = item
       this.setEditFormState()
-      console.log('setEditedItem this.formState %s', this.formState)
+      // console.log('setEditedItem this.formState %s', this.formState)
     },
 
     // --------------- Result parsers ---------------

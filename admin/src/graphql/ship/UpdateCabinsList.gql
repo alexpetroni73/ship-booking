@@ -1,7 +1,0 @@
-
-mutation updateCabinsList ($id: ID!, $input: ShipInput!) {
-    updateShip(id: $id, input: $input){
-      id
-      cabinsText
-    }
- }

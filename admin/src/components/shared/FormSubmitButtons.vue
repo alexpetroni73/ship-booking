@@ -53,20 +53,10 @@ export default {
     }
   },
 
-  data () {
-    return {
-
-    }
-  },
-
   computed: {
     isEditForm () {
       return isEditForm(this.formState)
     },
-  },
-
-  watch: {
-
   },
 
   methods: {

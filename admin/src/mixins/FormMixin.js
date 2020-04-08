@@ -31,14 +31,15 @@ export default {
   },
 
   computed: {
-    editorWrapperBind () {
+    modelState () {
       return {
         formState: this.formState,
         error: this.error,
+        loading: this.loading,
       }
     },
 
-    editorWrapperEvents () {
+    formEvents () {
       return  {
         'create-item': this.createItem,
         'update-item': this.updateItem,

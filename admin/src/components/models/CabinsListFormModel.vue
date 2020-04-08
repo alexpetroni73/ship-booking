@@ -1,7 +1,7 @@
 <script>
 import BaseItemFormModel from '@/components/models/BaseItemFormModel'
 import Cabins from '@/graphql/ship/Cabins.gql'
-import UpdateCabinsListGql from '@/graphql/ship/UpdateCabinsList.gql'
+import UpdateCabins from '@/graphql/ship/UpdateCabins.gql'
 import * as utils from '@/utils'
 
 export default {
@@ -17,7 +17,7 @@ export default {
     },
 
     async loadItem (key, fetchPolicy) {
-      console.log('loadItem key %o', key)
+      // console.log('loadItem key %o', key)
       let queryObj = {
         query: Cabins,
         variables: key,
@@ -25,43 +25,56 @@ export default {
       if(fetchPolicy) {
         queryObj.fetchPolicy = fetchPolicy
       }
-      console.log('queryObj cabins %o', queryObj)
+      // console.log('queryObj cabins %o', queryObj)
       let { data: {cabins}} = await this.$apollo.query(queryObj)
-      console.log('loadItem cabins %o', cabins)
+      // console.log('loadItem cabins %o', cabins)
       return cabins
     },
 
     async updateItem (item, key) {
-      console.log('updateItem key %o, item %o', key, item)
-      let result = await this.$apollo.mutate({
-        mutation: UpdateCabinsListGql,
-        variables: {...key, input:{cabinsText: item.cabinsText}},
+      // console.log('updateItem key %o, item %o', key, item)
+      const reorderedItems = item.map((e, index) => {
+        return {id: e.id, order: index}
       })
+      // console.log('reorderedItems %o', reorderedItems)
+      const variables = {...key, inputArr:reorderedItems}
+      // console.log('variables %o', variables)
 
-      let {updateShip: {cabinsText}, cabins = []} = result.data
-      return {cabinsText, cabins}
+      const result = await this.$apollo.mutate({
+        mutation: UpdateCabins,
+        variables,
+      })
+// console.log('result %o', result)
+      const {updateCabins:cabins = []} = result.data
+      // console.log('cabins %o', cabins)
+      return cabins
     },
-    //
-    // async deleteItem (key) {
-    //   console.log('updateItem key %o', key)
-    //   let { data: { deleteShip: ship } } = await this.$apollo.mutate({
-    //     mutation: DeleteShip,
-    //     variables: key,
-    //   })
-    //   // console.log('%o', result.data.ship)
-    //   console.log('ship %o', ship)
-    //   return ship
-    // },
 
-    cabinItemCreated (val) {
-      console.log('From LIST on cabinItemCreated %o', val)
+
+    onCabinItemCreated (val) {
+      console.log('From LIST on onCabinItemCreated %o', val)
       this.refreshItem ()
-    }
+    },
+
+    onCabinItemUpdated (val) {
+      console.log('From LIST on onCabinItemUpdated %o', val)
+      this.refreshItem ()
+    },
+
+    onCabinItemDeleted (val) {
+      console.log('From LIST on onCabinItemDeleted %o', val)
+      this.refreshItem ()
+    },
+
 
   },
 
-  mounted () {
-    utils.EventBus.$on('cabin-item-created', this.cabinItemCreated)
+  created () {
+    utils.EventBus.$on('cabin-item-created', this.onCabinItemCreated)
+    utils.EventBus.$on('cabin-item-updated', this.onCabinItemUpdated)
+    utils.EventBus.$on('cabin-item-deleted', this.onCabinItemDeleted)
   },
+
+
 }
 </script>

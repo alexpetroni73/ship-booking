@@ -12,21 +12,14 @@ const ObjectId = mongoose.Types.ObjectId
 // }
 
 const ship = async function (id) {
-  let agg = [
-    aggExpr.matchById(id),
-    aggExpr.addId(),
-    cabinsAddIdAggExpr(),
-  ]
-  return (await Ship.aggregate(agg))[0]
+  return await shipBy('id', id)
 }
 
 const shipBy = async function (field, value) {
-  let agg = [
-    aggExpr.matchByField(field, value),
-    aggExpr.addId(),
-    cabinsAddIdAggExpr(),
-  ]
-  return (await Ship.aggregate(agg))[0]
+  const r = field == 'id' ? Ship.findById(value) : Ship.findOne({[field]: value})
+  let t = await r
+  console.log('shipBy %o', t)
+  return t
 }
 
 const ships = async function (idArr) {
@@ -72,45 +65,18 @@ const cabin = async function (shipId, id) {
   let c = await Ship.findOne({_id: ObjectId(shipId),  "cabins._id": ObjectId(id)}, {"cabins.$": 1})
   console.log(' c %o', c)
   return c && c.cabins && c.cabins[0]
-  // let agg = [
-  //   { $match: {_id: ObjectId(shipId),  "cabins._id": ObjectId(id)}},
-  //   { $project: { cabins:
-  //     { $filter : {
-  //       input: "$cabins",
-  //       as: "item",
-  //       cond: { $eq: ["$$item._id", ObjectId(id)]}
-  //     }}
-  //   }},
-  //   { $unwind: "$cabins"},
-  //   { "$replaceRoot": { newRoot: "$cabins" }},
-  //   aggExpr.addId(),
-  // ]
-  //
-  // let result = await Ship.aggregate(agg)
-  // // console.log('cabin result %o', result)
-  // return result[0]
-}
-
-const cabinBySlug = async function (slug) {
-  let agg = [{$match : {slug: slug}}, aggExpr.addId(), ...cabinLogoAgg()]
-  return (await Ship.aggregate(agg))[0]
 }
 
 const cabins = async function (shipId) {
-  let agg = [aggExpr.matchById(shipId),  cabinsAddIdAggExpr()]
+  let agg = [aggExpr.matchById(shipId),  ...cabinsArrAggExpr()]
   let result = await Ship.aggregate(agg)
-  // console.log('cabins result %o', result)
-  return result[0] && result[0].cabins ? result[0].cabins : []
-}
-
-const cabinsBySlug = async function (slugArr) {
-  let agg = [{$match: {slug: {$in: slugArr}}}, aggExpr.addId(), ...cabinLogoAgg()]
-  return await Ship.aggregate(agg)
+  console.log('cabins result %o', result)
+  return result
 }
 
 const searchCabins = async function (args = {}) {
   const {limit} = args
-  let agg = [getMatchExpr(args), aggExpr.limit(limit), aggExpr.addId(), ...cabinLogoAgg()]
+  let agg = [getMatchExpr(args), aggExpr.limit(limit), ...cabinsArrAggExpr()]
   return await Ship.aggregate(agg)
 }
 
@@ -145,12 +111,14 @@ const createShip = async function (input) {
   // ensure unique slug
   let slugSeed = input.slug ? input.slug : input.name
   input.slug = await utils.generateUniqueSlug(Ship, 'slug', slugSeed)
-
+  // preemptive
+  delete input.id
   const result = await Ship.create(input)
+
   return await ship(result._id)
 }
 
-const updateShip = async function (id, input) {
+const updateShip = async function (input) {
   // check for non-empty & unique field values if provided
   const uniqueFieldsProvided = utils.checkNonEmptyProperties(['name', 'slug'], input, false)
 
@@ -194,7 +162,7 @@ const createCabin = async function (shipId, input) {
   // return await cabin(addedCabin._id)
 }
 
-const updateCabin = async function (shipId, id, input) {
+const updateCabin = async function (shipId, input) {
   // check for non-empty & unique field values if provided
   // const uniqueFieldsProvided = utils.checkNonEmptyProperties(['name', 'slug'], input, false)
   //
@@ -202,12 +170,10 @@ const updateCabin = async function (shipId, id, input) {
   // if(uniqueFieldsProvided.length){
   //   await Promise.all(uniqueFieldsProvided.map(e => utils.checkUniqueFieldValue(Cabin, e, input[e], id)))
   // }
+  const id = input.id
+  console.log('id %s', id)
 
-  let updateData = Object.keys(input).reduce((acc, item) => {
-    if(['_id', 'createdAt', 'updatedAt'].indexOf(item) != -1) return acc
-    acc['cabins.$.' + item] = input[item]
-    return acc
-  }, {})
+  const updateData = cabinMatchArrItemUpdateData(input)
   console.log('updateData %o', updateData)
   console.log('ship._id: %s, cabins._id: %s', shipId, id)
   let s = await Ship.findOne({'_id': ObjectId(shipId), 'cabins._id': ObjectId(id)})
@@ -218,8 +184,24 @@ const updateCabin = async function (shipId, id, input) {
 }
 
 const deleteCabin = async function (shipId, id) {
-  await Ship.findByIdAndUpdate(shipId, {$pull: {cabins: {'_id': ObjectId(id)}}})
+  let r = await Ship.updateOne({'_id': ObjectId(shipId), 'cabins._id': ObjectId(id)}, {$pull: {cabins: {'_id': ObjectId(id)}}})
+  console.log('r %o', r)
   return id
+}
+
+const updateCabins = async function (shipId, inputArr) {
+  console.log('updateCabins inputArr %o', inputArr)
+
+  await Promise.all(inputArr.map(e => {
+    const id = e.id
+    const updateData = cabinMatchArrItemUpdateData(e)
+    console.log('updateData %o', updateData)
+    return Ship.updateOne({'_id': ObjectId(shipId), 'cabins._id': ObjectId(id)}, {$set: updateData})
+  }))
+
+  await Ship.updateOne({"_id": ObjectId(shipId)}, {$push: { cabins: {"$each": [], $sort: {order: 1}}}}  )
+
+  return cabins(shipId)
 }
 
 const deleteCabins = async function (shipId, idArr) {
@@ -231,6 +213,15 @@ const deleteCabins = async function (shipId, idArr) {
 // -----------------------------------------------------------
 // ------------------ PRIVATE ---------------
 // -----------------------------------------------------------
+
+// return the update object for a cabin in form of { cabins.$.fieldName: value , ... } for an update array match
+function cabinMatchArrItemUpdateData (input) {
+  return Object.keys(input).reduce((acc, item) => {
+    if(['_id', 'createdAt', 'updatedAt'].indexOf(item) != -1) return acc
+    acc['cabins.$.' + item] = input[item]
+    return acc
+  }, {})
+}
 
 function getMatchExpr (args) {
   const matchingFields = ['id', 'name', 'slug',]
@@ -273,6 +264,57 @@ function cabinsAddIdAggExpr () {
   }
 }
 
+function cabinsUnwindAggExpr () {
+  return {
+    "$unwind": "$cabins"
+  }
+}
+
+function cabinsRootReplaceAggExpr () {
+  return {
+    "$replaceRoot":{ newRoot: "$cabins" }
+  }
+}
+
+function cabinsSortAggExpr () {
+  return {
+    "$sort":{ order: 1 }
+  }
+}
+
+function cabinsArrAggExpr () {
+  return [cabinsAddIdAggExpr(), cabinsUnwindAggExpr(), cabinsRootReplaceAggExpr(), cabinsSortAggExpr()]
+}
+
+function cabinsSortAndAddIdAggExpr () {
+  return [
+    {
+      "$unwind": {
+        path: "$cabins",
+        preserveNullAndEmptyArrays: true,
+      }
+    },
+
+    {
+      "$sort": {
+        "cabins.order": 1
+      }
+    },
+
+    {
+      "$addFields": {
+        "cabins.id": "$cabins._id"
+      }
+    },
+
+    {
+      "$group": {
+        "_id": "$_id"
+      }
+    },
+  ]
+}
+
 module.exports = {
   ship,
   shipBy,
@@ -282,9 +324,7 @@ module.exports = {
   paginatedShips,
 
   cabin,
-  cabinBySlug,
   cabins,
-  cabinsBySlug,
   searchCabins,
   paginatedCabins,
 
@@ -296,5 +336,7 @@ module.exports = {
   createCabin,
   updateCabin,
   deleteCabin,
+
+  updateCabins,
   deleteCabins,
 }

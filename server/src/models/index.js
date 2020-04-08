@@ -1,5 +1,5 @@
-const Ship = require('./Ship')
-const Feature = require('./Feature')
+const Ship = require('./ship')
+const Feature = require('./feature')
 
 module.exports = {
   Ship,

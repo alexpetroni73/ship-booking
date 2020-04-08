@@ -8,6 +8,7 @@ fragment CabinData on Cabin{
   description
   order
   image
+  gallery
   features
   featuresText
   capacity

@@ -39,6 +39,14 @@ const schemaDefinition = {
   featuresText: {
     type: String
   },
+
+  image: {
+    type: String
+  },
+
+  gallery: {
+    type: [String]
+  },
 }
 
 module.exports = buildTimestampSchema(schemaDefinition)
