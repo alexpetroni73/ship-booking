@@ -8,6 +8,7 @@ const typeDef = `
     ships(idArr: [ID!]!): [Ship!]!
     shipsBy(field: String, valArr: [String!]!): [Ship!]!
     shipsBySlug(slugArr: [String!]!): [Ship!]!
+    
     searchShips(args: JSON): [Ship!]!
     paginatedShips(args: JSON): PaginatedShips!
 
@@ -21,12 +22,12 @@ const typeDef = `
 
   extend type Mutation {
     createShip(input: ShipInput!): Ship
-    updateShip(input: ShipInput!): Ship
+    updateShip(id: ID!, input: ShipInput!): Ship
     deleteShip(id: ID!): ID
     deleteShips(idArr: [ID!]!): [ID!]!
 
     createCabin(shipId: ID!, input: CabinInput!): Cabin
-    updateCabin(shipId: ID!, input: CabinInput!): Cabin
+    updateCabin(shipId: ID!, id: ID!, input: CabinInput!): Cabin
     deleteCabin(shipId: ID!, id: ID!): ID!
 
     deleteCabins(shipId: ID!, idArr: [ID!]!): [ID!]!
@@ -64,7 +65,6 @@ const typeDef = `
   }
 
   input ShipInput {
-    id: ID
     name: String
     slug: String
     excerpt: String

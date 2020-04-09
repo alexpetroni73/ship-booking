@@ -1,7 +1,7 @@
 const resolvers = {
   Query: {
     ship (_, { id }, context) {
-      return context.models.Ship.ship(id)
+      return context.models.Ship.shipBy('id', id)
     },
 
     shipBy (_, { field, value }, context) {
@@ -13,7 +13,7 @@ const resolvers = {
     },
 
     ships (_, { idArr }, context) {
-      return context.models.Ship.ships(idArr)
+      return context.models.Ship.shipsBy('id', idArr)
     },
 
     shipsBy (_, { field, valArr }, context) {
@@ -47,8 +47,8 @@ const resolvers = {
       return context.models.Ship.createShip(input)
     },
 
-    updateShip(_, { input }, context){
-      return context.models.Ship.updateShip(input)
+    updateShip(_, { id, input }, context){
+      return context.models.Ship.updateShip(id, input)
     },
 
     deleteShip(_, { id }, context){
@@ -63,8 +63,8 @@ const resolvers = {
       return context.models.Ship.createCabin(shipId, input)
     },
 
-    updateCabin(_, { shipId, input }, context){
-      return context.models.Ship.updateCabin(shipId, input)
+    updateCabin(_, { shipId, id, input }, context){
+      return context.models.Ship.updateCabin(shipId, id, input)
     },
 
     deleteCabin(_, { shipId, id }, context){

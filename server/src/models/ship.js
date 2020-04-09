@@ -6,30 +6,21 @@ const aggExpr = require('./aggregation')
 const mongoose = require('mongoose')
 const ObjectId = mongoose.Types.ObjectId
 
-// const ship = async function (id) {
-//   let agg = [aggExpr.matchById(id), aggExpr.addId(), ...shipLogoAgg()]
-//   return (await Ship.aggregate(agg))[0]
-// }
 
 const ship = async function (id) {
-  return await shipBy('id', id)
+  return shipBy('id', id)
 }
 
-const shipBy = async function (field, value) {
-  const r = field == 'id' ? Ship.findById(value) : Ship.findOne({[field]: value})
-  let t = await r
-  console.log('shipBy %o', t)
-  return t
+const shipBy = async function (field, val) {
+  return field == 'id' ? Ship.findById(val) : Ship.findOne({[field]: val})
 }
 
 const ships = async function (idArr) {
-  let agg = [aggExpr.matchByIdArr(idArr), aggExpr.addId(), ...shipLogoAgg()]
-  return await Ship.aggregate(agg)
+  return shipsBy('id', idArr)
 }
 
-const shipsBySlug = async function (slugArr) {
-  let agg = [{'$match': {'slug': {'$in': slugArr}}}, aggExpr.addId(), ...shipLogoAgg()]
-  return await Ship.aggregate(agg)
+const shipsBy = async function (field, valArr) {
+  return field == 'id' ? Ship.find({'_id': { $in: valArr.map(e => ObjectId(e)) }}) : Ship.find({[field]: { $in: valArr }})
 }
 
 const searchShips = async function (args = {}) {
@@ -62,16 +53,13 @@ const paginatedShips = async function (args = {}) {
 
 
 const cabin = async function (shipId, id) {
-  let c = await Ship.findOne({_id: ObjectId(shipId),  "cabins._id": ObjectId(id)}, {"cabins.$": 1})
-  console.log(' c %o', c)
-  return c && c.cabins && c.cabins[0]
+  const ship = await Ship.findOne({_id: ObjectId(shipId),  "cabins._id": ObjectId(id)}, {"cabins.$": 1})
+  return ship && ship.cabins && ship.cabins[0]
 }
 
 const cabins = async function (shipId) {
-  let agg = [aggExpr.matchById(shipId),  ...cabinsArrAggExpr()]
-  let result = await Ship.aggregate(agg)
-  console.log('cabins result %o', result)
-  return result
+  const ship = await Ship.findById(shipId)
+  return ship && ship.cabins ? ship.cabins : []
 }
 
 const searchCabins = async function (args = {}) {
@@ -111,14 +99,11 @@ const createShip = async function (input) {
   // ensure unique slug
   let slugSeed = input.slug ? input.slug : input.name
   input.slug = await utils.generateUniqueSlug(Ship, 'slug', slugSeed)
-  // preemptive
-  delete input.id
-  const result = await Ship.create(input)
 
-  return await ship(result._id)
+  return Ship.create(input)
 }
 
-const updateShip = async function (input) {
+const updateShip = async function (id, input) {
   // check for non-empty & unique field values if provided
   const uniqueFieldsProvided = utils.checkNonEmptyProperties(['name', 'slug'], input, false)
 
@@ -127,12 +112,10 @@ const updateShip = async function (input) {
     await Promise.all(uniqueFieldsProvided.map(e => utils.checkUniqueFieldValue(Ship, e, input[e], id)))
   }
 
-  await Ship.findByIdAndUpdate(id, input)
-  return await ship(id)
+  return Ship.findByIdAndUpdate(id, input, {new: true})
 }
 
 const deleteShip = async function (id) {
-  let ship = await Ship.findById(id)
   await Ship.findByIdAndRemove(id)
   return id
 }
@@ -152,17 +135,17 @@ const createCabin = async function (shipId, input) {
   // let slugSeed = input.slug ? input.slug : input.name
   // input.slug = await utils.generateUniqueSlug(Cabin, 'slug', slugSeed)
 //console.log('createCabin input %o', input)
+  delete input.id
   const result = await Ship.findByIdAndUpdate(shipId, {$push: {cabins: input}}, {new: true})
-  console.log('createCabin result %o', result)
-  // if(!result) return null
-  let q = result && result.cabins && result.cabins.slice(-1)[0]
-  console.log('addedCabin  %o', q)
+
+  if(!result){
+    throw new Error ("No ship found with id " + shipId)
+  }
+
   return result && result.cabins && result.cabins.slice(-1)[0]
-//console.log('addedCabin  %o', addedCabin)
-  // return await cabin(addedCabin._id)
 }
 
-const updateCabin = async function (shipId, input) {
+const updateCabin = async function (shipId, id, input) {
   // check for non-empty & unique field values if provided
   // const uniqueFieldsProvided = utils.checkNonEmptyProperties(['name', 'slug'], input, false)
   //
@@ -170,15 +153,18 @@ const updateCabin = async function (shipId, input) {
   // if(uniqueFieldsProvided.length){
   //   await Promise.all(uniqueFieldsProvided.map(e => utils.checkUniqueFieldValue(Cabin, e, input[e], id)))
   // }
-  const id = input.id
-  console.log('id %s', id)
+  // console.log('id %s', id)
 
   const updateData = cabinMatchArrItemUpdateData(input)
-  console.log('updateData %o', updateData)
-  console.log('ship._id: %s, cabins._id: %s', shipId, id)
-  let s = await Ship.findOne({'_id': ObjectId(shipId), 'cabins._id': ObjectId(id)})
-  console.log('s %o', s)
-  await Ship.updateOne({'_id': ObjectId(shipId), 'cabins._id': ObjectId(id)}, {$set: updateData })
+  // console.log('updateData %o', updateData)
+  // console.log('ship._id: %s, cabins._id: %s', shipId, id)
+  // let s = await Ship.findOne({'_id': ObjectId(shipId), 'cabins._id': ObjectId(id)})
+  // console.log('s %o', s)
+  const result = await Ship.updateOne({'_id': ObjectId(shipId), 'cabins._id': ObjectId(id)}, {$set: updateData })
+  // console.log('result %o', result)
+  if(!result.n){
+    throw new Error ("No ship found with id " + shipId)
+  }
 
   return await cabin(shipId, id)
 }
@@ -190,15 +176,13 @@ const deleteCabin = async function (shipId, id) {
 }
 
 const updateCabins = async function (shipId, inputArr) {
-  console.log('updateCabins inputArr %o', inputArr)
-
   await Promise.all(inputArr.map(e => {
     const id = e.id
     const updateData = cabinMatchArrItemUpdateData(e)
     console.log('updateData %o', updateData)
     return Ship.updateOne({'_id': ObjectId(shipId), 'cabins._id': ObjectId(id)}, {$set: updateData})
   }))
-
+  // to save the cabins order is needed to push "$each" (strange MongoDb way of doing...)
   await Ship.updateOne({"_id": ObjectId(shipId)}, {$push: { cabins: {"$each": [], $sort: {order: 1}}}}  )
 
   return cabins(shipId)
@@ -206,7 +190,6 @@ const updateCabins = async function (shipId, inputArr) {
 
 const deleteCabins = async function (shipId, idArr) {
   await Ship.findByIdAndUpdate(shipId, {$pull: {cabins: {'_id': {$in: utils.idArrToObjectIdArr(idArr)}}}})
-
   return idArr
 }
 
@@ -217,7 +200,7 @@ const deleteCabins = async function (shipId, idArr) {
 // return the update object for a cabin in form of { cabins.$.fieldName: value , ... } for an update array match
 function cabinMatchArrItemUpdateData (input) {
   return Object.keys(input).reduce((acc, item) => {
-    if(['_id', 'createdAt', 'updatedAt'].indexOf(item) != -1) return acc
+    if(['id', 'createdAt', 'updatedAt'].indexOf(item) != -1) return acc
     acc['cabins.$.' + item] = input[item]
     return acc
   }, {})
@@ -319,7 +302,7 @@ module.exports = {
   ship,
   shipBy,
   ships,
-  shipsBySlug,
+  shipsBy,
   searchShips,
   paginatedShips,
 

@@ -58,9 +58,11 @@ export default {
     },
 
     async createItem (item, key) {
+      console.log('createItem item %o', item)
+      console.log('createItem key %o', key)
       let { data: { createCabin } } = await this.$apollo.mutate({
         mutation: CreateCabin,
-        variables: {input:item, ... key},
+        variables: {input:item, ...key},
       })
       return createCabin
     },
@@ -75,6 +77,8 @@ export default {
     },
 
     async updateItem (item, key) {
+      console.log('updateItem item %o', item)
+      console.log('updateItem key %o', key)
       let { data: { updateCabin } } = await this.$apollo.mutate({
         mutation: UpdateCabin,
         variables: {...key, input: item},

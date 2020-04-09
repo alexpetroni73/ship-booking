@@ -35,7 +35,7 @@ export default {
     return {
       item: this.getDefaultItem(),
       loading: false,
-      createdItem: null,
+      createdItem: null, // used as value/flag in setupCurrentItem after an item was created and avoid reloading
     }
   },
 
@@ -71,11 +71,15 @@ export default {
       throw new Error ("getDefaultItem() should be overwritten in component")
     },
 
+    // hooks that can be rewriten in cases when parentId document is needed, or the document does not have an id field as UID
     itemKey () {
-      return this.parentKey() ? { id: this.id , ... this.parentKey() } : { id: this.id }
+      return {id: this.id}
     },
 
-    // hook that can be rewriten for cases when parentId document is needed
+    itemFullKey () {
+      return this.parentKey() ? { ...this.itemKey() , ...this.parentKey() } : this.itemKey()
+    },
+
     parentKey () {
       return null
     },
@@ -154,21 +158,17 @@ export default {
       this.clearError()
       this.loading = true
       try{
-        let result = await this.createItem(val, this.parentKey()) // key is provided in case the item has a parent document whos id should be provided
-        let id = this.extractCreatedItemId(result)
-
-        let parsedResult = this.parseCreateResult(result)
+        const result = await this.createItem(val, this.parentKey()) // key is provided in case the item has a parent document whos id should be provided
+        const id = this.extractCreatedItemId(result)
 
         if(!id){
           throw new Error("No item key provided in createItem result.")
         }
 
         this.$emit('change', id)
-        this.notifiy('item-created', result)
+        this.notifiy('item-created', this.parseItemCreatedNotify(result))
 
-        if(!this.reloadAfterCreate){
-          this.createdItem = parsedResult
-        }
+        this.createdItem = this.reloadAfterCreate ? null : this.parseCreateResult(result)
       }catch(error){
         // console.log('error %o', error)
         this.itemError(error.message)
@@ -182,13 +182,14 @@ export default {
       this.clearError()
       this.loading = true
       try{
-        let result = await this.updateItem(val, this.itemKey())
-        let parsedResult = this.parseUpdateResult(result)
-        this.notifiy('item-updated', parsedResult)
+        const result = await this.updateItem(val, this.itemFullKey())
+
+        this.notifiy('item-updated', this.parseItemUpdatedNotify(result))
+
         if(this.reloadAfterUpdate){
-          return this.refreshItem()
+          return this.refreshItem() // return here because 'loading' should remain true
         }else{
-          this.item = parsedResult
+          this.item = this.parseUpdateResult(result)
         }
       }catch(error){
         // console.log('error %o', error)
@@ -203,8 +204,8 @@ export default {
       this.clearError()
       this.loading = true
       try{
-        await this.deleteItem(this.itemKey())
-        this.notifiy('item-deleted', this.id)
+        await this.deleteItem(this.itemFullKey())
+        this.notifiy('item-deleted', this.itemFullKey())
         this.$emit('change', null)
       }catch(error){
         // console.log('error %o', error)
@@ -225,7 +226,7 @@ export default {
       this.clearError()
       this.loading = true
       try{
-        let result = await this.loadItem(this.itemKey(), fetchPolicy)
+        const result = await this.loadItem(this.itemFullKey(), fetchPolicy)
         if(!result) {
           throw new Error("No item found for this id")
         }
@@ -282,6 +283,15 @@ export default {
 
     parseUpdateResult (result) {
       return this.parseItemToMirrorDefaultModel(result)
+    },
+
+    // --------------- notifications parsers ---------------
+    parseItemCreatedNotify (result) {
+      return this.parentKey() ? Object.assign({}, result, this.parentKey()) : result
+    },
+
+    parseItemUpdatedNotify (result) {
+      return this.parentKey() ? Object.assign({}, result, this.parentKey()) : result
     },
 
     // --------------- Helpers ---------------

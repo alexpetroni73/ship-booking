@@ -11,7 +11,6 @@ export default {
   methods: {
     getDefaultItem () {
       return {
-        id: '',
         name: '',
         slug: '',
         excerpt: '',
@@ -53,7 +52,7 @@ export default {
       // console.log('createItem key %o, item %o', key, item)
       let { data: { createShip: ship } } = await this.$apollo.mutate({
         mutation: CreateShip,
-        variables: {input:item},
+        variables: {input: item},
       })
       // console.log('%o', result.data.ship)
       // console.log('ship %o', ship)
