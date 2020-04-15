@@ -1,5 +1,13 @@
 <template>
-  <div class="about">
-    <h1>This is an itinerary page</h1>
-  </div>
+  <ItinerariesListEditor />
 </template>
+
+<script>
+import ItinerariesListEditor from '@/components/editors/ItinerariesListEditor'
+
+export default {
+  components: {
+    ItinerariesListEditor,
+  }
+}
+</script>

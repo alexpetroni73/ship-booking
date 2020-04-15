@@ -26,8 +26,8 @@ const routes = [
   },
 
   {
-    path: '/ship/:id?',
-    name: 'ship',
+    path: '/ship-edit/:id?',
+    name: 'ship-edit',
     component: () => import('../views/Ship.vue')
   },
 
@@ -41,6 +41,12 @@ const routes = [
     path: '/itineraries',
     name: 'itineraries',
     component: () => import('../views/Itineraries.vue')
+  },
+
+  {
+    path: '/itinerary-edit/:id?',
+    name: 'itinerary-edit',
+    component: () => import('../views/Itinerary.vue')
   },
 
   {

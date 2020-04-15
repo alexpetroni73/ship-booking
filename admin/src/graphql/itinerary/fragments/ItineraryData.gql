@@ -1,0 +1,16 @@
+fragment ItineraryData on Itinerary{
+  id
+  createdAt
+  updatedAt
+  name
+  slug
+  excerpt
+  image
+  locations {
+    name
+    excerpt
+    description
+    image
+    gallery
+  }
+}

@@ -1,0 +1,9 @@
+fragment ItineraryBasicData on Itinerary{
+  id
+  createdAt
+  updatedAt
+  name
+  slug
+  excerpt
+  image
+}

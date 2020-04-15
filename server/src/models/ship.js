@@ -179,10 +179,9 @@ const updateCabins = async function (shipId, inputArr) {
   await Promise.all(inputArr.map(e => {
     const id = e.id
     const updateData = cabinMatchArrItemUpdateData(e)
-    console.log('updateData %o', updateData)
     return Ship.updateOne({'_id': ObjectId(shipId), 'cabins._id': ObjectId(id)}, {$set: updateData})
   }))
-  // to save the cabins order is needed to push "$each" (strange MongoDb way of doing...)
+  // to save the cabins order is needed to push "$each" (MongoDb strange way of doing things...)
   await Ship.updateOne({"_id": ObjectId(shipId)}, {$push: { cabins: {"$each": [], $sort: {order: 1}}}}  )
 
   return cabins(shipId)

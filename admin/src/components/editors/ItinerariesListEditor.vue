@@ -1,5 +1,7 @@
 <template>
   <div>
+
+
     <v-data-iterator
       :items="items"
       :items-per-page.sync="itemsPerPage"
@@ -10,7 +12,7 @@
       <ListEditorHeader
       @add-new-item="onAddNewItem"
       v-model="search"
-      btnTitle="Add New Ship"
+      btnTitle="Add New Itinerary"
       >
       </ListEditorHeader>
     </template>
@@ -26,7 +28,7 @@
          >
            <v-card>
             <v-card-title
-             @click="editShip(item.id)"
+             @click="editItinerary(item.id)"
              class="subheading font-weight-bold"
              >
              {{ item.name }}
@@ -40,11 +42,11 @@
 </template>
 
 <script>
-import SearchShips from '@/graphql/ship/SearchShips.gql'
+import SearchItineraries from '@/graphql/itinerary/SearchItineraries.gql'
 import ListEditorHeader from '@/components/shared/ListEditorHeader'
 
 export default {
-  name: 'ShipsListEditor',
+  name: 'ItinerariesListEditor',
 
   components: {
     ListEditorHeader,
@@ -84,11 +86,11 @@ export default {
 
   apollo: {
     items: {
-      query: SearchShips,
+      query: SearchItineraries,
       fetchPolicy: 'network-only',
       update (data) {
         console.log('data %o', data)
-        return data.searchShips
+        return data.searchItineraries
       },
       error (error) {
         console.log('error %o', error)
@@ -109,11 +111,11 @@ export default {
   methods: {
     onAddNewItem () {
       console.log('add new')
-      this.$router.push({name: 'ship-edit'})
+      this.$router.push({name: 'itinerary-edit'})
     },
 
-    editShip (id) {
-      this.$router.push({name: 'ship-edit', params: {id: id}})
+    editItinerary (id) {
+      this.$router.push({name: 'itinerary-edit', params: {id: id}})
     },
   },
 
