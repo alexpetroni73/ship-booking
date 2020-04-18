@@ -46,6 +46,7 @@ export default {
         'delete-item': this.deleteItem,
         'reload-item': this.reloadItem,
         'new-item': this.newItem,
+        'cancel': this.cancel,
       }
     }
   },
@@ -70,6 +71,10 @@ export default {
 
     newItem () {
       this.$emit('new-item')
+    },
+
+    cancel () {
+      this.$emit('cancel')
     },
   },
 

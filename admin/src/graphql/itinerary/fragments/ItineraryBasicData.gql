@@ -3,7 +3,8 @@ fragment ItineraryBasicData on Itinerary{
   createdAt
   updatedAt
   name
+  length
   slug
-  excerpt
+  description
   image
 }

@@ -2,7 +2,7 @@
   <ShipFormModel
   :id="id"
   v-slot="{item, modelState, formEvents}"
-  v-on="pipeUpEvents('new-item', 'item-created', 'item-deleted')"
+  v-on="pipeUpEvents('new-item', 'item-created', 'item-deleted', 'cancel')"
   >
   <div>
     <FormTopBar

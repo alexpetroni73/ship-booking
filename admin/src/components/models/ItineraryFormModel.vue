@@ -19,26 +19,24 @@ export default {
       return {
         name: '',
         slug: '',
-        excerpt: '',
+        length: '',
+        dives: '',
+        experience: '',
         description: '',
         image: '',
         gallery: [],
-        locations: [],
+        stopovers: [],
       }
     },
 
     getDefaultItineraryStep () {
       return {
-        name: '',
-        excerpt: '',
+        title: '',
         description: '',
-        image: '',
       }
     },
 
     async createItem (item, key) {
-      console.log('createItem item %o', item)
-      console.log('createItem key %o', key)
       let { data: { createItinerary } } = await this.$apollo.mutate({
         mutation: CreateItinerary,
         variables: {input:item, ...key},
@@ -47,11 +45,12 @@ export default {
     },
 
     async loadItem (key) {
+      console.log('loadItem key %o', key)
       let { data: { itinerary } } = await this.$apollo.query({
         query: Itinerary,
         variables: key,
       })
-
+      console.log('itinerary %o', itinerary)
       return itinerary
     },
 

@@ -34,7 +34,7 @@ export default {
         { icon: 'mdi-image-multiple', text: 'Media', route: 'media' },
         { icon: 'mdi-cash-multiple', text: 'Orders', route: 'orders' },
         { icon: 'mdi-account-multiple-outline', text: 'Clients', route: 'clients' },
-        { icon: 'mdi-settings-outline', text: 'Settings', route: 'settings' },
+        { icon: 'mdi-cogs', text: 'Settings', route: 'settings' },
         // {
         //   icon: 'mdi-chevron-up',
         //   'icon-alt': 'mdi-chevron-down',

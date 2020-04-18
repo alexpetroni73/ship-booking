@@ -16,7 +16,15 @@ const schemaDefinition = {
     unique: true,
   },
 
-  excerpt: {
+  length: {
+    type: String
+  },
+
+  dives: {
+    type: String
+  },
+
+  experience: {
     type: String
   },
 
@@ -32,12 +40,9 @@ const schemaDefinition = {
     type: [String]
   },
 
-  locations: [{
-      name: String,
-      excerpt: String,
+  stopovers: [{
+      title: String,
       description: String,
-      image: String,
-      gallery: [String]
   }],
 }
 

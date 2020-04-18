@@ -4,13 +4,13 @@ fragment ItineraryData on Itinerary{
   updatedAt
   name
   slug
-  excerpt
+  length
+  dives
+  experience
+  description
   image
-  locations {
-    name
-    excerpt
+  stopovers {
+    title
     description
-    image
-    gallery
   }
 }

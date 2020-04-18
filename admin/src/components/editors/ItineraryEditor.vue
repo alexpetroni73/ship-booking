@@ -6,9 +6,9 @@
     v-on="pipeUpEvents('new-item', 'item-created', 'item-deleted')"
     >
     <v-container
-    fluid>
+    >
       <v-row>
-        <v-col
+        <!-- <v-col
         sm="12"
         md="2"
         >
@@ -17,23 +17,23 @@
             small
            @click="setListView"><v-icon>mdi-chevron-left</v-icon>Itineraries list
          </v-btn>
-        </v-col>
+        </v-col> -->
 
         <v-col
-        sm="12"
-        md="8"
+        cols="12"
         >
             <ItineraryForm
             :item="item"
             v-bind="modelState"
             v-on="formEvents"
+            @cancel="setListView"
             />
         </v-col>
-        <v-col
+        <!-- <v-col
         sm="12"
         md="2"
         >
-        </v-col>
+        </v-col> -->
       </v-row>
       </v-container>
     </ItineraryFormModel>

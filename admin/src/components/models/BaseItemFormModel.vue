@@ -47,6 +47,7 @@ export default {
         'delete-item': this.onDeleteItem,
         'reload-item': this.onReloadItem,
         'new-item': this.onNewItem,
+        'cancel': this.onCancel,
       }
     },
 
@@ -218,6 +219,10 @@ export default {
     onReloadItem () {
       // console.log('onReloadItem')
       this.refreshItem('network-only')
+    },
+
+    onCancel () {
+      this.$emit('cancel')
     },
 
     //

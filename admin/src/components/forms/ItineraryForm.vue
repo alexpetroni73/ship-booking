@@ -21,6 +21,27 @@
 
          <v-col
          sm="12"
+         md="6"
+         >
+           <v-text-field v-model="editedItem.length" label="Length of trip"></v-text-field>
+         </v-col>
+
+         <v-col
+         sm="12"
+         md="6"
+         >
+           <v-text-field v-model="editedItem.dives" label="Dives"></v-text-field>
+         </v-col>
+
+         <v-col
+         sm="12"
+         md="6"
+         >
+           <v-text-field v-model="editedItem.experience" label="Experience"></v-text-field>
+         </v-col>
+
+         <!-- <v-col
+         sm="12"
          >
            <v-textarea
              v-model="editedItem.excerpt"
@@ -28,7 +49,7 @@
              hint="Short text visible on itinerarys list"
              outlined
            ></v-textarea>
-        </v-col>
+        </v-col> -->
 
          <v-col
          sm="12"
@@ -62,6 +83,24 @@
         /> -->
 
       </v-col>
+    </v-row>
+
+    <v-row>
+      <v-col
+      cols="12"
+      class="title"
+      >
+      Stopovers
+      </v-col>
+
+      <v-col
+      cols="12"
+      >
+        <ItineraryStopoversForm
+        v-model="editedItem.stopovers"
+        />
+      </v-col>
+
       </v-row>
      </v-container>
    </v-card-text>
@@ -80,6 +119,8 @@ import FormTopBar from '@/components/shared/FormTopBar'
 import FormSubmitButtons from '@/components/shared/FormSubmitButtons'
 import MediaSelect from '@/components/shared/MediaSelect'
 
+import ItineraryStopoversForm from '@/components/forms/ItineraryStopoversForm'
+
 export default {
   mixins: [ FormMixin ],
 
@@ -94,6 +135,7 @@ export default {
     FormTopBar,
     FormSubmitButtons,
     MediaSelect,
+    ItineraryStopoversForm,
   },
 
   methods: {

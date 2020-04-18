@@ -26,37 +26,35 @@ const typeDef = `
     updatedAt: Date
     name: String
     slug: String
-    excerpt: String
+    length: String
+    dives: String
+    experience: String
     description: String
     image: String
     gallery: [String!]
-    locations: [ItineraryStep!]!
+    stopovers: [ItineraryStopover!]!
   }
 
   input ItineraryInput {
     name: String
     slug: String
-    excerpt: String
+    length: String
+    dives: String
+    experience: String
     description: String
     image: String
     gallery: [String!]
-    locations: [ItineraryStepInput!]!
+    stopovers: [ItineraryStopoverInput!]
   }
 
-  type ItineraryStep {
-    name: String
-    excerpt: String
+  type ItineraryStopover {
+    title: String
     description: String
-    image: String
-    gallery: [String!]
   }
 
-  input ItineraryStepInput {
-    name: String
-    excerpt: String
+  input ItineraryStopoverInput {
+    title: String
     description: String
-    image: String
-    gallery: [String!]
   }
 
   type PaginatedItineraries {

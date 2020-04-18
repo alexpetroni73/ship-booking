@@ -23,20 +23,25 @@ export default {
         'new-item': this.onAddNewItem,
         'item-created': this.onItemCreated,
         'item-deleted': this.onItemDeleted,
+        'cancel': this.onCancel,
       }
     },
   },
 
   methods: {
     onAddNewItem () {
-      this.$router.push({ name: 'ship' })
+      this.$router.push({ name: 'ship-edit' })
     },
 
     onItemCreated (item) {
-      this.$router.push({ name: 'ship', params: {id: item.id} })
+      this.$router.push({ name: 'ship-edit', params: {id: item.id} })
     },
 
     onItemDeleted () {
+      this.$router.push({ name: 'ships' })
+    },
+
+    onCancel () {
       this.$router.push({ name: 'ships' })
     },
   },

@@ -1,71 +1,96 @@
 <template>
     <div>
-      <slot v-bind="{
-        isNewForm,
-        isEditForm,
-        disableAddNewBtn,
-        disableReloadBtn,
-        disableDeleteBtn,
-        title,
-        formState,
-        name,
-        error,
-        hideAddNewBtn,
-        hideReloadBtn,
-        hideDeleteBtn,
-        btnColor,
-        editTitle,
-        addNewTitle,
-        requireDeleteConfirmation,
-        deleteConfirmationMsg,
-      }">
         <v-toolbar
         color="white elevation-1"
          >
-              <v-icon
-              v-if="!hideAddNewBtn"
-              :disabled="disableAddNewBtn"
-              @click="onAddNew()"
-              class="mx-2"
-              small
-              :color="btnColor"
-              left
-              :title="addNewTitle"
-              >
-              mdi-plus
-            </v-icon>
-
+           <slot
+           name="left"
+           v-bind="{
+             isNewForm,
+             isEditForm,
+             btnColor,
+           }"
+           >
+                <v-icon
+                @click="onClose()"
+                class="mx-2"
+                small
+                :color="btnColor"
+                left
+                :title="closeIconTitle"
+                >
+                {{ closeIcon }}
+              </v-icon>
+            </slot>
             <v-spacer></v-spacer>
             <v-toolbar-title>{{ title }}</v-toolbar-title>
             <v-spacer></v-spacer>
 
-              <v-icon
-              v-if="!hideReloadBtn"
-              @click="onReload()"
-              :disabled="disableReloadBtn"
-              class="mx-2"
-              small
-              :color="btnColor"
-              right
-              title="Reload"
-              >
-              mdi-reload
+            <slot
+            name="right"
+            v-bind="{
+              isNewForm,
+              isEditForm,
+              btnColor,
+            }"
+            >
+
+               <v-icon
+               v-if="!hideDeleteBtn"
+               :disabled="disableDeleteBtn"
+               @click="onDelete()"
+               class="mx-2"
+               small
+               :color="btnColor"
+               right
+               title="Delete"
+               >
+                mdi-delete
               </v-icon>
 
-             <v-icon
-             v-if="!hideDeleteBtn"
-             :disabled="disableDeleteBtn"
-             @click="onDelete()"
-             class="mx-2"
-             small
-             :color="btnColor"
-             right
-             title="Delete"
-             >
-             mdi-delete
-           </v-icon>
+             <v-menu
+             bottom
+             v-if="hasMenuItems">
+                <template v-slot:activator="{ on }">
+                  <v-btn
+                    color="btnColor"
+                    :disabled="rightMenuDisabled"
+                    icon
+                    text
+                    v-on="on"
+                  >
+                    <v-icon
+
+                    small
+                    :color="btnColor"
+                    >mdi-dots-vertical
+                    </v-icon>
+                  </v-btn>
+                </template>
+
+                <v-list>
+                  <v-list-item
+                    v-for="(item, i) in compMenuItems"
+                    :key="i"
+                    @click="$emit(item.emit)"
+                    :disabled="item.disabled"
+                  >
+                    <v-list-item-icon v-if="useMenuIcons">
+                      <v-icon
+                      small
+                      :color="btnColor"
+                      v-text="item.icon"
+                      :disabled="item.disabled"
+                      >
+                      </v-icon>
+                    </v-list-item-icon>
+
+                    <v-list-item-title>{{ item.title }}</v-list-item-title>
+                  </v-list-item>
+                </v-list>
+              </v-menu>
+          </slot>
         </v-toolbar>
-      </slot>
 
       <slot name="error-display" v-bind="{error}">
           <BaseError
@@ -117,8 +142,14 @@ export default {
       type: String,
     },
 
-    hideAddNewBtn: {
-      type: Boolean,
+    closeIcon: {
+      type: String,
+      default: 'mdi-close'
+    },
+
+    closeIconTitle: {
+      type: String,
+      default: 'Close'
     },
 
     hideReloadBtn: {
@@ -152,7 +183,25 @@ export default {
     deleteConfirmationMsg: {
       type: String,
       default: "Do you want to delete this item?"
-    }
+    },
+
+    menuItems: {
+      type: Array,
+      default: () => [
+        {title: "Add new", emit: 'new-item', icon: "mdi-plus", disabled: "new"},
+        {title: "Reload", emit: 'reload-item', icon: "mdi-reload"},
+      ]
+    },
+
+    useMenuIcons: {
+      type: Boolean,
+      default: true,
+    },
+
+    rightMenuDisabled: {
+      type: Boolean,
+      default: false,
+    },
 
   },
 
@@ -190,6 +239,21 @@ export default {
         return this.addNewTitle
       }
     },
+
+    hasMenuItems () {
+      return this.menuItems && this.menuItems.length
+    },
+
+    compMenuItems () {
+      if(!this.hasMenuItems) return []
+      return this.menuItems.map(e => {
+        if(e.disabled){
+          let disabled = e.disabled == this.formState
+          return Object.assign({}, e, {disabled: disabled})
+        }
+        return e
+      })
+    },
   },
 
   watch: {
@@ -197,6 +261,10 @@ export default {
   },
 
   methods: {
+    onClose () {
+      this.$emit('cancel')
+    },
+
     onAddNew () {
       this.$emit('new-item')
     },
