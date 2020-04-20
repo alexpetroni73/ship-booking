@@ -11,7 +11,7 @@
     :color="btnColor"
     :disabled="disabled"
     >
-      Update
+      {{ btnTextUpdate }}
     </v-btn>
 
     <v-btn
@@ -20,7 +20,7 @@
     :color="btnColor"
     :disabled="disabled"
     >
-      Add
+      {{ btnTextAdd }}
     </v-btn>
     <v-spacer></v-spacer>
   </v-card-actions>
@@ -50,7 +50,17 @@ export default {
     cardClass: {
       type: String,
       default: 'pb-4 mt-4'
-    }
+    },
+
+    btnTextAdd: {
+      type: String,
+      default: "Add"
+    },
+
+    btnTextUpdate: {
+      type: String,
+      default: "Update"
+    },
   },
 
   computed: {

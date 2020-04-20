@@ -32,7 +32,7 @@ const typeDef = `
     description: String
     image: String
     gallery: [String!]
-    stopovers: [ItineraryStopover!]!
+    stopovers: [Stopover!]!
   }
 
   input ItineraryInput {
@@ -44,15 +44,15 @@ const typeDef = `
     description: String
     image: String
     gallery: [String!]
-    stopovers: [ItineraryStopoverInput!]
+    stopovers: [StopoverInput!]
   }
 
-  type ItineraryStopover {
+  type Stopover {
     title: String
     description: String
   }
 
-  input ItineraryStopoverInput {
+  input StopoverInput {
     title: String
     description: String
   }

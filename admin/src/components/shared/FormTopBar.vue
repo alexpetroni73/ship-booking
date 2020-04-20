@@ -152,10 +152,6 @@ export default {
       default: 'Close'
     },
 
-    hideReloadBtn: {
-      type: Boolean,
-    },
-
     hideDeleteBtn: {
       type: Boolean,
     },

@@ -62,6 +62,7 @@ export default {
     },
 
     deleteItem () {
+      console.log('emit deleteItem')
       this.$emit('delete-item')
     },
 

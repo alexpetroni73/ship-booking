@@ -96,8 +96,8 @@
       <v-col
       cols="12"
       >
-        <ItineraryStopoversForm
-        v-model="editedItem.stopovers"
+        <StopoversEditor
+          v-model="editedItem.stopovers"
         />
       </v-col>
 
@@ -118,8 +118,7 @@ import FormMixin from '@/mixins/FormMixin'
 import FormTopBar from '@/components/shared/FormTopBar'
 import FormSubmitButtons from '@/components/shared/FormSubmitButtons'
 import MediaSelect from '@/components/shared/MediaSelect'
-
-import ItineraryStopoversForm from '@/components/forms/ItineraryStopoversForm'
+import StopoversEditor from '@/components/editors/StopoversEditor'
 
 export default {
   mixins: [ FormMixin ],
@@ -135,7 +134,7 @@ export default {
     FormTopBar,
     FormSubmitButtons,
     MediaSelect,
-    ItineraryStopoversForm,
+    StopoversEditor,
   },
 
   methods: {
