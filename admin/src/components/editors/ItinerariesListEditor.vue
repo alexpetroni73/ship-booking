@@ -1,7 +1,5 @@
 <template>
   <div>
-
-
     <v-data-iterator
       :items="items"
       :items-per-page.sync="itemsPerPage"
@@ -101,11 +99,7 @@ export default {
   computed: {
     areLessThan20 () {
       return this.items.length < 20
-    }
-  },
-
-  watch: {
-
+    },
   },
 
   methods: {
@@ -122,8 +116,3 @@ export default {
 
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-
-</style>

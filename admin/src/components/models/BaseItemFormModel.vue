@@ -120,9 +120,9 @@ export default {
     },
 
     // hook for parsing editedItem for input
-    parseItemForInput (item) {
-      return item
-    },
+    // parseItemForInput (item) {
+    //   return item
+    // },
 
     // --------------- Async services that should be overwritten in components ---------------
     async createItem (item, key) {

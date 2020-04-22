@@ -6,7 +6,14 @@
      <v-spacer></v-spacer>
      <v-toolbar-title>{{ listTitle }}</v-toolbar-title>
      <v-spacer></v-spacer>
-     <v-btn @click="$emit('new-item')">+</v-btn>
+     <v-btn
+      fab
+      small
+      dark
+      color="primary"
+      @click="$emit('new-item')">
+      <v-icon small>mdi-plus</v-icon>
+    </v-btn>
    </v-toolbar>
    <v-container>
      <v-row>
@@ -14,21 +21,42 @@
        v-if="hasStopovers"
        cols="12"
        >
-
       <v-list>
+        <draggable v-model="editedItem" handle=".handle" @change="onReorder">
         <v-list-item
-        v-for="(s, index) in item"
+        v-for="(item, index) in editedItem"
         :key="index"
         >
-        <v-list-item-content>
-          <v-list-item-title v-text="s.title"></v-list-item-title>
-        </v-list-item-content>
 
         <v-list-item-icon>
-          <v-icon color="pink" @click="editItem(index)">mdi-pencil</v-icon>
+          <v-btn
+          fab
+          small
+          color="primary"
+          @click="editItem(index)"
+          >
+            <v-icon small>mdi-pencil</v-icon>
+          </v-btn>
         </v-list-item-icon>
+
+        <v-list-item-content>
+          <v-list-item-title v-text="item.title"></v-list-item-title>
+        </v-list-item-content>
+
+        <v-list-item-avatar>
+          <v-btn
+            v-if="isReordable"
+            title="Drag to reorder"
+            icon
+            class="handle"
+          >
+            <v-icon>mdi-drag-vertical</v-icon>
+          </v-btn>
+        </v-list-item-avatar>
         </v-list-item>
+        </draggable>
       </v-list>
+
 
        </v-col>
 
@@ -46,34 +74,20 @@
 
 <script>
 import FormMixin from '@/mixins/FormMixin'
+import draggable from 'vuedraggable'
 
 export default {
   name: '',
 
   components: {
+    draggable,
   },
-
-  directives: {
-
-  },
-
-  filters: {
-
-  },
-
-  extends: {
-
-  },
-
-  mixins: [ FormMixin ],
 
   model: {
 
   },
 
-  props: {
-
-  },
+  mixins: [ FormMixin ],
 
   data () {
     return {
@@ -83,26 +97,27 @@ export default {
 
   computed: {
     hasStopovers () {
-      return this.item && Array.isArray(this.item) && this.item.length
+      return this.editedItem && Array.isArray(this.editedItem) && this.editedItem.length
     },
 
+    isReordable () {
+      return this.hasStopovers && this.editedItem.length > 1
+    },
   },
 
   watch: {
-
   },
 
   methods: {
     editItem (index) {
       this.$emit('edit-item', index)
-    }
+    },
+
+    onReorder () {
+      this.$emit('reorder-list', this.editedItem)
+    },
   },
 
 
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-
-</style>

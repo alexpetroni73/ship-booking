@@ -1,20 +1,21 @@
 <template>
   <div>
     <StopoversListForm
-    v-if="isListView"
-    :item="stopovers"
-    @new-item="onAddNewItem"
-    @edit-item="onEditItem"
+      v-if="isListView"
+      :item="stopovers"
+      @new-item="onAddNewItem"
+      @edit-item="onEditItem"
+      @reorder-list="onListReorder"
     />
 
     <StopoverForm
-    :item="editedItem"
-    @cancel="setListView"
-    @create-item="onCreateItem"
-    @update-item="onUpdateItem"
-    @delete-item="onDeleteItem"
-    :formState="formState"
-    v-else
+      v-else
+      :item="editedItem"
+      @cancel="setListView"
+      @create-item="onCreateItem"
+      @update-item="onUpdateItem"
+      @delete-item="onDeleteItem"
+      :formState="formState"
     />
   </div>
 </template>
@@ -25,23 +26,11 @@ import StopoversListForm from '@/components/forms/StopoversListForm'
 import StopoverForm from '@/components/forms/StopoverForm'
 
 export default {
-  name: '',
+  name: 'StopoversEditor',
 
   components: {
     StopoversListForm,
     StopoverForm,
-  },
-
-  directives: {
-
-  },
-
-  filters: {
-
-  },
-
-  extends: {
-
   },
 
   mixins: [ FormStateMixin ],
@@ -75,7 +64,7 @@ export default {
   watch: {
     stopovers: function () {
       this.setListView()
-    }
+    },
   },
 
   methods: {
@@ -111,8 +100,15 @@ export default {
 
       return false
     },
+
     resetEditedItem () {
       this.setNewEditedItem()
+    },
+
+    //  ---- Events handlers ----
+
+    onListReorder (list) {
+      this.$emit('change', list)
     },
 
     onCreateItem (item) {
@@ -129,14 +125,12 @@ export default {
     },
 
     onUpdateItem (item) {
-      console.log('this.editedItemIndex %s item %o', this.editedItemIndex, item)
       let updated = [...this.stopovers]
       updated.splice(this.editedItemIndex, 1, item)
       this.$emit('change', updated)
     },
 
     onDeleteItem () {
-      console.log('onDeleteItem')
       let updated = [...this.stopovers]
       updated.splice(this.editedItemIndex, 1)
       this.$emit('change', updated)
@@ -146,8 +140,3 @@ export default {
 
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-
-</style>

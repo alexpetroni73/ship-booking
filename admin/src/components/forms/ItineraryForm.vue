@@ -85,16 +85,10 @@
       </v-col>
     </v-row>
 
-    <v-row>
+    <v-row justify="center">
       <v-col
-      cols="12"
-      class="title"
-      >
-      Stopovers
-      </v-col>
-
-      <v-col
-      cols="12"
+      sm="12"
+      md="6"
       >
         <StopoversEditor
           v-model="editedItem.stopovers"

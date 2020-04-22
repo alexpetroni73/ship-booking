@@ -1,17 +1,26 @@
 <template>
-  <div>
+  <v-container>
   <v-slide-x-transition>
     <CabinsListFormModel
     :id="id"
     v-slot="{item, modelState, formEvents}"
     >
+    <v-row
+      v-show="isListView"
+      justify="center"
+    >
+      <v-col
+      sm="12"
+      md="6"
+      >
         <CabinsListForm
-        v-show="showCabinsListForm"
         :item="item"
         v-bind="modelState"
         @update-item="formEvents['update-item']"
         @edit-item="setCabinEditor"
         />
+      </v-col>
+    </v-row>
     </CabinsListFormModel>
   </v-slide-x-transition>
 
@@ -26,43 +35,26 @@
     v-slot="{item, modelState, formEvents, cabinFeatures}"
     v-on="pipeUpEvents(['item-created', 'item-updated', 'item-deleted'])"
     >
-    <v-container
-    v-show="showCabinForm"
-    fluid>
-      <v-row>
-        <v-col
-        sm="12"
-        md="2"
-        >
-          <v-btn
-            text
-            small
-           @click="setListView"><v-icon>mdi-chevron-left</v-icon>Cabins list
-         </v-btn>
-        </v-col>
-
-        <v-col
-        sm="12"
-        md="8"
-        >
+    <v-row
+      v-show="isCabinView"
+      justify="center"
+    >
+      <v-col
+        cols="12"
+      >
             <CabinForm
             :item="item"
             :cabinFeatures="cabinFeatures"
             v-bind="modelState"
             v-on="formEvents"
+            @cancel="setListView"
             />
         </v-col>
-        <v-col
-        sm="12"
-        md="2"
-        >
-        </v-col>
       </v-row>
-      </v-container>
     </CabinFormModel>
 
 </v-slide-x-reverse-transition>
-</div>
+</v-container>
 </template>
 
 <script>
@@ -101,11 +93,11 @@ export default {
   },
 
   computed: {
-    showCabinsListForm () {
+    isListView () {
       return this.view == 'cabinsList'
     },
 
-    showCabinForm () {
+    isCabinView () {
       return this.view == 'cabin'
     },
   },

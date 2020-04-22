@@ -1,4 +1,5 @@
 <script>
+import { jsonCopy } from '@/utils'
 import BaseItemFormModel from '@/components/models/BaseItemFormModel'
 
 import Itinerary from '@/graphql/itinerary/Itinerary.gql'
@@ -45,21 +46,18 @@ export default {
     },
 
     async loadItem (key) {
-      console.log('loadItem key %o', key)
       let { data: { itinerary } } = await this.$apollo.query({
         query: Itinerary,
         variables: key,
       })
-      console.log('itinerary %o', itinerary)
       return itinerary
     },
 
     async updateItem (item, key) {
-      console.log('updateItem item %o', item)
-      console.log('updateItem key %o', key)
+      let input = this.parseItemForInput(item)
       let { data: { updateItinerary } } = await this.$apollo.mutate({
         mutation: UpdateItinerary,
-        variables: {...key, input: item},
+        variables: {...key, input },
       })
       return updateItinerary
     },
@@ -70,6 +68,19 @@ export default {
         variables: key,
       })
       return deleteItinerary
+    },
+
+    parseItemForInput (item) {
+      let input = jsonCopy(item)
+      if(input.stopovers){
+        input.stopovers = input.stopovers.map(e => {
+          return {
+            title: e.title,
+            description: e.description
+          }
+        })
+      }
+      return input
     },
 
   },

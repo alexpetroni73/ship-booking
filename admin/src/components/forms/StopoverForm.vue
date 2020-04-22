@@ -10,17 +10,15 @@
     <v-container>
      <v-row>
        <v-col
-       sm="12"
-       md="6"
+       cols="12"
        >
          <v-text-field v-model="editedItem.title" label="Title"></v-text-field>
        </v-col>
 
        <v-col
-       sm="12"
-       md="6"
+       cols="12"
        >
-         <v-text-field v-model="editedItem.description" label="Description"></v-text-field>
+         <v-textarea v-model="editedItem.description" label="Description"></v-textarea>
        </v-col>
      </v-row>
 
@@ -34,7 +32,6 @@
      />
 
     </v-container>
-
   </v-card>
 
 </template>

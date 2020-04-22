@@ -23,6 +23,7 @@ export default {
         'new-item': this.onAddNewItem,
         'item-created': this.onItemCreated,
         'item-deleted': this.onItemDeleted,
+        'cancel': this.onCancel,
       }
     },
   },
@@ -39,6 +40,10 @@ export default {
     onItemDeleted () {
       this.$router.push({ name: 'itineraries' })
     },
+
+    onCancel () {
+      this.$router.push({ name: 'itineraries' })
+    },
   },
 
   watch: {
@@ -48,10 +53,6 @@ export default {
       },
       immediate: true
     },
-
-    'id': function (val) {
-      console.log('id changed in View %s', val)
-    }
   },
 }
 </script>

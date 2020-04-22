@@ -83,3 +83,9 @@ import AppFooter from '@/components/AppFooter'
 
   }
 </script>
+
+<style>
+.handle {
+  cursor: grabbing;
+}
+</style>

@@ -2,7 +2,7 @@
   <ShipFormModel
   :id="id"
   v-slot="{item, modelState, formEvents}"
-  v-on="pipeUpEvents('new-item', 'item-created', 'item-deleted', 'cancel')"
+  v-on="pipeUpEvents('new-item', 'item-created', 'item-deleted')"
   >
   <div>
     <FormTopBar
@@ -10,12 +10,13 @@
     v-bind="modelState"
     v-on="formEvents"
     :name="item.name"
+    @cancel="$emit('cancel')"
     />
     <v-tabs
-     v-model="tab"
-     class="elevation-2"
-     centered
-    @change="onTabsChange"
+      v-model="tab"
+      class="elevation-2"
+      centered
+      @change="onTabsChange"
      >
       <v-tab
         v-for="t in tabs"
