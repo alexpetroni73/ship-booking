@@ -3,6 +3,7 @@ const Common = require('./common')
 const Ship = require('./ship')
 const Feature = require('./feature')
 const Itinerary = require('./itinerary')
+const Cruise = require('./cruise')
 
 const Query = `
   type Query {
@@ -23,6 +24,7 @@ const typeDefs = [
   Ship,
   Feature,
   Itinerary,
+  Cruise,
 ]
 
 module.exports = typeDefs

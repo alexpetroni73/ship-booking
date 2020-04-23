@@ -1,0 +1,16 @@
+fragment CruiseData on Cruise{
+  id
+  createdAt
+  updatedAt
+  name
+  slug
+  length
+  dives
+  experience
+  description
+  image
+  stopovers {
+    title
+    description
+  }
+}

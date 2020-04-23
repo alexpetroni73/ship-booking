@@ -20,12 +20,26 @@ const typeDef = `
     deleteItineraries(idArr: [ID!]!): [ID!]!
   }
 
-  type Itinerary {
+  interface ItineraryBase {
+    name: String
+    slug: String
+    location: String
+    length: String
+    dives: String
+    experience: String
+    description: String
+    image: String
+    gallery: [String!]
+    stopovers: [Stopover!]!
+  }
+
+  type Itinerary implements ItineraryBase {
     id: ID!
     createdAt: Date
     updatedAt: Date
     name: String
     slug: String
+    location: String
     length: String
     dives: String
     experience: String
@@ -38,6 +52,7 @@ const typeDef = `
   input ItineraryInput {
     name: String
     slug: String
+    location: String
     length: String
     dives: String
     experience: String
@@ -45,6 +60,32 @@ const typeDef = `
     image: String
     gallery: [String!]
     stopovers: [StopoverInput!]
+  }
+
+  type CruiseItinerary implements ItineraryBase {
+    name: String
+    slug: String
+    location: String
+    length: String
+    dives: String
+    experience: String
+    description: String
+    image: String
+    gallery: [String!]
+    stopovers: [Stopover!]!
+  }
+
+  input CruiseItineraryInput {
+    name: String
+    slug: String
+    location: String
+    length: String
+    dives: String
+    experience: String
+    description: String
+    image: String
+    gallery: [String!]
+    stopovers: [StopoverInput!]!
   }
 
   type Stopover {

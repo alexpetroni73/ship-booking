@@ -24,6 +24,15 @@ const resolvers = {
       return null
     }
   },
+
+  ItineraryBase: {
+    __resolveType(obj, context, info){
+      if(obj.id){
+        return 'Itinerary'
+      }
+      return 'CruiseItinerary'
+    }
+  },
 }
 
 module.exports = resolvers

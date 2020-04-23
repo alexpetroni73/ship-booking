@@ -1,5 +1,13 @@
 <template>
-  <div class="about">
-    <h1>This is an cruises page</h1>
-  </div>
+  <CruisesListEditor />
 </template>
+
+<script>
+import CruisesListEditor from '@/components/editors/CruisesListEditor'
+
+export default {
+  components: {
+    CruisesListEditor,
+  }
+}
+</script>

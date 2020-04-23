@@ -40,38 +40,14 @@
 </template>
 
 <script>
-import SearchItineraries from '@/graphql/itinerary/SearchItineraries.gql'
+import SearchCruises from '@/graphql/cruise/SearchCruises.gql'
 import ListEditorHeader from '@/components/shared/ListEditorHeader'
 
 export default {
-  name: 'ItinerariesListEditor',
+  name: 'CruisesListEditor',
 
   components: {
     ListEditorHeader,
-  },
-
-  directives: {
-
-  },
-
-  filters: {
-
-  },
-
-  extends: {
-
-  },
-
-  mixins: {
-
-  },
-
-  model: {
-
-  },
-
-  props: {
-
   },
 
   data () {
@@ -84,11 +60,11 @@ export default {
 
   apollo: {
     items: {
-      query: SearchItineraries,
+      query: SearchCruises,
       fetchPolicy: 'network-only',
       update (data) {
         console.log('data %o', data)
-        return data.searchItineraries
+        return data.searchCruises
       },
       error (error) {
         console.log('error %o', error)
@@ -105,11 +81,11 @@ export default {
   methods: {
     onAddNewItem () {
       console.log('add new')
-      this.$router.push({name: 'itinerary-edit'})
+      this.$router.push({name: 'cruise-edit'})
     },
 
     editItinerary (id) {
-      this.$router.push({name: 'itinerary-edit', params: {id: id}})
+      this.$router.push({name: 'cruise-edit', params: {id: id}})
     },
   },
 
