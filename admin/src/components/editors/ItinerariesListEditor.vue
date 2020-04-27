@@ -35,6 +35,12 @@
         </v-col>
       </v-row>
     </template>
+
+    <template v-slot:no-data>
+      <NoData
+      title="No itineraries yet."
+      />
+    </template>
   </v-data-iterator>
   </div>
 </template>
@@ -42,12 +48,14 @@
 <script>
 import SearchItineraries from '@/graphql/itinerary/SearchItineraries.gql'
 import ListEditorHeader from '@/components/shared/ListEditorHeader'
+import NoData from '@/components/shared/NoData'
 
 export default {
   name: 'ItinerariesListEditor',
 
   components: {
     ListEditorHeader,
+    NoData,
   },
 
   directives: {

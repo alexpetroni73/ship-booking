@@ -67,11 +67,9 @@
     </template>
 
     <template v-else>
-      <div
-      class="text-center pa-12"
-      >
-        No cabins yet. Click on "+" button to add one.
-      </div>
+      <NoData
+        title="No cabins yet."
+      />
     </template>
 
     <FormSubmitButtons
@@ -85,6 +83,7 @@
 <script>
 import FormMixin from '@/mixins/FormMixin'
 import FormSubmitButtons from '@/components/shared/FormSubmitButtons'
+import NoData from '@/components/shared/NoData'
 import draggable from 'vuedraggable'
 
 export default {
@@ -92,6 +91,7 @@ export default {
 
   components: {
     FormSubmitButtons,
+    NoData,
     draggable,
   },
 

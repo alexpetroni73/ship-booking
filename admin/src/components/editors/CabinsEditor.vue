@@ -116,7 +116,6 @@ export default {
     },
 
     setListView () {
-      this.selectedCabinId = null
       this.view = 'cabinsList'
     },
 
@@ -124,8 +123,6 @@ export default {
       this.selectedCabinId = id
       this.view = 'cabin'
     },
-
-
   },
 
 }

@@ -60,11 +60,17 @@
 
        </v-col>
 
-       <v-col
+       <!-- <v-col
        v-else
        class="text-center pa-12"
        >
          No stopovers yet. Click on "+" button to add one.
+       </v-col> -->
+
+       <v-col v-else>
+         <NoData
+           title="No stopovers yet."
+         />
        </v-col>
 
      </v-row>
@@ -75,12 +81,14 @@
 <script>
 import FormMixin from '@/mixins/FormMixin'
 import draggable from 'vuedraggable'
+import NoData from '@/components/shared/NoData'
 
 export default {
   name: '',
 
   components: {
     draggable,
+    NoData,
   },
 
   model: {

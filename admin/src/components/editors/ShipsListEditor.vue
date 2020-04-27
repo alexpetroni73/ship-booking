@@ -15,7 +15,9 @@
       </ListEditorHeader>
     </template>
     <template v-slot:default="props">
-      <v-row>
+      <v-row
+        v-if="hasItems"
+      >
         <v-col
          v-for="item in props.items"
          :key="item.id"
@@ -35,19 +37,29 @@
         </v-col>
       </v-row>
     </template>
+
+    <template v-slot:no-data>
+      <NoData
+      title="No ships yet."
+      />
+    </template>
+
   </v-data-iterator>
+
   </div>
 </template>
 
 <script>
 import SearchShips from '@/graphql/ship/SearchShips.gql'
 import ListEditorHeader from '@/components/shared/ListEditorHeader'
+import NoData from '@/components/shared/NoData'
 
 export default {
   name: 'ShipsListEditor',
 
   components: {
     ListEditorHeader,
+    NoData,
   },
 
   directives: {
@@ -97,6 +109,10 @@ export default {
   },
 
   computed: {
+    hasItems () {
+      return this.items && this.items.length
+    },
+
     areLessThan20 () {
       return this.items.length < 20
     }
