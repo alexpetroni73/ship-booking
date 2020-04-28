@@ -4,6 +4,7 @@ fragment ItineraryData on Itinerary{
   updatedAt
   name
   slug
+  location
   length
   dives
   experience

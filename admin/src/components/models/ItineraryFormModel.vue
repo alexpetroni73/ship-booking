@@ -20,6 +20,7 @@ export default {
       return {
         name: '',
         slug: '',
+        location: '',
         length: '',
         dives: '',
         experience: '',

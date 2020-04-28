@@ -14,14 +14,25 @@
        <v-row>
          <v-col
          sm="12"
-         md="6"
+         md="4"
          >
            <v-text-field v-model="editedItem.name" label="Itinerary name"></v-text-field>
          </v-col>
 
          <v-col
          sm="12"
-         md="6"
+         md="4"
+         >
+         <v-select
+          :items="locations"
+          v-model="editedItem.location"
+          label="Location"
+          ></v-select>
+         </v-col>
+
+         <v-col
+         sm="12"
+         md="4"
          >
            <v-text-field v-model="editedItem.length" label="Length of trip"></v-text-field>
          </v-col>
@@ -121,6 +132,16 @@ export default {
     itineraryFeatures: {
       type: Array,
       default: () => [],
+    },
+
+    locations: {
+      type: Array,
+      default: () => [
+        {text: "Indonesia", value: "Indonesia"},
+        {text: "Maldives", value: "Maldives"},
+        {text: "Philippines", value: "Philippines"},
+        {text: "Thailand", value: "Thailand"},
+      ]
     }
   },
 

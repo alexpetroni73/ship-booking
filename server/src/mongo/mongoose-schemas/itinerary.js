@@ -16,6 +16,10 @@ const schemaDefinition = {
     unique: true,
   },
 
+  location: {
+    type: String,
+  },
+
   length: {
     type: String
   },

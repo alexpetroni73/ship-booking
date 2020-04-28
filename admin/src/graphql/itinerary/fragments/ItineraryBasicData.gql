@@ -5,6 +5,7 @@ fragment ItineraryBasicData on Itinerary{
   name
   length
   slug
+  location
   description
   image
 }
