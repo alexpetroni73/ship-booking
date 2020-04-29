@@ -1,54 +1,54 @@
 const resolvers = {
   Query: {
     cruise (_, { id }, context) {
-      return context.models.Itinerary.cruiseBy('id', id)
+      return context.models.Cruise.cruiseBy('id', id)
     },
 
     cruiseBy (_, { field, value }, context) {
-      return context.models.Itinerary.cruiseBy(field, value)
+      return context.models.Cruise.cruiseBy(field, value)
     },
 
     cruiseBySlug (_, { slug }, context) {
-      return context.models.Itinerary.cruiseBy('slug', slug)
+      return context.models.Cruise.cruiseBy('slug', slug)
     },
 
     cruises (_, { idArr }, context) {
-      return context.models.Itinerary.cruisesBy('id', idArr)
+      return context.models.Cruise.cruisesBy('id', idArr)
     },
 
     cruisesBy (_, { field, valArr }, context) {
-      return context.models.Itinerary.cruisesBy(field, valArr)
+      return context.models.Cruise.cruisesBy(field, valArr)
     },
 
     cruisesBySlug (_, { slugArr }, context) {
-      return context.models.Itinerary.cruisesBy('slug', slugArr)
+      return context.models.Cruise.cruisesBy('slug', slugArr)
     },
 
     searchCruises (_, { args }, context) {
-      return context.models.Itinerary.searchCruises(args)
+      return context.models.Cruise.searchCruises(args)
     },
 
     paginatedCruises (_, { args }, context) {
-      return context.models.Itinerary.paginatedCruises(args)
+      return context.models.Cruise.paginatedCruises(args)
     },
 
   },
 
   Mutation: {
-    createItinerary(_, { input }, context){
-      return context.models.Itinerary.createItinerary(input)
+    createCruise(_, { input }, context){
+      return context.models.Cruise.createCruise(input)
     },
 
-    updateItinerary(_, { id, input }, context){
-      return context.models.Itinerary.updateItinerary(id, input)
+    updateCruise(_, { id, input }, context){
+      return context.models.Cruise.updateCruise(id, input)
     },
 
-    deleteItinerary(_, { id }, context){
-      return context.models.Itinerary.deleteItinerary(id)
+    deleteCruise(_, { id }, context){
+      return context.models.Cruise.deleteCruise(id)
     },
 
     deleteCruises(_, { idArr }, context){
-      return context.models.Itinerary.deleteCruises(idArr)
+      return context.models.Cruise.deleteCruises(idArr)
     },
   }
 }

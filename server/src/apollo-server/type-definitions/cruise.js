@@ -24,17 +24,19 @@ const typeDef = `
     id: ID!
     createdAt: Date
     updatedAt: Date
-    slug: String
-    ship: String
+    ship: Ship
     itinerary: CruiseItinerary
-
+    startDate: Date
+    endDate: Date
+    slug: String
   }
 
   input CruiseInput {
-    slug: String
     ship: String
     itinerary: CruiseItineraryInput
-
+    startDate: Date
+    endDate: Date
+    slug: String
   }
 
   type PaginatedCruises {

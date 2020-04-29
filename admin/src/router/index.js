@@ -38,6 +38,12 @@ const routes = [
   },
 
   {
+    path: '/cruise-edit/:id?',
+    name: 'cruise-edit',
+    component: () => import('../views/Cruise.vue')
+  },
+
+  {
     path: '/itineraries',
     name: 'itineraries',
     component: () => import('../views/Itineraries.vue')

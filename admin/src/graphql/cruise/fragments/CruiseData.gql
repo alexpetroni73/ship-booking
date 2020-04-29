@@ -4,6 +4,7 @@ fragment CruiseData on Cruise{
   updatedAt
   name
   slug
+  location
   length
   dives
   experience

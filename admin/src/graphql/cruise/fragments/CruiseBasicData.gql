@@ -2,9 +2,13 @@ fragment CruiseBasicData on Cruise{
   id
   createdAt
   updatedAt
-  name
-  length
-  slug
-  description
-  image
+  ship {
+    id
+    name
+  }
+  itinerary {
+    name
+    location
+    length
+  }
 }

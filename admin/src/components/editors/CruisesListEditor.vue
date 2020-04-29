@@ -6,6 +6,7 @@
       :hide-default-footer="areLessThan20"
       :search="search"
     >
+
     <template v-slot:header>
       <ListEditorHeader
       @add-new-item="onAddNewItem"
@@ -14,6 +15,7 @@
       >
       </ListEditorHeader>
     </template>
+
     <template v-slot:default="props">
       <v-row>
         <v-col
@@ -35,6 +37,12 @@
         </v-col>
       </v-row>
     </template>
+
+    <template v-slot:no-data>
+      <NoData
+      title="No cruises yet."
+      />
+    </template>
   </v-data-iterator>
   </div>
 </template>
@@ -42,12 +50,14 @@
 <script>
 import SearchCruises from '@/graphql/cruise/SearchCruises.gql'
 import ListEditorHeader from '@/components/shared/ListEditorHeader'
+import NoData from '@/components/shared/NoData'
 
 export default {
   name: 'CruisesListEditor',
 
   components: {
     ListEditorHeader,
+    NoData,
   },
 
   data () {

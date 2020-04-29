@@ -9,5 +9,7 @@ function buildTimestampSchema (obj) {
 
 
 module.exports = {
+  Schema,
+  ObjectId,
   buildTimestampSchema,
 }

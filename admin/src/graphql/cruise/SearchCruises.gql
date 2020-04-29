@@ -1,6 +1,6 @@
 #import "./fragments/CruiseBasicData.gql"
-query searchItineraries ($args: JSON) {
-    searchItineraries(args: $args){
+query searchCruises ($args: JSON) {
+    searchCruises(args: $args){
       ... CruiseBasicData
     }
  }
