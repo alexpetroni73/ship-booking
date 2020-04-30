@@ -1,40 +1,55 @@
 <script>
-import { jsonCopy } from '@/utils'
 import BaseItemFormModel from '@/components/models/BaseItemFormModel'
 
 import Cruise from '@/graphql/cruise/Cruise.gql'
 import CreateCruise from '@/graphql/cruise/CreateCruise.gql'
 import UpdateCruise from '@/graphql/cruise/UpdateCruise.gql'
 import DeleteCruise from '@/graphql/cruise/DeleteCruise.gql'
+import SearchShips from '@/graphql/ship/SearchShips.gql'
 
 export default {
   extends: BaseItemFormModel,
 
   data () {
     return {
+      ships: [],
     }
+  },
+
+  apollo: {
+    ships: {
+      query: SearchShips,
+      update (data) {
+        return data.searchShips
+      }
+    },
   },
 
   methods: {
     getDefaultItem () {
       return {
-        name: '',
+        ship: '',
+        itinerary: {
+          name: '',
+          slug: '',
+          location: '',
+          length: '',
+          dives: '',
+          experience: '',
+          description: '',
+          image: '',
+          gallery: [],
+          stopovers: [],
+        },
+        startDate: '',
+        endDate: '',
         slug: '',
-        location: '',
-        length: '',
-        dives: '',
-        experience: '',
-        description: '',
-        image: '',
-        gallery: [],
-        stopovers: [],
       }
     },
 
-    getDefaultCruiseStep () {
+    extraSlotParams () {
       return {
-        title: '',
-        description: '',
+        ships: this.ships,
       }
     },
 
@@ -69,19 +84,6 @@ export default {
         variables: key,
       })
       return deleteCruise
-    },
-
-    parseItemForInput (item) {
-      let input = jsonCopy(item)
-      if(input.stopovers){
-        input.stopovers = input.stopovers.map(e => {
-          return {
-            title: e.title,
-            description: e.description
-          }
-        })
-      }
-      return input
     },
 
   },

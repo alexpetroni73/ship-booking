@@ -9,7 +9,7 @@ import DeleteItinerary from '@/graphql/itinerary/DeleteItinerary.gql'
 
 export default {
   extends: BaseItemFormModel,
-
+  
   data () {
     return {
     }

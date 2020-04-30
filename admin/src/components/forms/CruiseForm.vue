@@ -1,160 +1,197 @@
 <template>
-  <v-card
-  flat
+  <v-container
+  fluid
   >
   <FormTopBar
-    addNewTitle="Add New Cruise"
-    v-bind="modelState"
-    v-on="formEvents"
-    :name="item.name"
+  addNewTitle="Add New Cruise"
+  v-bind="modelState"
+  v-on="formEvents"
   />
+  <v-stepper v-model="currentStep">
+    <v-stepper-header>
+      <v-spacer></v-spacer>
+      <v-stepper-step
+      step="1"
+      :complete="currentStep > 1"
+      :editable="currentStep > 1"
+      >
+      Ship & Date
+      </v-stepper-step>
 
-    <v-card-text>
-      <v-container>
-       <v-row>
-         <v-col
-         sm="12"
-         md="4"
-         >
-           <v-text-field v-model="editedItem.name" label="Cruise name"></v-text-field>
-         </v-col>
+      <v-divider></v-divider>
 
-         <v-col
-         sm="12"
-         md="4"
-         >
-         <v-select
-          :items="locations"
-          v-model="editedItem.location"
-          label="Location"
-          ></v-select>
-         </v-col>
+      <v-stepper-step
+      step="2"
+      :complete="currentStep > 2"
+      :editable="currentStep > 2"
+      >
+      Itinerary
+      </v-stepper-step>
 
-         <v-col
-         sm="12"
-         md="4"
-         >
-           <v-text-field v-model="editedItem.length" label="Length of trip"></v-text-field>
-         </v-col>
+      <v-divider></v-divider>
 
-         <v-col
-         sm="12"
-         md="6"
-         >
-           <v-text-field v-model="editedItem.dives" label="Dives"></v-text-field>
-         </v-col>
+      <v-stepper-step
+      step="3"
+      :complete="currentStep > 3"
+      >
+      Prices
+      </v-stepper-step>
 
-         <v-col
-         sm="12"
-         md="6"
-         >
-           <v-text-field v-model="editedItem.experience" label="Experience"></v-text-field>
-         </v-col>
+      <v-spacer></v-spacer>
 
-         <!-- <v-col
-         sm="12"
-         >
-           <v-textarea
-             v-model="editedItem.excerpt"
-             label="Excerpt"
-             hint="Short text visible on cruises list"
-             outlined
-           ></v-textarea>
-        </v-col> -->
+    </v-stepper-header>
 
-         <v-col
-         sm="12"
-         >
-           <v-textarea
-             v-model="editedItem.description"
-             label="Description"
-             hint="Description visible on cruise presentation"
-             outlined
-           ></v-textarea>
+    <v-stepper-items>
+      <v-stepper-content step="1">
+
+        <v-row>
+          <v-col cols="12" sm="6" md="4">
+            <v-select
+            :items="ships"
+            item-text="name"
+            item-value="id"
+            v-model="editedItem.ship"
+            label="Ship"
+            />
+          </v-col>
+
+          <v-col cols="12" sm="6" md="4">
+            <DatePickerInMenu
+              v-model="editedItem.startDate"
+              label="Strat Date"
+            />
+          </v-col>
+
+          <v-col cols="12" sm="6" md="4">
+            <DatePickerInMenu
+              v-model="editedItem.endDate"
+              label="End Date"
+            />
+          </v-col>
+        </v-row>
+
+        <v-row>
+          <v-col
+          cols="12"
+          class="text-center"
+          >
+            <v-btn
+            color="primary"
+            @click="nextStep(1)"
+            >
+            Next
+            </v-btn>
+          </v-col>
+        </v-row>
+
+      </v-stepper-content>
+            <!-- ------------------------------- STEP 2 ------------------------------- -->
+      <v-stepper-content step="2">
+
+        <v-row>
+          <v-col cols="12" class="text-right">
+            <ItinerarySelectDialog
+              @change="onItineraySelected"
+            />
         </v-col>
       </v-row>
 
-      <v-row>
-        <v-col
-        cols="12"
-        >
 
-        <MediaSelect
-         class="pb-8"
-         title="Main image"
-         :multiple="false"
-         v-model="editedItem.image"
+        <ItineraryForm
+          :item="editedItem.itinerary"
+          :cruiseEmbeded="true"
         />
+        <!-- <v-row>
+          <v-col cols="12" class="text-center">
+            <v-select
+            :items="itineraries"
+            item-text="name"
+            item-value="id"
+            v-model="editedItem.itinerary"
+            label="Ship"
+            />
+          </v-col>
+        </v-row> -->
 
-        <!-- <MediaSelect
-         title="Gallery"
-         :multiple="true"
-         v-model="editedItem.gallery"
-         :imgWidth="150"
-        /> -->
+        <v-row>
+          <v-col
+          cols="12"
+          class="text-center"
+          >
+            <v-btn
+            color="primary"
+            @click="nextStep(2)"
+            >
+            Next
+            </v-btn>
+          </v-col>
+        </v-row>
+      </v-stepper-content>
 
-      </v-col>
-    </v-row>
+      <v-stepper-content step="3">
+        s3
+      </v-stepper-content>
 
-    <v-row justify="center">
-      <v-col
-      sm="12"
-      md="6"
-      >
-        <StopoversEditor
-          v-model="editedItem.stopovers"
-        />
-      </v-col>
+    </v-stepper-items>
 
-      </v-row>
-     </v-container>
-   </v-card-text>
-
-    <FormSubmitButtons
-    :formState="formState"
-    @update-item="updateItem"
-    @create-item="createItem"
-    />
-  </v-card>
+  </v-stepper>
+  </v-container>
 </template>
 
 <script>
 import FormMixin from '@/mixins/FormMixin'
 import FormTopBar from '@/components/shared/FormTopBar'
-import FormSubmitButtons from '@/components/shared/FormSubmitButtons'
-import MediaSelect from '@/components/shared/MediaSelect'
-import StopoversEditor from '@/components/editors/StopoversEditor'
+import DatePickerInMenu from '@/components/shared/DatePickerInMenu'
+import ItinerarySelectDialog from '@/components/shared/ItinerarySelectDialog'
+import ItineraryForm from '@/components/forms/ItineraryForm'
+import { jsonCopy } from '@/utils'
 
 export default {
   mixins: [ FormMixin ],
 
   props: {
-    cruiseFeatures: {
+    ships: {
       type: Array,
-      default: () => [],
+      default: () => []
     },
-
-    locations: {
-      type: Array,
-      default: () => [
-        {text: "Indonesia", value: "Indonesia"},
-        {text: "Maldives", value: "Maldives"},
-        {text: "Philippines", value: "Philippines"},
-        {text: "Thailand", value: "Thailand"},
-      ]
-    }
   },
 
   components: {
     FormTopBar,
-    FormSubmitButtons,
-    MediaSelect,
-    StopoversEditor,
+    DatePickerInMenu,
+    ItinerarySelectDialog,
+    ItineraryForm,
+    // FormSubmitButtons,
   },
 
+  data () {
+    return {
+      currentStep: 1,
+      itineraryDialog: false,
+
+    }
+  },
+
+
   methods: {
-    showList () {
-      this.$emit('show-list')
+    nextStep (val) {
+      this.currentStep = +val + 1
+    },
+
+    onItineraySelected (val) {
+      console.log('onItineraySelected %o', val)
+      if(val) {
+        let itinerary = jsonCopy(val)
+        delete itinerary.id, itinerary.__typename
+        console.log('itinerary %o', itinerary)
+        this.editedItem.itinerary = itinerary
+      }
+    },
+  },
+
+  watch: {
+    item: function () {
+      this.currentStep = 1
     },
   }
 }

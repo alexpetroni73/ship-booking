@@ -3,6 +3,7 @@
   flat
   >
   <FormTopBar
+    v-if="!cruiseEmbeded"
     addNewTitle="Add New Itinerary"
     v-bind="modelState"
     v-on="formEvents"
@@ -13,6 +14,7 @@
       <v-container>
        <v-row>
          <v-col
+         v-if="!cruiseEmbeded"
          sm="12"
          md="4"
          >
@@ -21,7 +23,7 @@
 
          <v-col
          sm="12"
-         md="4"
+         :md="mdCruiseEmbeded"
          >
          <v-select
           :items="locations"
@@ -32,7 +34,7 @@
 
          <v-col
          sm="12"
-         md="4"
+         :md="mdCruiseEmbeded"
          >
            <v-text-field v-model="editedItem.length" label="Length of trip"></v-text-field>
          </v-col>
@@ -111,6 +113,7 @@
    </v-card-text>
 
     <FormSubmitButtons
+    v-if="!cruiseEmbeded"
     :formState="formState"
     @update-item="updateItem"
     @create-item="createItem"
@@ -129,9 +132,9 @@ export default {
   mixins: [ FormMixin ],
 
   props: {
-    itineraryFeatures: {
-      type: Array,
-      default: () => [],
+    cruiseEmbeded: {
+      type: Boolean,
+      default: false,
     },
 
     locations: {
@@ -142,7 +145,9 @@ export default {
         {text: "Philippines", value: "Philippines"},
         {text: "Thailand", value: "Thailand"},
       ]
-    }
+    },
+
+
   },
 
   components: {
@@ -150,6 +155,12 @@ export default {
     FormSubmitButtons,
     MediaSelect,
     StopoversEditor,
+  },
+
+  computed: {
+    mdCruiseEmbeded () {
+      return this.cruiseEmbeded ? 6 : 4
+    },
   },
 
   methods: {

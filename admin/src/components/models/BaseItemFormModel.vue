@@ -311,7 +311,7 @@ export default {
         modelState: this.modelState,
       }
       const extraParams = this.extraSlotParams()
-      return Object.assign(params, extraParams)
+      return Object.assign({}, params, extraParams)
     },
   },
 
