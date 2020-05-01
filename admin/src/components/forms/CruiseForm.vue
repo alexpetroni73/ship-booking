@@ -46,12 +46,8 @@
 
         <v-row>
           <v-col cols="12" sm="6" md="4">
-            <v-select
-            :items="ships"
-            item-text="name"
-            item-value="id"
-            v-model="editedItem.ship"
-            label="Ship"
+            <ShipSelect
+              :shipId="editedItem.ship"
             />
           </v-col>
 
@@ -143,8 +139,8 @@ import FormMixin from '@/mixins/FormMixin'
 import FormTopBar from '@/components/shared/FormTopBar'
 import DatePickerInMenu from '@/components/shared/DatePickerInMenu'
 import ItinerarySelectDialog from '@/components/shared/ItinerarySelectDialog'
+import ShipSelect from '@/components/shared/ShipSelect'
 import ItineraryForm from '@/components/forms/ItineraryForm'
-import { jsonCopy } from '@/utils'
 
 export default {
   mixins: [ FormMixin ],
@@ -160,6 +156,7 @@ export default {
     FormTopBar,
     DatePickerInMenu,
     ItinerarySelectDialog,
+    ShipSelect,
     ItineraryForm,
     // FormSubmitButtons,
   },
@@ -179,20 +176,14 @@ export default {
     },
 
     onItineraySelected (val) {
-      console.log('onItineraySelected %o', val)
-      if(val) {
-        let itinerary = jsonCopy(val)
-        delete itinerary.id, itinerary.__typename
-        console.log('itinerary %o', itinerary)
-        this.editedItem.itinerary = itinerary
-      }
+      this.$emit('itinerary-selected', val)
     },
   },
 
-  watch: {
-    item: function () {
-      this.currentStep = 1
-    },
-  }
+  // watch: {
+  //   item: function () {
+  //     this.currentStep = 1
+  //   },
+  // }
 }
 </script>

@@ -5,24 +5,15 @@ import Cruise from '@/graphql/cruise/Cruise.gql'
 import CreateCruise from '@/graphql/cruise/CreateCruise.gql'
 import UpdateCruise from '@/graphql/cruise/UpdateCruise.gql'
 import DeleteCruise from '@/graphql/cruise/DeleteCruise.gql'
-import SearchShips from '@/graphql/ship/SearchShips.gql'
+import Itinerary from '@/graphql/itinerary/Itinerary.gql'
 
 export default {
   extends: BaseItemFormModel,
 
   data () {
     return {
-      ships: [],
-    }
-  },
 
-  apollo: {
-    ships: {
-      query: SearchShips,
-      update (data) {
-        return data.searchShips
-      }
-    },
+    }
   },
 
   methods: {
@@ -50,6 +41,7 @@ export default {
     extraSlotParams () {
       return {
         ships: this.ships,
+        itinerarySelected: this.onItinerarySelected,
       }
     },
 
@@ -85,6 +77,29 @@ export default {
       })
       return deleteCruise
     },
+
+
+    async onItinerarySelected (val) {
+      if(!val) return
+      this.loading = true
+      try{
+        let {data: {itinerary}} = await this.$apollo.query({
+          query: Itinerary,
+          variables: {id: val}
+        })
+
+        if(!itinerary){
+          throw new Error("No itinerary found")
+        }
+
+        delete itinerary.id, itinerary.__typename
+        this.item = Object.assign({}, this.item, {itinerary})
+      }catch(error){
+        this.error = error.message
+      }finally{
+        this.loading = false
+      }
+    }
 
   },
 }

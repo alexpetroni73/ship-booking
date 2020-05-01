@@ -31,7 +31,7 @@
               <transition name="fade">
                 <v-progress-circular
                 :indeterminate="true"
-                v-show="loading"
+                v-show="$apollo.queries.itineraries.loading"
                 :value="20"></v-progress-circular>
               </transition>
             </v-col>
@@ -51,7 +51,6 @@
 
 <script>
 import SearchItineraries from '@/graphql/itinerary/SearchItineraries.gql'
-import Itinerary from '@/graphql/itinerary/Itinerary.gql'
 
 export default {
   apollo: {
@@ -68,42 +67,21 @@ export default {
       dialog: false,
       itinerary: null,
       itineraries: [],
-      loading: false,
     }
   },
 
   methods: {
-    async onItinerarySelect () {
-      if(!this.itinerary) {
-        return this.closeDialog()
-      }
-
-      this.loading = true
-
-      try{
-        const { data } = await this.$apollo.query({
-          query: Itinerary,
-          variables: {id: this.itinerary}
-        })
-        console.log('result %o', data)
-
-        this.$emit('change', data.itinerary)
-      }catch(error) {
-        console.error(error)
-      }finally{
-        this.closeDialog()
-      }
+    onItinerarySelect () {
+      this.$emit('change', this.itinerary)
+      this.closeDialog()
     },
 
     closeDialog () {
       this.dialog = false
       this.itinerary = null
-      this.loading = false
     },
 
   },
-
-
 }
 </script>
 
