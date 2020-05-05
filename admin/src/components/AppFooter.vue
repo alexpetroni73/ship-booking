@@ -1,8 +1,8 @@
 <template>
   <v-footer
     app
-    color="blue-grey"
-    class="white--text"
+    color="accent"
+    class="white--text grey darken-4"
   >
   <span>My Ships</span>
   <v-spacer />
@@ -14,13 +14,6 @@
 
 export default {
   name: 'app-footer',
-
-  data () {
-    return {
-
-    }
-  },
-
 
 }
 </script>

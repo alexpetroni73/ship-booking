@@ -22,6 +22,7 @@ export default {
       return {
         'new-item': this.onAddNewItem,
         'item-created': this.onItemCreated,
+        'item-updated': this.onItemUpdated,
         'item-deleted': this.onItemDeleted,
         'cancel': this.onCancel,
       }
@@ -33,8 +34,12 @@ export default {
       this.$router.push({ name: 'cruise-edit' })
     },
 
-    onItemCreated (item) {
-      this.$router.push({ name: 'cruise-edit', params: {id: item.id} })
+    onItemCreated () {
+      this.$router.push({ name: 'cruises' })
+    },
+
+    onItemUpdated () {
+      this.$router.push({ name: 'cruises' })
     },
 
     onItemDeleted () {

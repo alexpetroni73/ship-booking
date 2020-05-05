@@ -11,11 +11,16 @@
       <v-text-field
         :value="date"
         :label="label"
-        prepend-icon="mdi-event"
+        prepend-icon="mdi-calendar"
+        :disabled="disabled"
+        :clearable="clearable"
+        :dense="dense"
+        @click:clear="onClear"
         readonly
         v-on="on"
       ></v-text-field>
     </template>
+
     <v-date-picker
     :value="date"
     @input="onInput">
@@ -26,26 +31,6 @@
 <script>
 
 export default {
-  name: '',
-
-  components: {
-
-  },
-
-  directives: {
-
-  },
-
-  filters: {
-
-  },
-
-  extends: {
-
-  },
-
-  mixins: [],
-
   model: {
     prop: 'date',
     event: 'change'
@@ -61,6 +46,22 @@ export default {
       type: String,
       default: "Choose Date"
     },
+
+    clearable: {
+      type: Boolean,
+      default: false,
+    },
+
+    dense: {
+      type: Boolean,
+      default: false,
+    },
+
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
+
   },
 
   data () {
@@ -81,6 +82,12 @@ export default {
     onInput (val) {
       this.$emit('change', val)
       this.menu = false
+    },
+
+    onClear () {
+      if(this.clearable){
+        this.$emit('change', null)
+      }
     },
   },
 

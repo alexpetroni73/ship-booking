@@ -1,9 +1,7 @@
 const { ObjectId } = require('./../utils')
 
 module.exports = {
-  ship: {
-    stories: [{ type: ObjectId, ref: 'Ship' }]
-  },
+  ship: { type: ObjectId, ref: 'Ship' },
 
   slug: {
     type: String,
@@ -56,6 +54,17 @@ module.exports = {
         title: String,
         description: String,
     }],
-  }
+  },
+
+  accommodations: [{
+    cabin: { type: ObjectId, ref: 'Cabin' },
+    available: Number,
+    regularPrice: Number,
+    salePrice: Number,
+    saleStartDate: Date,
+    enabled: Boolean,
+  }],
+
+  published: Boolean,
 
 }

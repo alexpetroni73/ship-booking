@@ -8,7 +8,7 @@ const typeDef = `
     ships(idArr: [ID!]!): [Ship!]!
     shipsBy(field: String, valArr: [String!]!): [Ship!]!
     shipsBySlug(slugArr: [String!]!): [Ship!]!
-    
+
     searchShips(args: JSON): [Ship!]!
     paginatedShips(args: JSON): PaginatedShips!
 

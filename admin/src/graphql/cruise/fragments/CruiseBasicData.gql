@@ -2,9 +2,12 @@ fragment CruiseBasicData on Cruise{
   id
   createdAt
   updatedAt
+  startDate
+  endDate
   ship {
     id
     name
+    image
   }
   itinerary {
     name

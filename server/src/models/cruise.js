@@ -12,7 +12,39 @@ const cruise = async function (id) {
 }
 
 const cruiseBy = async function (field, val) {
-  return field == 'id' ? Cruise.findById(val) : Cruise.findOne({[field]: val})
+  let q = field == 'id' ? Cruise.findById(val).populate('ship').lean() : Cruise.findOne({[field]: val}).populate('ship').lean()
+
+  let f = await q
+
+  // patch
+  if(f) {
+    f.id = f._id.toString()
+
+    if(f.ship && f.ship.cabins){
+      f.ship.id = f.ship._id
+      f.ship.cabins = f.ship.cabins.map(e => {
+        e.id = e._id.toString()
+        return e
+      })
+    }
+
+    if(f.accommodations){
+      let acc  = f.accommodations.map(e => {
+        e.id = e._id.toString()
+        let cabin = f.ship.cabins.find(c => {
+            console.log(' c.id %s, e.cabin %s',  c.id, e.cabin)
+          return c.id == e.cabin.toString()
+        })
+        console.log('cabin %o', cabin)
+        e.cabin = cabin
+        return e
+      })
+      f.accommodations = acc
+    }
+  }
+
+  console.log('f %o', f)
+  return f
 }
 
 const cruises = async function (idArr) {
@@ -24,9 +56,12 @@ const cruisesBy = async function (field, valArr) {
 }
 
 const searchCruises = async function (args = {}) {
-  const {limit} = args
-  let agg = [getMatchExpr(args), aggExpr.limit(limit), aggExpr.addId()]
-  return await Cruise.aggregate(agg)
+  // const {limit} = args
+  // let agg = [getMatchExpr(args), aggExpr.limit(limit), aggExpr.addId()]
+  // let r = await Cruise.aggregate(agg)
+  // console.log('r %o', r)
+  // return await Cruise.aggregate(agg)
+  return Cruise.find({}).populate('ship')
 }
 
 const paginatedCruises = async function (args = {}) {
@@ -53,15 +88,12 @@ const paginatedCruises = async function (args = {}) {
 
 
 const createCruise = async function (input) {
-  // check required fields
-  utils.checkNonEmptyProperties(['name'], input)
-  // check unicity for provided fields
-  await utils.checkUniqueFieldValue(Cruise, 'name', input.name)
+  console.log('input %o', input)
   // ensure unique slug
   let slugSeed = input.slug ? input.slug : input.name
   input.slug = await utils.generateUniqueSlug(Cruise, 'slug', slugSeed)
-
-  return Cruise.create(input)
+  let result = await Cruise.create(input)
+  return cruise(result._id)
 }
 
 const updateCruise = async function (id, input) {
@@ -73,7 +105,9 @@ const updateCruise = async function (id, input) {
     await Promise.all(uniqueFieldsProvided.map(e => utils.checkUniqueFieldValue(Cruise, e, input[e], id)))
   }
 
-  return Cruise.findByIdAndUpdate(id, input, {new: true})
+  await Cruise.findByIdAndUpdate(id, input)
+
+  return cruise(id)
 }
 
 const deleteCruise = async function (id) {

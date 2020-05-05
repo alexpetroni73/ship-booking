@@ -34,7 +34,7 @@
       step="3"
       :complete="currentStep > 3"
       >
-      Prices
+      Accommodation
       </v-stepper-step>
 
       <v-spacer></v-spacer>
@@ -42,12 +42,14 @@
     </v-stepper-header>
 
     <v-stepper-items>
+      <!-- ========================= STEP 1 ========================= -->
       <v-stepper-content step="1">
 
         <v-row>
           <v-col cols="12" sm="6" md="4">
-            <ShipSelect
-              :shipId="editedItem.ship"
+            <CruiseShipSelect
+              v-model="editedItem.ship"
+              :accommodations.sync="editedItem.accommodations"
             />
           </v-col>
 
@@ -74,6 +76,7 @@
             <v-btn
             color="primary"
             @click="nextStep(1)"
+            :disabled="!stepOneValid"
             >
             Next
             </v-btn>
@@ -81,13 +84,13 @@
         </v-row>
 
       </v-stepper-content>
-            <!-- ------------------------------- STEP 2 ------------------------------- -->
+            <!-- ========================= STEP 2 ========================= -->
       <v-stepper-content step="2">
 
         <v-row>
           <v-col cols="12" class="text-right">
-            <ItinerarySelectDialog
-              @change="onItineraySelected"
+            <CruiseItinerarySelectDialog
+              v-model="editedItem.itinerary"
             />
         </v-col>
       </v-row>
@@ -97,17 +100,6 @@
           :item="editedItem.itinerary"
           :cruiseEmbeded="true"
         />
-        <!-- <v-row>
-          <v-col cols="12" class="text-center">
-            <v-select
-            :items="itineraries"
-            item-text="name"
-            item-value="id"
-            v-model="editedItem.itinerary"
-            label="Ship"
-            />
-          </v-col>
-        </v-row> -->
 
         <v-row>
           <v-col
@@ -117,6 +109,7 @@
             <v-btn
             color="primary"
             @click="nextStep(2)"
+            :disabled="!stepTwoValid"
             >
             Next
             </v-btn>
@@ -124,8 +117,30 @@
         </v-row>
       </v-stepper-content>
 
+        <!-- ========================= STEP 3 ========================= -->
       <v-stepper-content step="3">
-        s3
+
+        <v-card
+          class="mx-auto"
+          tile
+        >
+        <template
+
+        >
+          <CruiseAccomodationItem
+            v-for="(item, index) in editedItem.accommodations"
+            :item="item"
+            :key="item.cabinId"
+            :add-divider="index + 1 < editedItem.accommodations.length"
+          />
+        </template>
+        </v-card>
+
+        <FormSubmitButtons
+        :formState="formState"
+        @update-item="updateItem"
+        @create-item="createItem"
+        />
       </v-stepper-content>
 
     </v-stepper-items>
@@ -138,27 +153,24 @@
 import FormMixin from '@/mixins/FormMixin'
 import FormTopBar from '@/components/shared/FormTopBar'
 import DatePickerInMenu from '@/components/shared/DatePickerInMenu'
-import ItinerarySelectDialog from '@/components/shared/ItinerarySelectDialog'
-import ShipSelect from '@/components/shared/ShipSelect'
+import CruiseItinerarySelectDialog from '@/components/forms/inner-components/CruiseItinerarySelectDialog'
+import CruiseShipSelect from '@/components/forms/inner-components/CruiseShipSelect'
+import CruiseAccomodationItem from '@/components/forms/inner-components/CruiseAccomodationItem'
+import FormSubmitButtons from '@/components/shared/FormSubmitButtons'
 import ItineraryForm from '@/components/forms/ItineraryForm'
+
 
 export default {
   mixins: [ FormMixin ],
 
-  props: {
-    ships: {
-      type: Array,
-      default: () => []
-    },
-  },
-
   components: {
     FormTopBar,
     DatePickerInMenu,
-    ItinerarySelectDialog,
-    ShipSelect,
+    CruiseItinerarySelectDialog,
+    CruiseShipSelect,
+    CruiseAccomodationItem,
     ItineraryForm,
-    // FormSubmitButtons,
+    FormSubmitButtons,
   },
 
   data () {
@@ -166,24 +178,25 @@ export default {
       currentStep: 1,
       itineraryDialog: false,
 
+      disable: "Disable",
     }
   },
 
+  computed: {
+    stepOneValid () {
+      return this.editedItem && this.editedItem.ship && this.editedItem.startDate && this.editedItem.endDate
+    },
+
+    stepTwoValid () {
+      return this.editedItem && this.editedItem.itinerary && this.editedItem.itinerary.location
+    },
+  },
 
   methods: {
     nextStep (val) {
       this.currentStep = +val + 1
     },
 
-    onItineraySelected (val) {
-      this.$emit('itinerary-selected', val)
-    },
   },
-
-  // watch: {
-  //   item: function () {
-  //     this.currentStep = 1
-  //   },
-  // }
 }
 </script>

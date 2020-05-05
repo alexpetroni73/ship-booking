@@ -29,9 +29,13 @@
            <v-card>
             <v-card-title
              @click="editItinerary(item.id)"
-             class="subheading font-weight-bold"
              >
-             {{ item.name }}
+             <div class="subheading font-weight-bold">
+             {{ cruiseName(item) }}
+           </div>
+             <div class="body-1">
+               {{ cruiseInterval(item) }}
+            </div>
            </v-card-title>
           </v-card>
         </v-col>
@@ -51,6 +55,8 @@
 import SearchCruises from '@/graphql/cruise/SearchCruises.gql'
 import ListEditorHeader from '@/components/shared/ListEditorHeader'
 import NoData from '@/components/shared/NoData'
+
+import { parseDate } from '@/utils'
 
 export default {
   name: 'CruisesListEditor',
@@ -97,6 +103,14 @@ export default {
     editItinerary (id) {
       this.$router.push({name: 'cruise-edit', params: {id: id}})
     },
+
+    cruiseName (item) {
+      return `${item.ship.name} ${item.itinerary.location}`
+    },
+
+    cruiseInterval (item) {
+      return `from ${parseDate(item.startDate)} to ${parseDate(item.endDate)}`
+    }
   },
 
 

@@ -35,7 +35,11 @@ fragment ShipData on Ship{
   navSafteyFeatures
   navSafteyFeaturesText
   cabins {
+    id
     name
+    slug
+    capacity
+    image
   }
   cabinsText
 }

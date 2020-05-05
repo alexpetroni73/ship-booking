@@ -5,7 +5,8 @@ import Cruise from '@/graphql/cruise/Cruise.gql'
 import CreateCruise from '@/graphql/cruise/CreateCruise.gql'
 import UpdateCruise from '@/graphql/cruise/UpdateCruise.gql'
 import DeleteCruise from '@/graphql/cruise/DeleteCruise.gql'
-import Itinerary from '@/graphql/itinerary/Itinerary.gql'
+
+import { parseDate, deleteObjField } from '@/utils'
 
 export default {
   extends: BaseItemFormModel,
@@ -19,7 +20,14 @@ export default {
   methods: {
     getDefaultItem () {
       return {
-        ship: '',
+        ship: {
+          id: '',
+          name: '',
+          slug: '',
+        },
+        startDate: '',
+        endDate: '',
+        slug: '',
         itinerary: {
           name: '',
           slug: '',
@@ -32,23 +40,14 @@ export default {
           gallery: [],
           stopovers: [],
         },
-        startDate: '',
-        endDate: '',
-        slug: '',
+        accommodations: []
       }
     },
 
-    extraSlotParams () {
-      return {
-        ships: this.ships,
-        itinerarySelected: this.onItinerarySelected,
-      }
-    },
-
-    async createItem (item, key) {
+    async createItem (item) {
       let { data: { createCruise } } = await this.$apollo.mutate({
         mutation: CreateCruise,
-        variables: {input:item, ...key},
+        variables: {input: this.parseItemForInput(item)},
       })
       return createCruise
     },
@@ -78,28 +77,50 @@ export default {
       return deleteCruise
     },
 
+    createCruiseSlug (item) {
+      return item.itinerary.location + '-' + item.ship.slug + '-' + item.startDate + '-' + item.endDate
+    },
 
-    async onItinerarySelected (val) {
-      if(!val) return
-      this.loading = true
-      try{
-        let {data: {itinerary}} = await this.$apollo.query({
-          query: Itinerary,
-          variables: {id: val}
-        })
-
-        if(!itinerary){
-          throw new Error("No itinerary found")
-        }
-
-        delete itinerary.id, itinerary.__typename
-        this.item = Object.assign({}, this.item, {itinerary})
-      }catch(error){
-        this.error = error.message
-      }finally{
-        this.loading = false
+    parseItemForInput (item) {
+      let input = Object.assign({}, item, {ship: item.ship.id})
+      if( item.ship.id) {
+        input.ship= item.ship.id
       }
-    }
+      input.slug = this.createCruiseSlug(item)
+      input.accommodations = item.accommodations.map(e => ({
+        cabin: e.cabin.id,
+        available: e.available,
+        regularPrice: e.regularPrice,
+        salePrice: e.salePrice,
+        saleStartDate: e.saleStartDate,
+        enabled: e.enabled,
+      }))
+      input = deleteObjField(input, '__typename')
+      return input
+    },
+
+
+
+    parseLoadResult (item) {
+      return this.parseCruise(item)
+    },
+
+    parseUpdateResult (item) {
+      return this.parseCruise(item)
+    },
+
+    parseCruise (item) {
+      let cruise = this.parseItemToMirrorDefaultModel(item)
+      cruise.startDate = parseDate(cruise.startDate)
+      cruise.endDate = parseDate(cruise.endDate)
+      if(cruise.accommodations){
+        cruise.accommodations = cruise.accommodations.map(e => {
+          e.saleStartDate = parseDate(e.saleStartDate)
+          return e
+        })
+      }
+      return cruise
+    },
 
   },
 }

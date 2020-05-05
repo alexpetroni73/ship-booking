@@ -23,17 +23,25 @@
               :items="itineraries"
               item-text="name"
               item-value="id"
-              v-model="itinerary"
+              v-model="itineraryId"
+              @change="onItinerarySelect"
+              :loading="$apollo.queries.itineraries.loading"
               label="Itineraries"
               />
             </v-col>
-            <v-col class="text-center">
-              <transition name="fade">
-                <v-progress-circular
-                :indeterminate="true"
-                v-show="$apollo.queries.itineraries.loading"
-                :value="20"></v-progress-circular>
-              </transition>
+
+            <v-col v-if="error" cols="12" sm="12" class="text-center">
+              <v-alert type="error">
+                {{ error }}
+              </v-alert>
+            </v-col>
+
+            <v-col cols="12" sm="12" class="text-center">
+              <v-progress-circular
+              v-show="loading"
+              :indeterminate="true"
+              :value="20">
+            </v-progress-circular>
             </v-col>
           </v-row>
         </v-container>
@@ -51,8 +59,21 @@
 
 <script>
 import SearchItineraries from '@/graphql/itinerary/SearchItineraries.gql'
+import Itinerary from '@/graphql/itinerary/Itinerary.gql'
+import { deleteObjFields } from '@/utils'
 
 export default {
+  props: {
+    itinerary: {
+      type: Object
+    },
+  },
+
+  model: {
+    prop: 'itinerary',
+    event: 'change'
+  },
+
   apollo: {
     itineraries: {
       query: SearchItineraries,
@@ -65,20 +86,46 @@ export default {
   data () {
     return {
       dialog: false,
-      itinerary: null,
+      itineraryId: null,
+      loading: false,
+      error: null,
       itineraries: [],
     }
   },
 
   methods: {
-    onItinerarySelect () {
-      this.$emit('change', this.itinerary)
-      this.closeDialog()
+    async onItinerarySelect (val) {
+      if(!val) return
+      this.loading = true
+      try{
+        let {data: {itinerary}} = await this.$apollo.query({
+          query: Itinerary,
+          variables: {id: val}
+        })
+
+        if(!itinerary){
+          throw new Error("No itinerary found")
+        }
+        this.$emit('change', this.cleanCruiseItinerary(itinerary))
+        this.closeDialog()
+      }catch (error) {
+        this.error = error.message
+      }finally{
+        this.loading = false
+      }
+
     },
 
     closeDialog () {
       this.dialog = false
-      this.itinerary = null
+      this.error = null
+      this.itineraryId = null
+    },
+
+    cleanCruiseItinerary (itinerary) {
+      let copy = deleteObjFields(itinerary, ['__typename'])
+      copy = deleteObjFields(copy, ['id', 'createdAt', 'updatedAt'])
+      return copy
     },
 
   },

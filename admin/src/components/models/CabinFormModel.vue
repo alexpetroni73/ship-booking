@@ -40,6 +40,7 @@ export default {
       return {
         name: '',
         slug: '',
+        capacity: null,
         excerpt: '',
         description: '',
         order: null,
@@ -47,7 +48,6 @@ export default {
         gallery: [],
         features: [],
         featuresText: '',
-        capacity: null,
         bedding: '',
         airconditioning: '',
       }

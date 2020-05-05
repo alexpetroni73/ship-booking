@@ -21,6 +21,13 @@
 
          <v-col
          sm="12"
+         md="6"
+         >
+           <v-text-field v-model.number="editedItem.capacity" label="Capacity"></v-text-field>
+         </v-col>
+
+         <v-col
+         sm="12"
          >
            <v-textarea
              v-model="editedItem.excerpt"
@@ -100,6 +107,7 @@
     :formState="formState"
     @update-item="updateItem"
     @create-item="createItem"
+    :disabled="!enableSubmit"
     />
   </v-card>
 </template>
@@ -124,6 +132,12 @@ export default {
     FormTopBar,
     FormSubmitButtons,
     MediaSelect,
+  },
+
+  computed: {
+    enableSubmit () {
+      return this.editedItem.name && this.editedItem.capacity
+    }
   },
 
   methods: {

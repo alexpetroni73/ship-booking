@@ -57,6 +57,8 @@ const categoryChildren = (categories, cat = {}) => {
   return catArr
 }
 
+// delete object spceified field
+// if 'deep' traverse it on array and object properties
 const deleteObjField = (obj, field, deep = true) => {
   if(!field || !obj) return obj
   if(!(obj.__proto__ && obj.__proto__.constructor.name === 'Object') && !Array.isArray(obj)){ // if it is not an Obj or Array, return it
@@ -75,6 +77,14 @@ const deleteObjField = (obj, field, deep = true) => {
   }
 
   return newObj
+}
+
+const deleteObjFields = (obj, fieldsArr, deep = true) => {
+  if(!fieldsArr || !Array.isArray(fieldsArr) || !obj) return obj
+  return fieldsArr.reduce((acc, e) => {
+    acc = deleteObjField(acc, e, deep)
+    return acc
+  }, obj)
 }
 
 const parseDate = (date, dateFormat = "YYYY-MM-DD") => {
@@ -139,9 +149,6 @@ const pipeEvents = function (comp, ...args) {
     acc[e] = parentEmitter(parent, e)
     return acc
   }, {})
-  // console.log('parent.name %s', parent.name)
-  // console.log('parent %o', parent)
-  // console.log('events %o', events)
   return events
 }
 
@@ -162,6 +169,7 @@ export {
   filterObject,
   categoriesTreeAssamble,
   deleteObjField,
+  deleteObjFields,
   parseDate,
   parseObjPropAsDate,
   safeParseFloat,

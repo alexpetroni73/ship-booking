@@ -29,14 +29,36 @@ const typeDef = `
     startDate: Date
     endDate: Date
     slug: String
+    published: Boolean
+    accommodations: [Accommodation!]!
   }
 
   input CruiseInput {
     ship: String
     itinerary: CruiseItineraryInput
-    startDate: Date
-    endDate: Date
+    startDate: String
+    endDate: String
     slug: String
+    published: Boolean
+    accommodations: [AccommodationInput!]
+  }
+
+  type Accommodation {
+    cabin: Cabin
+    available: Int
+    regularPrice: Float
+    salePrice: Float
+    saleStartDate: Date
+    enabled: Boolean
+  }
+
+  input AccommodationInput {
+    cabin: String
+    available: Int
+    regularPrice: Float
+    salePrice: Float
+    saleStartDate: String
+    enabled: Boolean
   }
 
   type PaginatedCruises {
