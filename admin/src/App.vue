@@ -70,4 +70,8 @@ import AppFooter from '@/components/AppFooter'
 .handle {
   cursor: grabbing;
 }
+
+.link {
+  cursor: pointer;
+}
 </style>

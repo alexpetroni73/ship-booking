@@ -13,5 +13,7 @@ fragment CruiseBasicData on Cruise{
     name
     location
     length
+    image
+    gallery 
   }
 }

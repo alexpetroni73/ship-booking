@@ -27,10 +27,17 @@
            <v-card>
             <v-card-title
              @click="editItinerary(item.id)"
-             class="subheading font-weight-bold"
+             class="subheading font-weight-bold link"
              >
              {{ item.name }}
            </v-card-title>
+
+           <v-card-text class="text-center">
+             <cld-image
+             :publicId="item.image" secure="true" width="100%">
+               <cld-transformation :width="imgWidth" :crop="crop" />
+             </cld-image>
+           </v-card-text>
           </v-card>
         </v-col>
       </v-row>
@@ -79,7 +86,15 @@ export default {
   },
 
   props: {
+    imgWidth: {
+      type: Number,
+      default: 400,
+    },
 
+    crop: {
+      type: String,
+      default: 'scale'
+    },
   },
 
   data () {

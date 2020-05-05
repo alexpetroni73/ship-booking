@@ -1,5 +1,5 @@
 <template>
-  <div class="about">
-    <h1>This is an clients page</h1>
+  <div>
+    <div class="text-center pa-12">No clients yet.</div>
   </div>
 </template>

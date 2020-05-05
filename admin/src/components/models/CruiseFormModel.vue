@@ -62,6 +62,7 @@ export default {
 
     async updateItem (item, key) {
       let input = this.parseItemForInput(item)
+      console.log('input  %o', input)
       let { data: { updateCruise } } = await this.$apollo.mutate({
         mutation: UpdateCruise,
         variables: {...key, input },

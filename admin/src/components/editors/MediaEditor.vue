@@ -58,7 +58,7 @@ export default {
      api_key: '499564865319961',
      username: 'alexpetroni73@gmail.com',
      inline_container: '#cld-media-library',
-     remove_header: true, 
+     remove_header: true,
     }, {
        insertHandler: function (data) {
          data.assets.forEach(asset => { console.log("Inserted asset:",

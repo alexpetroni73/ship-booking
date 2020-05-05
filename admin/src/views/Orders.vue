@@ -1,5 +1,5 @@
 <template>
-  <div class="about">
-    <h1>This is an orders page</h1>
+  <div>
+    <div class="text-center pa-12">No orders yet.</div>
   </div>
 </template>

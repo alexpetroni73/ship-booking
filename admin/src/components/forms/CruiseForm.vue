@@ -96,7 +96,7 @@
       </v-row>
 
 
-        <ItineraryForm
+        <ItineraryFormBase
           :item="editedItem.itinerary"
           :cruiseEmbeded="true"
         />
@@ -157,7 +157,7 @@ import CruiseItinerarySelectDialog from '@/components/forms/inner-components/Cru
 import CruiseShipSelect from '@/components/forms/inner-components/CruiseShipSelect'
 import CruiseAccomodationItem from '@/components/forms/inner-components/CruiseAccomodationItem'
 import FormSubmitButtons from '@/components/shared/FormSubmitButtons'
-import ItineraryForm from '@/components/forms/ItineraryForm'
+import ItineraryFormBase from '@/components/forms/inner-components/ItineraryFormBase'
 
 
 export default {
@@ -169,7 +169,7 @@ export default {
     CruiseItinerarySelectDialog,
     CruiseShipSelect,
     CruiseAccomodationItem,
-    ItineraryForm,
+    ItineraryFormBase,
     FormSubmitButtons,
   },
 

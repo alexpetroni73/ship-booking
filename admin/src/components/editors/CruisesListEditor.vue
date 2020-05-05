@@ -30,13 +30,20 @@
             <v-card-title
              @click="editItinerary(item.id)"
              >
-             <div class="subheading font-weight-bold">
+             <div class="subheading font-weight-bold link">
              {{ cruiseName(item) }}
            </div>
-             <div class="body-1">
+             <div class="body-1 link">
                {{ cruiseInterval(item) }}
             </div>
            </v-card-title>
+
+           <v-card-text class="text-center">
+             <cld-image
+             :publicId="item.itinerary.image" secure="true" width="100%">
+               <cld-transformation :width="imgWidth" :crop="crop" />
+             </cld-image>
+           </v-card-text>
           </v-card>
         </v-col>
       </v-row>
@@ -64,6 +71,18 @@ export default {
   components: {
     ListEditorHeader,
     NoData,
+  },
+
+  props: {
+    imgWidth: {
+      type: Number,
+      default: 400,
+    },
+
+    crop: {
+      type: String,
+      default: 'scale'
+    },
   },
 
   data () {
