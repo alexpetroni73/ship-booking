@@ -40,6 +40,7 @@
 
            <v-card-text class="text-center">
              <cld-image
+             v-if="item.itinerary.image"
              :publicId="item.itinerary.image" secure="true" width="100%">
                <cld-transformation :width="imgWidth" :crop="crop" />
              </cld-image>
