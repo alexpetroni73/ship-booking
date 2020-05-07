@@ -59,8 +59,8 @@
 
 <script>
 import SearchShips from '@/graphql/ship/SearchShips.gql'
-import ListEditorHeader from '@/components/shared/ListEditorHeader'
-import NoData from '@/components/shared/NoData'
+import ListEditorHeader from '@common/components/ListEditorHeader'
+import NoData from '@common/components/NoData'
 
 export default {
   name: 'ShipsListEditor',

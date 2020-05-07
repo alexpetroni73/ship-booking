@@ -38,7 +38,7 @@
 
 
 <script>
-import FormMixin from '@common/mixins/FormMixin'
+import FormMixin from '@/mixins/FormMixin'
 import FormTopBar from '@common/components/FormTopBar'
 import FormSubmitButtons from '@common/components/FormSubmitButtons'
 

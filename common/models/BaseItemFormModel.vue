@@ -1,7 +1,7 @@
 <script>
-import FormStateMixin from '@/mixins/FormStateMixin'
-import ErrorMixin from '@/mixins/ErrorMixin'
-import * as utils from '@/utils'
+import FormStateMixin from '@common/mixins/FormStateMixin'
+import ErrorMixin from '@common/mixins/ErrorMixin'
+import * as utils from '@common/utils'
 
 export default {
   mixins: [FormStateMixin, ErrorMixin],

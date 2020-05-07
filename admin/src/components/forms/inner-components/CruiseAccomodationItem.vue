@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import DatePickerInMenu from '@/components/shared/DatePickerInMenu'
+import DatePickerInMenu from '@common/components/DatePickerInMenu'
 
 export default {
   name: '',

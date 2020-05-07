@@ -150,13 +150,13 @@
 </template>
 
 <script>
-import FormMixin from '@/mixins/FormMixin'
-import FormTopBar from '@/components/shared/FormTopBar'
-import DatePickerInMenu from '@/components/shared/DatePickerInMenu'
+import FormMixin from '@common/mixins/FormMixin'
+import FormTopBar from '@common/components/FormTopBar'
+import DatePickerInMenu from '@common/components/DatePickerInMenu'
 import CruiseItinerarySelectDialog from '@/components/forms/inner-components/CruiseItinerarySelectDialog'
 import CruiseShipSelect from '@/components/forms/inner-components/CruiseShipSelect'
 import CruiseAccomodationItem from '@/components/forms/inner-components/CruiseAccomodationItem'
-import FormSubmitButtons from '@/components/shared/FormSubmitButtons'
+import FormSubmitButtons from '@common/components/FormSubmitButtons'
 import ItineraryFormBase from '@/components/forms/inner-components/ItineraryFormBase'
 
 

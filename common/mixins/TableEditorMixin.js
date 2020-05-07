@@ -1,6 +1,6 @@
 /* TableEditorMixin -  */
-import ErrorMixin from '@/mixins/ErrorMixin'
-import DateFilterMixin from '@/mixins/DateFilterMixin'
+import ErrorMixin from '@common/mixins/ErrorMixin'
+import DateFilterMixin from '@common/mixins/DateFilterMixin'
 
 const mix = {
   mixins: [ DateFilterMixin, ErrorMixin ],

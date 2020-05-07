@@ -81,9 +81,9 @@
 </template>
 
 <script>
-import FormMixin from '@/mixins/FormMixin'
-import FormSubmitButtons from '@/components/shared/FormSubmitButtons'
-import NoData from '@/components/shared/NoData'
+import FormMixin from '@common/mixins/FormMixin'
+import FormSubmitButtons from '@common/components/FormSubmitButtons'
+import NoData from '@common/components/NoData'
 import draggable from 'vuedraggable'
 
 export default {

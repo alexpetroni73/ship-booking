@@ -1,5 +1,5 @@
 /* TableWithSidePanelEditorMixin - extend TableEditorMixin with methods and listeners for an ItemEditor that is in a side panel */
-import TableEditorMixin from '@/mixins/TableEditorMixin'
+import TableEditorMixin from '@common/mixins/TableEditorMixin'
 
 const mix = {
   mixins: [ TableEditorMixin ],

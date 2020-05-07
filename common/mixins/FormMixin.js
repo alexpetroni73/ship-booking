@@ -1,5 +1,5 @@
 // FormMixin
-import { jsonCopy, FormState } from '@/utils'
+import { jsonCopy, FormState } from '@common/utils'
 
 export default {
   props: {

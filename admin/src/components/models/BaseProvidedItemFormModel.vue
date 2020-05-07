@@ -1,5 +1,5 @@
 <script>
-import BaseFormModelMixin from '@/mixins/BaseFormModelMixin'
+import BaseFormModelMixin from '@common/mixins/BaseFormModelMixin'
 
 export default {
   mixins: [ BaseFormModelMixin ],

@@ -72,7 +72,7 @@
 
 <script>
 import ShipFormModel from '@/components/models/ShipFormModel'
-import FormTopBar from '@/components/shared/FormTopBar'
+import FormTopBar from '@common/components/FormTopBar'
 import ShipBasicInfoForm from '@/components/forms/ShipBasicInfoForm'
 import ShipFeaturesFormContainer from '@/components/forms/ShipFeaturesFormContainer'
 import ShipMediaForm from '@/components/forms/ShipMediaForm'

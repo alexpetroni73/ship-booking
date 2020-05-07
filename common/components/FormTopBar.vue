@@ -111,8 +111,8 @@
 
 <script>
 
-import ConfirmationDialog from '@/components/shared/ConfirmationDialog'
-import BaseError from '@/components/shared/BaseError'
+import ConfirmationDialog from '@common/components/ConfirmationDialog'
+import BaseError from '@common/components/BaseError'
 
 import {
   FormState,

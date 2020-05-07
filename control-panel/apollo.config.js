@@ -19,5 +19,5 @@ module.exports = {
   engine: {
     endpoint: process.env.APOLLO_ENGINE_API_ENDPOINT,
     apiKey: env.VUE_APP_APOLLO_ENGINE_KEY
-  }
+  },
 }

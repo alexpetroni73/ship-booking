@@ -1,60 +1,77 @@
 <template>
-  <v-app>
+  <v-app id="inspire">
     <v-app-bar
       app
-      color="primary"
+      clipped-left
+      clipped-right
+      color="accent"
+      class="grey darken-4"
       dark
     >
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
-
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
-      </div>
-
-      <v-spacer></v-spacer>
-
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
+      <v-toolbar-title>Control Panel</v-toolbar-title>
+      <v-spacer />
     </v-app-bar>
 
+    <v-navigation-drawer
+      v-model="drawer"
+      app
+      clipped
+      left
+    >
+    <MainMenu />
+    </v-navigation-drawer>
+
     <v-content>
-      <HelloWorld/>
+      <v-container
+        fluid
+      >
+        <router-view></router-view>
+      </v-container>
     </v-content>
+
+    <v-navigation-drawer
+      v-model="right"
+      fixed
+      right
+      temporary
+    />
+
+    <AppFooter />
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
+import MainMenu from '@/components/MainMenu'
+import AppFooter from '@/components/AppFooter'
 
-export default {
-  name: 'App',
+  export default {
+    props: {
+      source: String,
+    },
 
-  components: {
-    HelloWorld,
-  },
+    components: {
+      MainMenu,
+      AppFooter,
+    },
 
-  data: () => ({
-    //
-  }),
-};
+    data: () => ({
+      drawer: null,
+      drawerRight: null,
+      right: false,
+      left: false,
+    }),
+
+
+  }
 </script>
+
+<style>
+.handle {
+  cursor: grabbing;
+}
+
+.link {
+  cursor: pointer;
+}
+</style>

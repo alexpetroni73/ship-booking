@@ -64,10 +64,10 @@
 <script>
 import SearchShips from '@/graphql/ship/SearchShips.gql'
 import DeleteShips from '@/graphql/ship/DeleteShips.gql'
-import TableEditorMixin from '@/mixins/TableEditorMixin'
+import TableEditorMixin from '@common/mixins/TableEditorMixin'
 
-import TableEditorHeader from '@/components/shared/TableEditorHeader'
-import BulkActionSelector from '@/components/shared/BulkActionSelector'
+import TableEditorHeader from '@common/components/TableEditorHeader'
+import BulkActionSelector from '@common/components/BulkActionSelector'
 
 export default {
 

@@ -113,10 +113,10 @@
 </template>
 
 <script>
-import FormMixin from '@/mixins/FormMixin'
-import FormTopBar from '@/components/shared/FormTopBar'
-import FormSubmitButtons from '@/components/shared/FormSubmitButtons'
-import MediaSelect from '@/components/shared/MediaSelect'
+import FormMixin from '@common/mixins/FormMixin'
+import FormTopBar from '@common/components/FormTopBar'
+import FormSubmitButtons from '@common/components/FormSubmitButtons'
+import MediaSelect from '@common/components/MediaSelect'
 
 export default {
   mixins: [ FormMixin ],

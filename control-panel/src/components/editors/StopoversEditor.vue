@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import FormStateMixin from '@common/mixins/FormStateMixin'
+import FormStateMixin from '@/mixins/FormStateMixin'
 import StopoversListForm from '@/components/forms/StopoversListForm'
 import StopoverForm from '@/components/forms/StopoverForm'
 

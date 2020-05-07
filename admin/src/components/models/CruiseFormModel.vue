@@ -1,5 +1,5 @@
 <script>
-import BaseItemFormModel from '@/components/models/BaseItemFormModel'
+import BaseItemFormModel from '@common/models/BaseItemFormModel'
 
 import Cruise from '@/graphql/cruise/Cruise.gql'
 import CreateCruise from '@/graphql/cruise/CreateCruise.gql'

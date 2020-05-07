@@ -197,8 +197,8 @@
 </template>
 
 <script>
-import FormMixin from '@/mixins/FormMixin'
-import FormSubmitButtons from '@/components/shared/FormSubmitButtons'
+import FormMixin from '@common/mixins/FormMixin'
+import FormSubmitButtons from '@common/components/FormSubmitButtons'
 
 export default {
   mixins: [ FormMixin ],

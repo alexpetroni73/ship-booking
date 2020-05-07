@@ -1,5 +1,5 @@
 <script>
-import BaseItemFormModel from '@/components/models/BaseItemFormModel'
+import BaseItemFormModel from '@common/models/BaseItemFormModel'
 
 import Cabin from '@/graphql/ship/Cabin.gql'
 import CreateCabin from '@/graphql/ship/CreateCabin.gql'

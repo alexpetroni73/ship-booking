@@ -43,9 +43,9 @@
 </template>
 
 <script>
-import FormMixin from '@/mixins/FormMixin'
+import FormMixin from '@common/mixins/FormMixin'
 import ShipFeaturesForm from '@/components/forms/ShipFeaturesForm'
-import FormSubmitButtons from '@/components/shared/FormSubmitButtons'
+import FormSubmitButtons from '@common/components/FormSubmitButtons'
 
 
 export default {

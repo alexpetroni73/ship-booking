@@ -1,6 +1,6 @@
 /* FormStateMixin - keep the edit state for an item into editor  */
 
-import { FormState, isNewForm, isEditForm } from '@/utils'
+import { FormState, isNewForm, isEditForm } from '@common/utils'
 
 const mix = {
   data: function () {

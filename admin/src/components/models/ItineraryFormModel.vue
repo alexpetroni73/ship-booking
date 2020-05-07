@@ -1,6 +1,6 @@
 <script>
 import { jsonCopy } from '@/utils'
-import BaseItemFormModel from '@/components/models/BaseItemFormModel'
+import BaseItemFormModel from '@common/models/BaseItemFormModel'
 
 import Itinerary from '@/graphql/itinerary/Itinerary.gql'
 import CreateItinerary from '@/graphql/itinerary/CreateItinerary.gql'

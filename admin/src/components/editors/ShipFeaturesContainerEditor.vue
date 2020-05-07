@@ -48,7 +48,7 @@
 <script>
 import UpdateShip from '@/graphql/ship/UpdateShip.gql'
 
-import ItemLeafEditorMixin from '@/mixins/ItemLeafEditorMixin'
+import ItemLeafEditorMixin from '@common/mixins/ItemLeafEditorMixin'
 import ShipFeaturesEditor from './ShipFeaturesEditor.vue'
 
 

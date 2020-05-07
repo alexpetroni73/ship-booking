@@ -90,8 +90,8 @@
 </template>
 
 <script>
-//import FormSubmitButtons from '@/components/shared/FormSubmitButtons'
-import MediaSelect from '@/components/shared/MediaSelect'
+//import FormSubmitButtons from '@common/components/FormSubmitButtons'
+import MediaSelect from '@common/components/MediaSelect'
 import StopoversEditor from '@/components/editors/StopoversEditor'
 
 export default {

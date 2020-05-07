@@ -1,5 +1,5 @@
 <script>
-import BaseItemFormModel from '@/components/models/BaseItemFormModel'
+import BaseItemFormModel from '@common/models/BaseItemFormModel'
 import ShipQuery from '@/graphql/ship/Ship.gql'
 import CreateShip from '@/graphql/ship/CreateShip.gql'
 import UpdateShip from '@/graphql/ship/UpdateShip.gql'
