@@ -20,6 +20,7 @@
 
     <FormSubmitButtons
     v-if="!cruiseEmbeded"
+    :disabled="submitDisabled"
     :formState="formState"
     @update-item="updateItem"
     @create-item="createItem"
@@ -69,6 +70,10 @@ export default {
     // mdCruiseEmbeded () {
     //   return this.cruiseEmbeded ? 6 : 4
     // },
+
+    submitDisabled () {
+      return !this.editedItem.name || !this.editedItem.location
+    },
   },
 
   methods: {
