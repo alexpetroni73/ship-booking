@@ -20,6 +20,7 @@ wireRoutes(app)
 // Static files
 app.use(express.static(publicDir))
 app.use(express.static(publicDir + '/admin'))
+app.use(express.static(publicDir + '/control-panel'))
 app.use(express.static(publicDir + '/front'))
 
 // ERRORS
