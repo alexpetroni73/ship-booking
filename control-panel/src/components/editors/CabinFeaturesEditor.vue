@@ -1,6 +1,6 @@
 <template>
   <div>
-    <StopoversListForm
+    <FeaturesListForm
       v-if="isListView"
       :item="stopovers"
       @new-item="onAddNewItem"
@@ -8,7 +8,7 @@
       @reorder-list="onListReorder"
     />
 
-    <StopoverForm
+    <FeatureForm
       v-else
       :item="editedItem"
       @cancel="setListView"
@@ -21,16 +21,16 @@
 </template>
 
 <script>
-import FormStateMixin from '@/mixins/FormStateMixin'
-import StopoversListForm from '@/components/forms/StopoversListForm'
-import StopoverForm from '@/components/forms/StopoverForm'
+import FormStateMixin from '@common/mixins/FormStateMixin'
+import FeaturesListForm from '@/components/forms/FeaturesListForm'
+import FeatureForm from '@/components/forms/FeatureForm'
 
 export default {
   name: 'StopoversEditor',
 
   components: {
-    StopoversListForm,
-    StopoverForm,
+    FeaturesListForm,
+    FeatureForm,
   },
 
   mixins: [ FormStateMixin ],

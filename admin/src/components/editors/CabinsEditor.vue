@@ -63,7 +63,7 @@ import CabinFormModel from '@/components/models/CabinFormModel'
 import CabinsListForm from '@/components/forms/CabinsListForm'
 import CabinForm from '@/components/forms/CabinForm'
 
-import { pipeEvents } from '@/utils'
+import { pipeEvents } from '@common/utils'
 
 export default {
   name: '',

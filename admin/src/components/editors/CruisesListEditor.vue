@@ -64,7 +64,7 @@ import SearchCruises from '@/graphql/cruise/SearchCruises.gql'
 import ListEditorHeader from '@common/components/ListEditorHeader'
 import NoData from '@common/components/NoData'
 
-import { parseDate } from '@/utils'
+import { parseDate } from '@common/utils'
 
 export default {
   name: 'CruisesListEditor',

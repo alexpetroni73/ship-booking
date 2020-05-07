@@ -17,7 +17,7 @@
 <script>
 import CruiseFormModel from '@/components/models/CruiseFormModel'
 import CruiseForm from '@/components/forms/CruiseForm'
-import { pipeEvents } from '@/utils'
+import { pipeEvents } from '@common/utils'
 
 export default {
   name: 'CruiseEditor',

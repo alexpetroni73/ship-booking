@@ -60,7 +60,7 @@
 <script>
 import SearchItineraries from '@/graphql/itinerary/SearchItineraries.gql'
 import Itinerary from '@/graphql/itinerary/Itinerary.gql'
-import { deleteObjFields } from '@/utils'
+import { deleteObjFields } from '@common/utils'
 
 export default {
   props: {

@@ -2,7 +2,7 @@
 import BaseItemFormModel from '@common/models/BaseItemFormModel'
 import Cabins from '@/graphql/ship/Cabins.gql'
 import UpdateCabins from '@/graphql/ship/UpdateCabins.gql'
-import * as utils from '@/utils'
+import * as utils from '@common/utils'
 
 export default {
   extends: BaseItemFormModel,

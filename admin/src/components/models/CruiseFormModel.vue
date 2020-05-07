@@ -6,7 +6,7 @@ import CreateCruise from '@/graphql/cruise/CreateCruise.gql'
 import UpdateCruise from '@/graphql/cruise/UpdateCruise.gql'
 import DeleteCruise from '@/graphql/cruise/DeleteCruise.gql'
 
-import { parseDate, deleteObjField } from '@/utils'
+import { parseDate, deleteObjField } from '@common/utils'
 
 export default {
   extends: BaseItemFormModel,

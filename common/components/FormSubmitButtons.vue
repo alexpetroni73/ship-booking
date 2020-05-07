@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { FormState,  isEditForm } from '@/utils'
+import { FormState,  isEditForm } from '@common/utils'
 
 export default {
   props: {

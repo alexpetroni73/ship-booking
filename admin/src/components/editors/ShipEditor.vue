@@ -79,7 +79,7 @@ import ShipMediaForm from '@/components/forms/ShipMediaForm'
 import CabinsEditor from '@/components/editors/CabinsEditor'
 
 
-import { pipeEvents, mergeObjectsToLeft, isNewForm } from '@/utils'
+import { pipeEvents, mergeObjectsToLeft, isNewForm } from '@common/utils'
 
 export default {
   name: 'ShipEditor',

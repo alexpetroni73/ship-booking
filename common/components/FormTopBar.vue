@@ -110,7 +110,6 @@
 </template>
 
 <script>
-
 import ConfirmationDialog from '@common/components/ConfirmationDialog'
 import BaseError from '@common/components/BaseError'
 
@@ -118,7 +117,7 @@ import {
   FormState,
   isNewForm,
   isEditForm,
-  } from '@/utils'
+  } from '@common/utils'
 
 export default {
   name: '',
