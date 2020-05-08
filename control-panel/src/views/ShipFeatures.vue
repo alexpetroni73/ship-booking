@@ -1,17 +1,14 @@
 <template>
-  <div class="about">
-    <h1>This is an ship features page</h1>
-    <BaseError error="No error"/>
-  </div>
+  <ShipFeatureSetEditor />
 </template>
 
 <script>
-import BaseError from '@common/components/BaseError'
+import ShipFeatureSetEditor from '@/components/editors/ShipFeatureSetEditor'
 
 
 export default {
   components: {
-    BaseError,
+    ShipFeatureSetEditor,
   },
 }
 </script>

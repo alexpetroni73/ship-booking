@@ -1,4 +1,4 @@
-const { Feature } = require('./../mongo/models')
+const { FeatureSet } = require('./../mongo/models')
 
 const utils = require('./utils')
 const aggExpr = require('./aggregation')
@@ -7,39 +7,39 @@ const slug = require('slug')
 const mongoose = require('mongoose')
 const ObjectId = mongoose.Types.ObjectId
 
-const feature = async function (id) {
+const featureSet = async function (slug) {
   let agg = [
-    aggExpr.matchById(id),
+    aggExpr.matchByField('slug', slug),
     aggExpr.addId(),
   ]
-  return (await Feature.aggregate(agg))[0]
+  return (await FeatureSet.aggregate(agg))[0]
 }
 
-const featureBy = async function (field, value) {
+const featureSetBy = async function (field, value) {
   let agg = [
     aggExpr.matchByField(field, value),
     aggExpr.addId(),
   ]
-  return (await Feature.aggregate(agg))[0]
+  return (await FeatureSet.aggregate(agg))[0]
 }
 
-const features = async function (idArr) {
-  let agg = [aggExpr.matchByIdArr(idArr), aggExpr.addId()]
-  return await Feature.aggregate(agg)
+const featureSets = async function (slugArr) {
+  let agg = [aggExpr.matchByIdArr(slugArr), aggExpr.addId()]
+  return await FeatureSet.aggregate(agg)
 }
 
-const featuresBySlug = async function (slugArr) {
+const featureSetsBySlug = async function (slugArr) {
   let agg = [{'$match': {'slug': {'$in': slugArr}}}, aggExpr.addId()]
-  return await Feature.aggregate(agg)
+  return await FeatureSet.aggregate(agg)
 }
 
-const searchFeatures = async function (args = {}) {
+const searchFeatureSets = async function (args = {}) {
   const {limit} = args
   let agg = [getMatchExpr(args), aggExpr.limit(limit), aggExpr.addId()]
-  return await Feature.aggregate(agg)
+  return await FeatureSet.aggregate(agg)
 }
 
-const paginatedFeatures = async function (args = {}) {
+const paginatedFeatureSets = async function (args = {}) {
   // defaults
   const {
     page, resultsPerPage,
@@ -49,8 +49,8 @@ const paginatedFeatures = async function (args = {}) {
 
   let agg = [getMatchExpr(args)]
 
-  const itemsQ = Feature.aggregate([...agg, aggExpr.sort(orderBy, order), ...aggExpr.pagination(page, resultsPerPage), aggExpr.addId()])
-  const totalQ = Feature.aggregate([...agg, {"$count": "total"}])
+  const itemsQ = FeatureSet.aggregate([...agg, aggExpr.sort(orderBy, order), ...aggExpr.pagination(page, resultsPerPage), aggExpr.addId()])
+  const totalQ = FeatureSet.aggregate([...agg, {"$count": "total"}])
 
   const [items, total] = await Promise.all([itemsQ, totalQ])
 
@@ -61,46 +61,37 @@ const paginatedFeatures = async function (args = {}) {
 
 }
 
-const createFeature = async function (input) {
+const createFeatureSet = async function (input) {
   // check required fields
   utils.checkNonEmptyProperties(['name'], input)
   // check unicity for provided fields
-  await utils.checkUniqueFieldValue(Feature, 'name', input.name)
+  await utils.checkUniqueFieldValue(FeatureSet, 'name', input.name)
   // ensure unique slug
   let slugSeed = input.slug ? input.slug : input.name
-  input.slug = await utils.generateUniqueSlug(Feature, 'slug', slugSeed)
+  input.slug = await utils.generateUniqueSlug(FeatureSet, 'slug', slugSeed)
 
-  const result = await Feature.create(input)
-  return await feature(result._id)
+  const result = await FeatureSet.create(input)
+  return await featureSet(result._id)
 }
 
-const updateFeature = async function (id, input) {
-  // check for non-empty & unique field values if provided
-  const uniqueFieldsProvided = utils.checkNonEmptyProperties(['name', 'slug'], input, false)
-
-  input = utils.slugifyObjProperties(input, 'slug')
-  if(uniqueFieldsProvided.length){
-    await Promise.all(uniqueFieldsProvided.map(e => utils.checkUniqueFieldValue(Feature, e, input[e], id)))
-  }
-
+const updateFeatureSet = async function (slug, input) {
   if(input.items) {
     input.items = slugfifyItems(input.items)
   }
-
-  await Feature.findByIdAndUpdate(id, input)
-  return await feature(id)
+  await FeatureSet.findOneAndUpdate({slug: slug}, input, {upsert: true})
+  return await featureSet(slug)
 }
 
-const deleteFeature = async function (id) {
-  let feature = await Feature.findById(id)
-  await Feature.findByIdAndRemove(id)
+const deleteFeatureSet = async function (id) {
+  let featureSet = await FeatureSet.findById(id)
+  await FeatureSet.findByIdAndRemove(id)
   return id
 }
 
-const deleteFeatures = async function (idArr) {
-  let attArr = await Feature.find({ _id: {$in: idArr }})
-  await Feature.deleteMany({ _id: {$in: idArr }})
-  return idArr
+const deleteFeatureSets = async function (slugArr) {
+  let attArr = await FeatureSet.find({ slug: {$in: slugArr }})
+  await FeatureSet.deleteMany({ slug: {$in: slugArr }})
+  return slugArr
 }
 
 // -----------------------------------------------------------
@@ -132,15 +123,15 @@ function slugfifyItems (arr) {
 
 
 module.exports = {
-  feature,
-  featureBy,
-  features,
-  featuresBySlug,
-  searchFeatures,
-  paginatedFeatures,
+  featureSet,
+  featureSetBy,
+  featureSets,
+  featureSetsBySlug,
+  searchFeatureSets,
+  paginatedFeatureSets,
 
-  createFeature,
-  updateFeature,
-  deleteFeature,
-  deleteFeatures,
+  createFeatureSet,
+  updateFeatureSet,
+  deleteFeatureSet,
+  deleteFeatureSets,
 }

@@ -5,13 +5,13 @@ const ObjectId = Schema.Types.ObjectId
 const { buildTimestampSchema } = require('./../utils')
 
 const cruise = require('./cruise')
-const feature = require('./feature')
+const featureSet = require('./feature-set')
 const itinerary = require('./itinerary')
 const ship = require('./ship')
 
 module.exports = {
   cruise: buildTimestampSchema(cruise),
-  feature: buildTimestampSchema(feature),
+  featureSet: buildTimestampSchema(featureSet),
   itinerary: buildTimestampSchema(itinerary),
   ship: buildTimestampSchema(ship),
 }

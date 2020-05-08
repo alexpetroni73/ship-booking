@@ -1,30 +1,41 @@
 <template>
-  <div>
+  <v-card
+  max-width="600"
+  class="mx-auto">
     <v-toolbar
     color="white elevation-1"
      >
      <v-spacer></v-spacer>
-     <v-toolbar-title>{{ listTitle }}</v-toolbar-title>
+     <v-toolbar-title>{{ item.name }}</v-toolbar-title>
      <v-spacer></v-spacer>
-     <v-btn
-      fab
-      small
-      dark
-      color="primary"
-      @click="$emit('new-item')">
-      <v-icon small>mdi-plus</v-icon>
-    </v-btn>
    </v-toolbar>
    <v-container>
      <v-row>
+       <v-col xs="12" sm="8">
+       <v-text-field
+         label="New Feature"
+         v-model="newFeature"
+         @keyup.enter="addItem"
+       ></v-text-field>
+      </v-col>
+        <v-col xs="12" sm="4">
+          <v-btn
+          color="primary"
+          :disabled="!validNewItem"
+          @click="addItem"
+          >
+          Add
+        </v-btn>
+        </v-col>
+     </v-row>
+     <v-row v-if="hasItems">
        <v-col
-       v-if="hasItems"
        cols="12"
        >
       <v-list>
-        <draggable v-model="editedItem" handle=".handle" @change="onReorder">
+        <draggable v-model="editedItem.items" handle=".handle" @change="onReorder">
         <v-list-item
-        v-for="(item, index) in editedItem"
+        v-for="(item, index) in editedItem.items"
         :key="index"
         >
 
@@ -40,7 +51,7 @@
         </v-list-item-icon>
 
         <v-list-item-content>
-          <v-list-item-title v-text="item.title"></v-list-item-title>
+          <v-list-item-title v-text="item.name"></v-list-item-title>
         </v-list-item-content>
 
         <v-list-item-avatar>
@@ -56,32 +67,35 @@
         </v-list-item>
         </draggable>
       </v-list>
-
-
        </v-col>
 
-       <!-- <v-col
-       v-else
-       class="text-center pa-12"
-       >
-         No stopovers yet. Click on "+" button to add one.
-       </v-col> -->
-
-       <v-col v-else>
-         <NoData
-           title="No stopovers yet."
+       <v-col cols="12">
+         <FormSubmitButtons
+         :formState="formState"
+         @update-item="updateItem"
+         @create-item="createItem"
          />
        </v-col>
+     </v-row>
 
+
+     <v-row  v-else>
+       <v-col>
+         <NoData
+           title="No features yet."
+           :subtitle="false"
+         />
+       </v-col>
      </v-row>
    </v-container>
-  </div>
+ </v-card>
 </template>
 
 <script>
 import FormMixin from '@common/mixins/FormMixin'
 import draggable from 'vuedraggable'
 import NoData from '@common/components/NoData'
+import FormSubmitButtons from '@common/components/FormSubmitButtons'
 
 export default {
   name: '',
@@ -89,22 +103,14 @@ export default {
   components: {
     draggable,
     NoData,
-  },
-
-  props: {
-    listTitle: {
-      type: String
-    }
-  },
-
-  model: {
-
+    FormSubmitButtons,
   },
 
   mixins: [ FormMixin ],
 
   data () {
     return {
+      newFeature: '',
     }
   },
 
@@ -116,9 +122,10 @@ export default {
     isReordable () {
       return this.hasItems && this.editedItem.items.length > 1
     },
-  },
 
-  watch: {
+    validNewItem () {
+      return this.newFeature && this.newFeature.trim()
+    }
   },
 
   methods: {
@@ -128,6 +135,16 @@ export default {
 
     onReorder () {
       this.$emit('reorder-list', this.editedItem)
+    },
+
+    addItem () {
+      if(!this.validNewItem ) return
+      let indexExists = this.editedItem.items.findIndex(e => e.name == this.newFeature)
+      if(indexExists != -1){
+        this.editedItem.items.splice(indexExists, 1)
+      }
+      this.editedItem.items.push({name: this.newFeature, slug: this.newFeature})
+      this.newFeature = ''
     },
   },
 

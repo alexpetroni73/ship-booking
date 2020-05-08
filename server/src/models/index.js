@@ -1,11 +1,11 @@
 const Ship = require('./ship')
-const Feature = require('./feature')
+const FeatureSet = require('./feature-set')
 const Itinerary = require('./itinerary')
 const Cruise = require('./cruise')
 
 module.exports = {
   Ship,
-  Feature,
+  FeatureSet,
   Itinerary,
   Cruise,
 }

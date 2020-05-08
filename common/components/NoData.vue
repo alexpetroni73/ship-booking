@@ -1,7 +1,7 @@
 <template>
   <div class="text-center pa-12">
     <div class="title">{{ title }}</div>
-    <div class="subtitle-2">{{ subtitle }}</div>
+    <div v-if="subtitle" class="subtitle-2">{{ subtitle }}</div>
   </div>
 </template>
 
@@ -15,7 +15,6 @@ export default {
     },
 
     subtitle: {
-      type: String,
       default: 'Click on the "+" button to add one.'
     },
   },

@@ -6,6 +6,7 @@ module.exports = {
   slug: {
     type: String,
     index: true,
+    unique: true, 
   },
 
   items: {

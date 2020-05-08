@@ -1,13 +1,13 @@
 <template>
-    <CabinFeaturesEditor />
+    <CabinFeatureSetEditor />
 </template>
 
 <script>
-import CabinFeaturesEditor from '@/components/editors/CabinFeaturesEditor'
+import CabinFeatureSetEditor from '@/components/editors/CabinFeatureSetEditor'
 
 export default {
   components: {
-    CabinFeaturesEditor,
+    CabinFeatureSetEditor,
   },
 }
 </script>

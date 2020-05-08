@@ -4,13 +4,13 @@ const mongoose = require('mongoose')
 const schemas = require('./../mongoose-schemas')
 
 const Cruise = mongoose.model('Cruise', schemas.cruise)
-const Feature = mongoose.model('Feature', schemas.feature)
+const FeatureSet = mongoose.model('FeatureSet', schemas.featureSet)
 const Itinerary = mongoose.model('Itinerary', schemas.itinerary)
 const Ship = mongoose.model('Ship', schemas.ship)
 
 module.exports = {
   Cruise,
-  Feature,
+  FeatureSet,
   Itinerary,
   Ship,
 }
