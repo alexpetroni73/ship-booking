@@ -1,7 +1,7 @@
 <template>
   <v-data-table
     :headers="headers"
-    :items="items"
+    :items="desserts"
     :items-per-page="5"
     class="elevation-1"
   ></v-data-table>
@@ -41,17 +41,19 @@ export default {
   data () {
     return {
       headers: [
-        { text: 'Cruise', value: 'cruise' },
-        { text: 'First Name', value: 'firstName'},
-        { text: 'Last Name', value: 'lastName' },
-        { text: 'Gender', value: 'gender' },
+        {
+          text: 'Company',
+          align: 'start',
+          sortable: false,
+          value: 'name',
+        },
+        { text: 'Contact', value: 'contact' },
         { text: 'Email', value: 'email' },
         { text: 'Phone', value: 'phone' },
-        { text: 'Last Order', value: 'order'},
         { text: 'Status', value: 'status' },
-      ],
-
-      items: [],
+        { text: '', value: 'protein' },
+        { text: 'Iron (%)', value: 'iron' },
+      ]
     }
   },
 
@@ -70,3 +72,8 @@ export default {
 
 }
 </script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+
+</style>

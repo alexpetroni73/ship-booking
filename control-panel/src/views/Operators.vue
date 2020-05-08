@@ -41,14 +41,16 @@ export default {
   data () {
     return {
       headers: [
-        { text: 'Cruise', value: 'cruise' },
-        { text: 'First Name', value: 'firstName'},
-        { text: 'Last Name', value: 'lastName' },
-        { text: 'Gender', value: 'gender' },
+        {
+          text: 'Company',
+          align: 'start',
+          sortable: false,
+          value: 'name',
+        },
+        { text: 'Contact', value: 'contact' },
         { text: 'Email', value: 'email' },
         { text: 'Phone', value: 'phone' },
-        { text: 'Last Order', value: 'order'},
-        { text: 'Status', value: 'status' },
+        { text: 'Status', value: 'status' }
       ],
 
       items: [],
@@ -70,3 +72,8 @@ export default {
 
 }
 </script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+
+</style>

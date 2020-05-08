@@ -26,6 +26,12 @@ Vue.use(VueRouter)
   },
 
   {
+    path: '/operators',
+    name: 'operators',
+    component: () => import('../views/Operators.vue')
+  },
+
+  {
     path: '/settings',
     name: 'settings',
     component: () => import('../views/Settings.vue')
@@ -41,6 +47,24 @@ Vue.use(VueRouter)
     path: '/cabin-features',
     name: 'cabin-features',
     component: () => import('../views/CabinFeatures.vue')
+  },
+
+  {
+    path: '/media',
+    name: 'media',
+    component: () => import('../views/Media.vue')
+  },
+
+  {
+    path: '/orders',
+    name: 'orders',
+    component: () => import('../views/Orders.vue')
+  },
+
+  {
+    path: '/clients',
+    name: 'clients',
+    component: () => import('../views/Clients.vue')
   },
 ]
 
