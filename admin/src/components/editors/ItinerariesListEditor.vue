@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import SearchItineraries from '@/graphql/itinerary/SearchItineraries.gql'
+import SearchItineraries from '@common/graphql/itinerary/SearchItineraries.gql'
 import ListEditorHeader from '@common/components/ListEditorHeader'
 import NoData from '@common/components/NoData'
 

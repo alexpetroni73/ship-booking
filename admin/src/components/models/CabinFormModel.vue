@@ -1,11 +1,11 @@
 <script>
 import BaseItemFormModel from '@common/models/BaseItemFormModel'
 
-import Cabin from '@/graphql/ship/Cabin.gql'
-import CreateCabin from '@/graphql/ship/CreateCabin.gql'
-import UpdateCabin from '@/graphql/ship/UpdateCabin.gql'
-import DeleteCabin from '@/graphql/ship/DeleteCabin.gql'
-// import CabinFeatures from '@/graphql/ship/CabinFeatures.gql'
+import Cabin from '@common/graphql/ship/Cabin.gql'
+import CreateCabin from '@common/graphql/ship/CreateCabin.gql'
+import UpdateCabin from '@common/graphql/ship/UpdateCabin.gql'
+import DeleteCabin from '@common/graphql/ship/DeleteCabin.gql'
+// import CabinFeatures from '@common/graphql/ship/CabinFeatures.gql'
 
 export default {
   extends: BaseItemFormModel,

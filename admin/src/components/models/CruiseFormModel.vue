@@ -1,10 +1,10 @@
 <script>
 import BaseItemFormModel from '@common/models/BaseItemFormModel'
 
-import Cruise from '@/graphql/cruise/Cruise.gql'
-import CreateCruise from '@/graphql/cruise/CreateCruise.gql'
-import UpdateCruise from '@/graphql/cruise/UpdateCruise.gql'
-import DeleteCruise from '@/graphql/cruise/DeleteCruise.gql'
+import Cruise from '@common/graphql/cruise/Cruise.gql'
+import CreateCruise from '@common/graphql/cruise/CreateCruise.gql'
+import UpdateCruise from '@common/graphql/cruise/UpdateCruise.gql'
+import DeleteCruise from '@common/graphql/cruise/DeleteCruise.gql'
 
 import { parseDate, deleteObjField } from '@common/utils'
 

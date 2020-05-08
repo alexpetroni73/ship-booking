@@ -58,8 +58,8 @@
 </template>
 
 <script>
-import SearchItineraries from '@/graphql/itinerary/SearchItineraries.gql'
-import Itinerary from '@/graphql/itinerary/Itinerary.gql'
+import SearchItineraries from '@common/graphql/itinerary/SearchItineraries.gql'
+import Itinerary from '@common/graphql/itinerary/Itinerary.gql'
 import { deleteObjFields } from '@common/utils'
 
 export default {

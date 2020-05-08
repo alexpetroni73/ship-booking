@@ -1,9 +1,9 @@
 <script>
 import BaseItemFormModel from '@common/models/BaseItemFormModel'
-import ShipQuery from '@/graphql/ship/Ship.gql'
-import CreateShip from '@/graphql/ship/CreateShip.gql'
-import UpdateShip from '@/graphql/ship/UpdateShip.gql'
-import DeleteShip from '@/graphql/ship/DeleteShip.gql'
+import ShipQuery from '@common/graphql/ship/Ship.gql'
+import CreateShip from '@common/graphql/ship/CreateShip.gql'
+import UpdateShip from '@common/graphql/ship/UpdateShip.gql'
+import DeleteShip from '@common/graphql/ship/DeleteShip.gql'
 
 export default {
   extends: BaseItemFormModel,

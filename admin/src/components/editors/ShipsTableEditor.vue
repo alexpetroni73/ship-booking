@@ -62,8 +62,8 @@
 </template>
 
 <script>
-import SearchShips from '@/graphql/ship/SearchShips.gql'
-import DeleteShips from '@/graphql/ship/DeleteShips.gql'
+import SearchShips from '@common/graphql/ship/SearchShips.gql'
+import DeleteShips from '@common/graphql/ship/DeleteShips.gql'
 import TableEditorMixin from '@common/mixins/TableEditorMixin'
 
 import TableEditorHeader from '@common/components/TableEditorHeader'

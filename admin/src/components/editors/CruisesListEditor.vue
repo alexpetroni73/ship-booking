@@ -60,7 +60,7 @@
 </template>
 
 <script>
-import SearchCruises from '@/graphql/cruise/SearchCruises.gql'
+import SearchCruises from '@common/graphql/cruise/SearchCruises.gql'
 import ListEditorHeader from '@common/components/ListEditorHeader'
 import NoData from '@common/components/NoData'
 

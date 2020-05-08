@@ -58,7 +58,7 @@
 </template>
 
 <script>
-import SearchShips from '@/graphql/ship/SearchShips.gql'
+import SearchShips from '@common/graphql/ship/SearchShips.gql'
 import ListEditorHeader from '@common/components/ListEditorHeader'
 import NoData from '@common/components/NoData'
 

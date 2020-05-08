@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import UpdateShip from '@/graphql/ship/UpdateShip.gql'
+import UpdateShip from '@common/graphql/ship/UpdateShip.gql'
 
 import ItemLeafEditorMixin from '@common/mixins/ItemLeafEditorMixin'
 import ShipFeaturesEditor from './ShipFeaturesEditor.vue'

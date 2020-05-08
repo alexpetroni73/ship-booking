@@ -2,10 +2,10 @@
 import { jsonCopy } from '@common/utils'
 import BaseItemFormModel from '@common/models/BaseItemFormModel'
 
-import Itinerary from '@/graphql/itinerary/Itinerary.gql'
-import CreateItinerary from '@/graphql/itinerary/CreateItinerary.gql'
-import UpdateItinerary from '@/graphql/itinerary/UpdateItinerary.gql'
-import DeleteItinerary from '@/graphql/itinerary/DeleteItinerary.gql'
+import Itinerary from '@common/graphql/itinerary/Itinerary.gql'
+import CreateItinerary from '@common/graphql/itinerary/CreateItinerary.gql'
+import UpdateItinerary from '@common/graphql/itinerary/UpdateItinerary.gql'
+import DeleteItinerary from '@common/graphql/itinerary/DeleteItinerary.gql'
 
 export default {
   extends: BaseItemFormModel,

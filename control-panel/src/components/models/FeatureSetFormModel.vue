@@ -1,9 +1,9 @@
 <script>
 import BaseItemFormModel from '@common/models/BaseItemFormModel'
 
-import FeatureSetBy from '@/graphql/feature-set/FeatureSetBy.gql'
-import UpdateFeatureSet from '@/graphql/feature-set/UpdateFeatureSet.gql'
-import DeleteFeatureSet from '@/graphql/feature-set/DeleteFeatureSet.gql'
+import FeatureSetBy from '@common/graphql/feature-set/FeatureSetBy.gql'
+import UpdateFeatureSet from '@common/graphql/feature-set/UpdateFeatureSet.gql'
+import DeleteFeatureSet from '@common/graphql/feature-set/DeleteFeatureSet.gql'
 import { deleteObjField } from '@common/utils'
 
 export default {
