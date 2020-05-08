@@ -18,7 +18,7 @@
    <v-container>
      <v-row>
        <v-col
-       v-if="hasStopovers"
+       v-if="hasItems"
        cols="12"
        >
       <v-list>
@@ -91,6 +91,12 @@ export default {
     NoData,
   },
 
+  props: {
+    listTitle: {
+      type: String
+    }
+  },
+
   model: {
 
   },
@@ -99,17 +105,16 @@ export default {
 
   data () {
     return {
-      listTitle: "Stopovers",
     }
   },
 
   computed: {
-    hasStopovers () {
-      return this.editedItem && Array.isArray(this.editedItem) && this.editedItem.length
+    hasItems () {
+      return this.editedItem && Array.isArray(this.editedItem.items) && this.editedItem.items.length
     },
 
     isReordable () {
-      return this.hasStopovers && this.editedItem.length > 1
+      return this.hasItems && this.editedItem.items.length > 1
     },
   },
 

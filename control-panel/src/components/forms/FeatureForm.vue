@@ -27,8 +27,8 @@
      :formState="formState"
      @update-item="updateItem"
      @create-item="createItem"
-     btnTextUpdate="Update Stopover"
-     btnTextAdd="Add Stopover"
+     :btnTextAdd="btnTextAdd"
+     :btnTextUpdate="btnTextUpdate"
      />
 
     </v-container>
@@ -43,6 +43,18 @@ import FormTopBar from '@common/components/FormTopBar'
 import FormSubmitButtons from '@common/components/FormSubmitButtons'
 
 export default {
+
+  props: {
+    btnTextAdd: {
+      type: String,
+      default: "Add Feature"
+    },
+
+    btnTextUpdate: {
+      type: String,
+      default: "Update Feature"
+    },
+  },
 
   model: {
     prop: 'item',

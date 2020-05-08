@@ -1,4 +1,4 @@
-const { port, publicDir, jwtSecret } = require('./config')
+const { port, publicDir, jwtSecret, homeUrl, mongodbUri } = require('./config')
 
 const express = require('express')
 const { server } = require('./apollo-server')
@@ -33,4 +33,4 @@ const options = {
   port
 }
 
-app.listen(options, () => console.log(`🚀 Server ready at http://localhost:${ port }${server.graphqlPath}`))
+app.listen(options, () => console.log(`🚀 Server ready at ${homeUrl} ${ port }${server.graphqlPath}. MongoDB ${mongodbUri}`))
