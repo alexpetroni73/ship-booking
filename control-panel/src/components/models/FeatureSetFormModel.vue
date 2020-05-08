@@ -15,24 +15,6 @@ export default {
     },
   },
 
-  data () {
-    return {
-      cabinFeatures: [
-        { name: 'a', slug: 'a' },
-        { name: 'b', slug: 'b' },
-        { name: 'c', slug: 'c' },
-        { name: 'd', slug: 'd' },
-      ],
-    }
-  },
-
-  // apollo: {
-  //   cabinFeatures: {
-  //     query: FeatureSetFeatures,
-  //     update: (data) => data.cabinFeatures,
-  //   }
-  // },
-
   methods: {
     getDefaultItem () {
       return {
@@ -51,22 +33,16 @@ export default {
         query: FeatureSetBy,
         variables: key,
       })
-      let res = featureSetBy ? featureSetBy : this.getDefaultItem()
-      console.log('loadItem  %o', res)
       return featureSetBy ? featureSetBy : this.getDefaultItem()
     },
 
-    async updateItem (item, key) {
-      console.log('updateItem item %o', item)
-      console.log('updateItem key %o', key)
+    async updateItem (item) {
       const input = deleteObjField(item, '__typename')
       const variables = {slug: this.id, input}
-      console.log('variables  %o', variables)
       let { data: { updateFeatureSet } } = await this.$apollo.mutate({
         mutation: UpdateFeatureSet,
         variables,
       })
-      console.log('updateFeatureSet  %o', updateFeatureSet)
       return updateFeatureSet
     },
 
@@ -77,11 +53,6 @@ export default {
       })
       return deleteFeatureSet
     },
-
-    extraSlotParams () {
-      return {cabinFeatures: this.cabinFeatures}
-    }
-
   },
 }
 </script>

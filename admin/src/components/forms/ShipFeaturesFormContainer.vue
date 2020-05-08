@@ -24,7 +24,7 @@
         >
         <v-card>
           <ShipFeaturesForm
-          :items="features[t.slug]"
+          :feature-set="t.slug"
           v-model="editedItem[t.features]"
           :featuresText.sync="editedItem[t.featuresText]"
           :title="t.title"
@@ -90,14 +90,14 @@ export default {
   },
 
   computed: {
-    features () {
-      return {
-        'ship-features': parseFeaturesToObj(shipFeatArr),
-        'food-and-drinks': parseFeaturesToObj(drinksArr),
-        'diving': parseFeaturesToObj(divingArr),
-        'navigation-safety': parseFeaturesToObj(navSafteyArr),
-      }
-    }
+    // features () {
+    //   return {
+    //     'ship-features': parseFeaturesToObj(shipFeatArr),
+    //     'food-and-drinks': parseFeaturesToObj(drinksArr),
+    //     'diving': parseFeaturesToObj(divingArr),
+    //     'navigation-safety': parseFeaturesToObj(navSafteyArr),
+    //   }
+    // }
   },
 
   methods: {
@@ -118,72 +118,5 @@ export default {
       return this.item && this.item[slug]
     },
   },
-
-
 }
-
-
-function parseFeaturesToObj (arr) {
-  return arr.map(e => ({
-    name: e, slug: e
-  }))
-}
-
-const shipFeatArr = [
-  "Laundry Service",
-  "Camera Station",
-  "Daily housekeeping",
-  "Audio & video entertainment",
-  "Library",
-  "Air Conditioned saloon",
-  "Aircon Cabins",
-  "Sun Deck",
-  "Indoor Saloon",
-  "Non-Diver (Snorkeler) Friendly",
-  "Warm Water Showers",
-  "Custom built for diving",
-  "Charging stations",
-  "En-Suite bathrooms",
-  "Free Internet",
-  "Non-Smoking Rooms",
-  "Outside Showers",
-  "Seaview Cabins",
-  "Kayaks On-Board",
-  "Separate Rinse for u/w Camera",
-  "Dedicated Local & International Crew",
-  "Nearly 1:1 Crew-to-Guest Ratio",
-  "Leisure Deck",
-  "Observation Deck",
-  "BBQ Area",]
-
-  const drinksArr = [
-    "Western Food",
-    "Local Food",
-    "Vegetarian Options",
-    "Buffet style",
-    "Beer available",
-    "Snacks All Day",
-    "Vegan Options",
-    "Fine Wines Selection",
-    "Free Soft Drinks",
-    "Wine Available",
-    "Al Fresco Dining",
-  ]
-
-  const divingArr = [
-    "DIN Adaptors",
-    "Nitrox available",
-    "Rinse Hoses",
-    "Dive deck",
-    "Tenders for diving",
-    "Shaded Diving Area",
-  ]
-
-  const navSafteyArr = [
-    "Radar",
-    "GPS",
-    "Radio VHF/DSC/SSB",
-    "Life Vests",
-    "Fire Alarm & Fire Extinguishers",
-  ]
 </script>

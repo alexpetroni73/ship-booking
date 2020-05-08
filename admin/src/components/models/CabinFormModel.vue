@@ -5,7 +5,7 @@ import Cabin from '@common/graphql/ship/Cabin.gql'
 import CreateCabin from '@common/graphql/ship/CreateCabin.gql'
 import UpdateCabin from '@common/graphql/ship/UpdateCabin.gql'
 import DeleteCabin from '@common/graphql/ship/DeleteCabin.gql'
-// import CabinFeatures from '@common/graphql/ship/CabinFeatures.gql'
+import FeatureSetBySlug from '@common/graphql/feature-set/FeatureSetBySlug.gql'
 
 export default {
   extends: BaseItemFormModel,
@@ -19,21 +19,20 @@ export default {
 
   data () {
     return {
-      cabinFeatures: [
-        { name: 'a', slug: 'a' },
-        { name: 'b', slug: 'b' },
-        { name: 'c', slug: 'c' },
-        { name: 'd', slug: 'd' },
-      ],
+      cabinFeatures: [],
     }
   },
 
-  // apollo: {
-  //   cabinFeatures: {
-  //     query: CabinFeatures,
-  //     update: (data) => data.cabinFeatures,
-  //   }
-  // },
+  apollo: {
+    cabinFeatures: {
+      query: FeatureSetBySlug,
+      variables: {slug: 'cabin-features'},
+      update: (data) => data.featureSetBySlug && data.featureSetBySlug.items ? data.featureSetBySlug.items : [],
+      error (error) {
+        this.error = error.message
+      }
+    }
+  },
 
   methods: {
     getDefaultItem () {
@@ -58,8 +57,6 @@ export default {
     },
 
     async createItem (item, key) {
-      console.log('createItem item %o', item)
-      console.log('createItem key %o', key)
       let { data: { createCabin } } = await this.$apollo.mutate({
         mutation: CreateCabin,
         variables: {input:item, ...key},
@@ -77,8 +74,6 @@ export default {
     },
 
     async updateItem (item, key) {
-      console.log('updateItem item %o', item)
-      console.log('updateItem key %o', key)
       let { data: { updateCabin } } = await this.$apollo.mutate({
         mutation: UpdateCabin,
         variables: {...key, input: item},

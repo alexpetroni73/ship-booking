@@ -144,6 +144,12 @@ export default {
     showList () {
       this.$emit('show-list')
     },
-  }
+  },
+
+  watch: {
+    cabinFeatures: function (val) {
+      console.log('watch cabinFeatures %o', val)
+    },
+  },
 }
 </script>
