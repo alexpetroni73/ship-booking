@@ -7,6 +7,8 @@ import vuetify from './plugins/vuetify';
 import { createProvider } from './vue-apollo'
 import './cloudinary.js'
 import './plugins/base'
+import './plugins/chartist'
+import './plugins/vee-validate'
 
 Vue.config.productionTip = false
 

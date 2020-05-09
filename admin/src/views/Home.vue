@@ -54,11 +54,11 @@
           </template>
 
           <h4 class="card-title font-weight-light mt-2 ml-2">
-            Website Views
+            Monthly Booking Views
           </h4>
 
           <p class="d-inline-flex font-weight-light ml-2 mt-1">
-            Last Campaign Performance
+            Based on confirmed payments
           </p>
 
           <template v-slot:actions>
@@ -121,7 +121,7 @@
           </template>
 
           <h4 class="card-title font-weight-light mt-2 ml-2">
-            Daily Sales
+            Daily Reservations
           </h4>
 
           <p class="d-inline-flex font-weight-light ml-2 mt-1">
@@ -132,7 +132,7 @@
               mdi-arrow-up
             </v-icon>
             <span class="green--text">55%</span>&nbsp;
-            increase in today's sales
+            increase in today's reservations
           </p>
 
           <template v-slot:actions>
@@ -195,11 +195,11 @@
           </template>
 
           <h3 class="card-title font-weight-light mt-2 ml-2">
-            Completed Tasks
+            Last 24 hours visits
           </h3>
 
           <p class="d-inline-flex font-weight-light ml-2 mt-1">
-            Last Last Campaign Performance
+            Include all owned ships
           </p>
 
           <template v-slot:actions>
@@ -209,7 +209,7 @@
             >
               mdi-clock-outline
             </v-icon>
-            <span class="caption grey--text font-weight-light">campaign sent 26 minutes ago</span>
+            <span class="caption grey--text font-weight-light">updated 26 minutes ago</span>
           </template>
         </base-material-chart-card>
       </v-col>
@@ -285,11 +285,11 @@
         >
           <template v-slot:heading>
             <div class="display-2 font-weight-light">
-              Employees Stats
+              Most Recent Reservations Stats
             </div>
 
             <div class="subtitle-1 font-weight-light">
-              New employees on 15th September, 2016
+              New reservations on {{ today }}
             </div>
           </template>
           <v-card-text>
@@ -318,9 +318,9 @@
               >Tasks:</span>
               <v-tab class="mr-3">
                 <v-icon class="mr-2">
-                  mdi-bug
+                  mdi-message-alert
                 </v-icon>
-                Bugs
+                Messages
               </v-tab>
               <v-tab class="mr-3">
                 <v-icon class="mr-2">
@@ -330,9 +330,9 @@
               </v-tab>
               <v-tab>
                 <v-icon class="mr-2">
-                  mdi-cloud
+                  mdi-star-half-full
                 </v-icon>
-                Server
+                Reviews
               </v-tab>
             </v-tabs>
           </template>
@@ -393,11 +393,14 @@
 </template>
 
 <script>
+import moment from 'moment'
+
   export default {
     name: 'DashboardDashboard',
 
     data () {
       return {
+        today: moment().format('Do MMMM YYYY'),
         dailySalesChart: {
           data: {
             labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
@@ -485,20 +488,20 @@
           },
           {
             sortable: false,
-            text: 'Salary',
-            value: 'salary',
+            text: 'Location',
+            value: 'location',
             align: 'right',
           },
           {
             sortable: false,
-            text: 'Country',
-            value: 'country',
+            text: 'Cruise Start',
+            value: 'cruieDate',
             align: 'right',
           },
           {
             sortable: false,
-            text: 'City',
-            value: 'city',
+            text: 'Status',
+            value: 'status',
             align: 'right',
           },
         ],
@@ -506,80 +509,80 @@
           {
             id: 1,
             name: 'Dakota Rice',
-            country: 'Niger',
-            city: 'Oud-Tunrhout',
-            salary: '$35,738',
+            location: 'Indonesia',
+            cruieDate: '2020-09-11',
+            status: 'paid',
           },
           {
             id: 2,
             name: 'Minerva Hooper',
-            country: 'Curaçao',
-            city: 'Sinaai-Waas',
-            salary: '$23,738',
+            location: 'Maldives',
+            cruieDate: '2020-05-16',
+            status: 'pending',
           },
           {
             id: 3,
             name: 'Sage Rodriguez',
-            country: 'Netherlands',
-            city: 'Overland Park',
-            salary: '$56,142',
+            location: 'Indonesia',
+            cruieDate: '2020-05-11',
+            status: 'pending',
           },
           {
             id: 4,
             name: 'Philip Chanley',
-            country: 'Korea, South',
-            city: 'Gloucester',
-            salary: '$38,735',
+            location: 'Myanmar',
+            cruieDate: '2021-09-01',
+            status: 'reservation',
           },
           {
             id: 5,
             name: 'Doris Greene',
-            country: 'Malawi',
-            city: 'Feldkirchen in Kārnten',
-            salary: '$63,542',
+            location: 'Maldives',
+            cruieDate: '2021-02-13',
+            status: 'paid',
           },
         ],
         tabs: 0,
         tasks: {
           0: [
             {
-              text: 'Sign contract for "What are conference organizers afraid of?"',
+              text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit"',
               value: true,
             },
             {
-              text: 'Lines From Great Russian Literature? Or E-mails From My Boss?',
+              text: 'Lorem ipsum dolor sit amet, consectetur adipiscing Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ',
               value: false,
             },
             {
-              text: 'Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit',
+              text: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
               value: false,
             },
             {
-              text: 'Create 4 Invisible User Experiences you Never Knew About',
+              text: 'Excepteur sint occaecat cupidatat non proident.',
               value: true,
             },
           ],
           1: [
             {
-              text: 'Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit',
+              text: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
               value: true,
             },
             {
-              text: 'Sign contract for "What are conference organizers afraid of?"',
+              text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit"',
               value: false,
             },
           ],
           2: [
             {
-              text: 'Lines From Great Russian Literature? Or E-mails From My Boss?',
+              text: 'Lorem ipsum dolor sit amet, consectetur adipiscing Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ',
               value: false,
             },
             {
-              text: 'Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit',
+              text: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
               value: true,
             },
             {
-              text: 'Sign contract for "What are conference organizers afraid of?"',
+              text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit"',
               value: true,
             },
           ],

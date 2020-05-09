@@ -13,14 +13,7 @@
       <v-spacer />
     </v-app-bar>
 
-    <v-navigation-drawer
-      v-model="drawer"
-      app
-      clipped
-      left
-    >
-    <MainMenu />
-    </v-navigation-drawer>
+    <Drawer />
 
     <v-content>
       <v-container
@@ -42,8 +35,8 @@
 </template>
 
 <script>
-import MainMenu from '@/components/MainMenu'
 import AppFooter from '@/components/AppFooter'
+import Drawer from '@/components/Drawer'
 
   export default {
     props: {
@@ -51,7 +44,7 @@ import AppFooter from '@/components/AppFooter'
     },
 
     components: {
-      MainMenu,
+      Drawer,
       AppFooter,
     },
 
