@@ -11,21 +11,18 @@
     <v-content>
         <router-view></router-view>
     </v-content>
-    <v-footer
-    color="primary"
-  app
->
-  <span class="white--text">&copy; {{ (new Date()).getFullYear() }}</span>
-</v-footer>
+    <Footer />
   </v-app>
 </template>
 
 <script>
+import Footer from '@/components/Footer'
 
 export default {
   name: 'App',
 
   components: {
+    Footer,
   },
 
   data: () => ({

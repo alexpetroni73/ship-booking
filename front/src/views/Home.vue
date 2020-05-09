@@ -1,6 +1,13 @@
 <template>
   <div class="home">
-    Home
+    <base-material-stats-card
+      color="primary"
+      icon="mdi-poll"
+      title="Website Visits"
+      value="75.521"
+      sub-icon="mdi-tag"
+      sub-text="Tracked from Google Analytics"
+    />
   </div>
 </template>
 
