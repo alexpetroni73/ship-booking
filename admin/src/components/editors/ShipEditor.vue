@@ -36,7 +36,7 @@
           </v-tabs>
       </template>
 
-      <v-tabs
+      <v-tabs-items
         v-model="tab"
       >
       <v-tab-item
@@ -77,27 +77,9 @@
         :activ="cabinActiv"
         />
       </v-tab-item>
-    </v-tabs>
+    </v-tabs-items>
 
       </base-material-card>
-
-    <!-- <v-tabs
-      v-model="tab"
-      class="elevation-2"
-      centered
-      @change="onTabsChange"
-     >
-      <v-tab
-        v-for="t in tabs"
-        :key="t.slug"
-        :href="`#tab-${t.slug}`"
-        :disabled="isDisabledTab(t.slug, modelState.formState)"
-      >
-        {{ t.title }}
-      </v-tab> -->
-
-
-
     </div>
   </ShipFormModel>
 </template>

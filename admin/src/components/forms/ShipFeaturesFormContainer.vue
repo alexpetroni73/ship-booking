@@ -22,7 +22,6 @@
           :value="'tab-' + t.slug"
           flat
         >
-        <v-card>
           <ShipFeaturesForm
           :feature-set="t.slug"
           v-model="editedItem[t.features]"
@@ -30,7 +29,6 @@
           :title="t.title"
           >
         </ShipFeaturesForm>
-       </v-card>
         </v-tab-item>
     </v-tabs>
 

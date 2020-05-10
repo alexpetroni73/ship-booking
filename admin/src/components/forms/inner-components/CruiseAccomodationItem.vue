@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row>
-      <v-col sm="12" md="8" class="title" :class="{'text--disabled': !item.enabled}">
+      <v-col sm="12" md="8" class="display-1" :class="{'text--disabled': !item.enabled}">
         {{ item.cabin.name }}
       </v-col>
       <v-col sm="12" md="4">
