@@ -1,49 +1,59 @@
 <template>
-  <v-container
-  fluid
-  >
-  <FormTopBar
-  addNewTitle="Add New Cruise"
-  v-bind="modelState"
-  v-on="formEvents"
-  />
+  <base-material-card class="px-5 py-3">
+    <template v-slot:heading>
+      <div>
+      <FormTopBar
+      addNewTitle="Add New Cruise"
+      v-bind="modelState"
+      v-on="formEvents"
+      />
+
+      <v-stepper
+      light
+       v-model="currentStep">
+        <v-stepper-header
+        flat
+        >
+          <v-spacer></v-spacer>
+          <v-stepper-step
+          step="1"
+          :complete="currentStep > 1"
+          :editable="currentStep > 1"
+          >
+          Ship & Date
+          </v-stepper-step>
+
+          <v-divider></v-divider>
+
+          <v-stepper-step
+          step="2"
+          :complete="currentStep > 2"
+          :editable="currentStep > 2"
+          >
+          Itinerary
+          </v-stepper-step>
+
+          <v-divider></v-divider>
+
+          <v-stepper-step
+          step="3"
+          :complete="currentStep > 3"
+          >
+          Accommodation
+          </v-stepper-step>
+
+          <v-spacer></v-spacer>
+
+        </v-stepper-header>
+    </v-stepper>
+  </div>
+    </template>
+
+
   <v-stepper v-model="currentStep">
-    <v-stepper-header>
-      <v-spacer></v-spacer>
-      <v-stepper-step
-      step="1"
-      :complete="currentStep > 1"
-      :editable="currentStep > 1"
-      >
-      Ship & Date
-      </v-stepper-step>
-
-      <v-divider></v-divider>
-
-      <v-stepper-step
-      step="2"
-      :complete="currentStep > 2"
-      :editable="currentStep > 2"
-      >
-      Itinerary
-      </v-stepper-step>
-
-      <v-divider></v-divider>
-
-      <v-stepper-step
-      step="3"
-      :complete="currentStep > 3"
-      >
-      Accommodation
-      </v-stepper-step>
-
-      <v-spacer></v-spacer>
-
-    </v-stepper-header>
-
     <v-stepper-items>
       <!-- ========================= STEP 1 ========================= -->
-      <v-stepper-content step="1">
+      <v-stepper-content step="1" flat>
 
         <v-row>
           <v-col cols="12" sm="6" md="4">
@@ -146,7 +156,7 @@
     </v-stepper-items>
 
   </v-stepper>
-  </v-container>
+</base-material-card>
 </template>
 
 <script>

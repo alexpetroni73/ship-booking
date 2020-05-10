@@ -22,6 +22,7 @@
           background-color="transparent"
           slider-color="white"
           @change="onTabsChange"
+          center-active
          >
           <v-tab
             v-for="t in tabs"
@@ -34,6 +35,7 @@
           </v-tab>
           </v-tabs>
       </template>
+
       <v-tabs
         v-model="tab"
       >

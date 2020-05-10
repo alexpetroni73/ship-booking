@@ -22,8 +22,8 @@
          v-for="item in props.items"
          :key="item.id"
          cols="12"
-         sm="6"
-         md="4"
+         sm="4"
+         md="3"
          lg="3"
          >
 

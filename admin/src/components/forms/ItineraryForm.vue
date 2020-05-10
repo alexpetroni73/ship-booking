@@ -1,7 +1,6 @@
 <template>
-  <v-card
-  flat
-  >
+  <base-material-card class="px-5 py-3">
+    <template v-slot:heading>
   <FormTopBar
     v-if="!cruiseEmbeded"
     addNewTitle="Add New Itinerary"
@@ -9,7 +8,8 @@
     v-on="formEvents"
     :name="item.name"
   />
-
+      </template>
+      <div>
     <v-card-text>
       <ItineraryFormBase
       :item="editedItem"
@@ -24,7 +24,8 @@
     @update-item="updateItem"
     @create-item="createItem"
     />
-  </v-card>
+  </div>
+  </base-material-card>
 </template>
 
 <script>
