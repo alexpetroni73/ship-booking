@@ -1,6 +1,6 @@
 <template>
   <v-app id="inspire">
-    <v-app-bar
+    <!-- <v-app-bar
       app
       clipped-left
       clipped-right
@@ -11,8 +11,8 @@
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-toolbar-title>Admin Panel</v-toolbar-title>
       <v-spacer />
-    </v-app-bar>
-
+    </v-app-bar> -->
+    <AppBar />
     <Drawer />
 
     <v-content>
@@ -20,23 +20,25 @@
         fluid
       >
         <router-view></router-view>
+
       </v-container>
+      <!-- <AppFooter /> -->
     </v-content>
 
-    <v-navigation-drawer
+    <!-- <v-navigation-drawer
       v-model="right"
       fixed
       right
       temporary
-    />
-
-    <AppFooter />
+    /> -->
   </v-app>
 </template>
 
 <script>
-import AppFooter from '@/components/AppFooter'
-import Drawer from '@/components/Drawer'
+
+import AppBar from '@/components/core/AppBar'
+import Drawer from '@/components/core/Drawer'
+// import AppFooter from '@/components/AppFooter'
 
   export default {
     props: {
@@ -44,8 +46,9 @@ import Drawer from '@/components/Drawer'
     },
 
     components: {
+      AppBar,
       Drawer,
-      AppFooter,
+      // AppFooter,
     },
 
     data: () => ({

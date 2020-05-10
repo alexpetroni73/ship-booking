@@ -1,8 +1,5 @@
 <template>
   <v-footer
-    app
-    color="accent"
-    class="white--text grey darken-4"
   >
   <span>My Ships</span>
   <v-spacer />

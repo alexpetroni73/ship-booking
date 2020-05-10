@@ -7,7 +7,7 @@
       v-on="on"
       title="Choose from already saved itineraries"
       >
-        Select itinerary
+        Add itinerary
       </v-btn>
     </template>
 

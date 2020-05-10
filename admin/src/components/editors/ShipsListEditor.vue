@@ -26,6 +26,11 @@
          md="4"
          lg="3"
          >
+
+         <!-- <base-x-material-product-card
+         :item="item"
+
+         /> -->
            <v-card>
             <v-card-title
 
@@ -61,6 +66,7 @@
 import SearchShips from '@common/graphql/ship/SearchShips.gql'
 import ListEditorHeader from '@common/components/ListEditorHeader'
 import NoData from '@common/components/NoData'
+
 
 export default {
   name: 'ShipsListEditor',

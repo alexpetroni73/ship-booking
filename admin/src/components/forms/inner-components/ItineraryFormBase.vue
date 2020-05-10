@@ -107,7 +107,12 @@ export default {
 
     locations: {
       type: Array,
-      default: () => []
+      default: () => [
+        {text: "Indonesia", value: "Indonesia"},
+        {text: "Maldives", value: "Maldives"},
+        {text: "Philippines", value: "Philippines"},
+        {text: "Thailand", value: "Thailand"},
+      ]
     },
   },
 

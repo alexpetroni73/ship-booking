@@ -5,38 +5,28 @@
   v-on="pipeUpEvents('new-item', 'item-created', 'item-deleted')"
   >
   <div>
-
-    <base-material-card class="px-5 py-3">
-      <template v-slot:heading>
-
-        <FormTopBar
-        addNewTitle="Add New Ship"
-        v-bind="modelState"
-        v-on="formEvents"
-        :name="item.name"
-        @cancel="$emit('cancel')"
-        />
-
-        <v-tabs
-          v-model="tab"
-          background-color="transparent"
-          slider-color="white"
-          @change="onTabsChange"
-         >
-          <v-tab
-            v-for="t in tabs"
-            :key="t.slug"
-            :href="`#tab-${t.slug}`"
-            :disabled="isDisabledTab(t.slug, modelState.formState)"
-            class="mr-3"
-          >
-            {{ t.title }}
-          </v-tab>
-          </v-tabs>
-      </template>
-      <v-tabs
-        v-model="tab"
+    <FormTopBar
+    addNewTitle="Add New Ship"
+    v-bind="modelState"
+    v-on="formEvents"
+    :name="item.name"
+    @cancel="$emit('cancel')"
+    />
+    <v-tabs
+      v-model="tab"
+      class="elevation-2"
+      centered
+      @change="onTabsChange"
+     >
+      <v-tab
+        v-for="t in tabs"
+        :key="t.slug"
+        :href="`#tab-${t.slug}`"
+        :disabled="isDisabledTab(t.slug, modelState.formState)"
       >
+        {{ t.title }}
+      </v-tab>
+
       <v-tab-item
       value="tab-basic"
       >
@@ -75,27 +65,7 @@
         :activ="cabinActiv"
         />
       </v-tab-item>
-    </v-tabs>
-
-      </base-material-card>
-
-    <!-- <v-tabs
-      v-model="tab"
-      class="elevation-2"
-      centered
-      @change="onTabsChange"
-     >
-      <v-tab
-        v-for="t in tabs"
-        :key="t.slug"
-        :href="`#tab-${t.slug}`"
-        :disabled="isDisabledTab(t.slug, modelState.formState)"
-      >
-        {{ t.title }}
-      </v-tab> -->
-
-
-
+      </v-tabs>
     </div>
   </ShipFormModel>
 </template>

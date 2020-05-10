@@ -1,7 +1,8 @@
 <template>
     <div>
         <v-toolbar
-        color="white elevation-1"
+        color="transparent"
+        flat
          >
            <slot
            name="left"
@@ -12,14 +13,14 @@
            }"
            >
                 <v-icon
-                @click="onClose()"
+                @click="onBack()"
                 class="mx-2"
                 small
                 :color="btnColor"
                 left
-                :title="closeIconTitle"
+                :title="backIconTitle"
                 >
-                {{ closeIcon }}
+                {{ backIcon }}
               </v-icon>
             </slot>
             <v-spacer></v-spacer>
@@ -60,7 +61,6 @@
                     v-on="on"
                   >
                     <v-icon
-
                     small
                     :color="btnColor"
                     >mdi-dots-vertical
@@ -78,7 +78,7 @@
                     <v-list-item-icon v-if="useMenuIcons">
                       <v-icon
                       small
-                      :color="btnColor"
+                      color="accent"
                       v-text="item.icon"
                       :disabled="item.disabled"
                       >
@@ -141,14 +141,14 @@ export default {
       type: String,
     },
 
-    closeIcon: {
+    backIcon: {
       type: String,
-      default: 'mdi-close'
+      default: 'mdi-chevron-left'
     },
 
-    closeIconTitle: {
+    backIconTitle: {
       type: String,
-      default: 'Close'
+      default: 'Back to list'
     },
 
     hideDeleteBtn: {
@@ -157,7 +157,12 @@ export default {
 
     btnColor: {
       type: String,
-      default: 'primary'
+      default: 'white'
+    },
+
+    menuBtnColor: {
+      type: String,
+      default: 'dark-grey'
     },
 
     editTitle: {
@@ -256,7 +261,7 @@ export default {
   },
 
   methods: {
-    onClose () {
+    onBack () {
       this.$emit('cancel')
     },
 

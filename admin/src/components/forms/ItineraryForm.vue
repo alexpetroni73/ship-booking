@@ -14,7 +14,6 @@
       <ItineraryFormBase
       :item="editedItem"
       :cruiseEmbeded="cruiseEmbeded"
-      :locations="locations"
       />
    </v-card-text>
 
@@ -44,18 +43,6 @@ export default {
       type: Boolean,
       default: false,
     },
-
-    locations: {
-      type: Array,
-      default: () => [
-        {text: "Indonesia", value: "Indonesia"},
-        {text: "Maldives", value: "Maldives"},
-        {text: "Philippines", value: "Philippines"},
-        {text: "Thailand", value: "Thailand"},
-      ]
-    },
-
-
   },
 
   components: {
