@@ -1,12 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
-    <v-toolbar-title>My Logo</v-toolbar-title>
-    </v-app-bar>
+    <AppBar />
 
     <v-content>
         <router-view></router-view>
@@ -16,12 +10,14 @@
 </template>
 
 <script>
-import Footer from '@/components/Footer'
+import AppBar from '@/components/core/AppBar'
+import Footer from '@/components/core/Footer'
 
 export default {
   name: 'App',
 
   components: {
+    AppBar,
     Footer,
   },
 

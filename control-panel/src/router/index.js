@@ -50,6 +50,18 @@ Vue.use(VueRouter)
   },
 
   {
+    path: '/countries',
+    name: 'countries',
+    component: () => import('../views/Countries.vue')
+  },
+
+  {
+    path: '/courencies',
+    name: 'courencies',
+    component: () => import('../views/Courencies.vue')
+  },
+
+  {
     path: '/media',
     name: 'media',
     component: () => import('../views/Media.vue')
