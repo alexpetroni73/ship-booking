@@ -171,7 +171,7 @@ const updateCabin = async function (shipId, id, input) {
 
 const deleteCabin = async function (shipId, id) {
   let r = await Ship.updateOne({'_id': ObjectId(shipId), 'cabins._id': ObjectId(id)}, {$pull: {cabins: {'_id': ObjectId(id)}}})
-  console.log('r %o', r)
+  // console.log('r %o', r)
   return id
 }
 

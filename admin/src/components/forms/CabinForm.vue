@@ -1,15 +1,14 @@
 <template>
-  <v-card
-  flat
-  >
-  <FormTopBar
-    addNewTitle="Add New Cabin"
-    v-bind="modelState"
-    v-on="formEvents"
-    :name="item.name"
-  />
+  <base-material-card class="px-5 py-3">
+    <template v-slot:heading>
+      <FormTopBar
+        addNewTitle="Add New Cabin"
+        v-bind="modelState"
+        v-on="formEvents"
+        :name="item.name"
+      />
+    </template>
 
-    <v-card-text>
       <v-container>
        <v-row>
          <v-col
@@ -101,7 +100,6 @@
      </template>
    </v-row>
      </v-container>
-   </v-card-text>
 
     <FormSubmitButtons
     :formState="formState"
@@ -109,7 +107,7 @@
     @create-item="createItem"
     :disabled="!enableSubmit"
     />
-  </v-card>
+  </base-material-card>
 </template>
 
 <script>

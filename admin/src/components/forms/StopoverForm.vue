@@ -1,11 +1,13 @@
 <template>
-  <v-card>
-    <FormTopBar
-    title="xx"
-    :menuItems="[]"
-    :formState="formState"
-    v-on="formEvents"
-    />
+  <base-material-card class="px-5 py-3">
+    <template v-slot:heading>
+      <FormTopBar
+      title="xx"
+      :menuItems="[]"
+      :formState="formState"
+      v-on="formEvents"
+      />
+    </template>
 
     <v-container>
      <v-row>
@@ -32,7 +34,7 @@
      />
 
     </v-container>
-  </v-card>
+  </base-material-card>
 
 </template>
 

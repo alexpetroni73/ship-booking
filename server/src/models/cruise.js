@@ -32,10 +32,10 @@ const cruiseBy = async function (field, val) {
       let acc  = f.accommodations.map(e => {
         e.id = e._id.toString()
         let cabin = f.ship.cabins.find(c => {
-            console.log(' c.id %s, e.cabin %s',  c.id, e.cabin)
+            // console.log(' c.id %s, e.cabin %s',  c.id, e.cabin)
           return c.id == e.cabin.toString()
         })
-        console.log('cabin %o', cabin)
+      //  console.log('cabin %o', cabin)
         e.cabin = cabin
         return e
       })
@@ -43,7 +43,7 @@ const cruiseBy = async function (field, val) {
     }
   }
 
-  console.log('f %o', f)
+  // console.log('f %o', f)
   return f
 }
 
@@ -88,7 +88,7 @@ const paginatedCruises = async function (args = {}) {
 
 
 const createCruise = async function (input) {
-  console.log('input %o', input)
+  // console.log('input %o', input)
   // ensure unique slug
   let slugSeed = input.slug ? input.slug : input.name
   input.slug = await utils.generateUniqueSlug(Cruise, 'slug', slugSeed)
