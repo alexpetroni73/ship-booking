@@ -4,8 +4,9 @@ const mediaLibraryAdmin = window.cloudinary.createMediaLibrary({
  username: 'alexpetroni73@gmail.com',
 }, {
    insertHandler: function (data) {
-     data.assets.forEach(asset => { console.log("Inserted asset:",
-     JSON.stringify(asset, null, 2)) })
+     data.assets.forEach(asset => {
+       console.log("Inserted asset:", JSON.stringify(asset, null, 2))
+     })
      }
   })
 

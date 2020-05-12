@@ -127,14 +127,17 @@ export default {
 
   watch: {
     kk :function (val) {
-      console.log(val)
+    //  console.log(val)
     }
   },
 
   methods: {
     navigateTo (routeName) {
       if(!routeName || this.$route.name == routeName) return
-      this.$router.push({name: routeName}).catch(error => console.log(error))
+      this.$router.push({name: routeName}).catch(error => {
+        //console.log(error))
+      })
+
     }
   },
 
