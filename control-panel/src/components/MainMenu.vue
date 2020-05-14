@@ -113,8 +113,8 @@ export default {
           children: [
             { text: 'Ship features', route: 'ship-features' },
             { text: 'Cabin features', route: 'cabin-features' },
-            { text: 'Countries', route: 'countries' },
-            { text: 'Courencies', route: 'courencies' },
+            { text: 'Destinations', route: 'destinations' },
+            { text: 'Currencies', route: 'currencies' },
             { text: 'Import' },
             { text: 'Export' },
             // { text: 'Print' },

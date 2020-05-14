@@ -1,10 +1,10 @@
 <script>
-import allCountries from '@common/assets/countries'
+import allDestinations from '@common/assets/destinations'
 
 export default {
   data () {
     return {
-      items: allCountries,
+      items: allDestinations,
       error: null,
     }
   },

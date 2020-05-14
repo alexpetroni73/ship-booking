@@ -1,27 +1,27 @@
 <template>
-  <CountriesFormModel
+  <DestinationsFormModel
   id="cabin-features"
-  name="Countries"
+  name="Destinations"
   v-slot="{item, modelState, formEvents}"
   >
-    <CountriesForm
+    <DestinationsForm
     :item="item"
     v-bind="modelState"
     v-on="formEvents"
     />
-  </CountriesFormModel>
+  </DestinationsFormModel>
 </template>
 
 <script>
-import CountriesForm from '@/components/forms/CountriesForm'
-import CountriesFormModel from '@/components/models/CountriesFormModel'
+import DestinationsForm from '@/components/forms/DestinationsForm'
+import DestinationsFormModel from '@/components/models/DestinationsFormModel'
 
 export default {
   name: '',
 
   components: {
-    CountriesFormModel,
-    CountriesForm,
+    DestinationsFormModel,
+    DestinationsForm,
   },
 
   directives: {

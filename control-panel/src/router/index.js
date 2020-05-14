@@ -50,15 +50,15 @@ Vue.use(VueRouter)
   },
 
   {
-    path: '/countries',
-    name: 'countries',
-    component: () => import('../views/Countries.vue')
+    path: '/destinations',
+    name: 'destinations',
+    component: () => import('../views/Destinations.vue')
   },
 
   {
-    path: '/courencies',
-    name: 'courencies',
-    component: () => import('../views/Courencies.vue')
+    path: '/currencies',
+    name: 'currencies',
+    component: () => import('../views/Currencies.vue')
   },
 
   {

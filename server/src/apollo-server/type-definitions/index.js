@@ -1,10 +1,10 @@
 const Common = require('./common')
 
-const Country = require('./country')
 const Cruise = require('./cruise')
-const Ship = require('./ship')
 const FeatureSet = require('./feature-set')
 const Itinerary = require('./itinerary')
+const Option = require('./option')
+const Ship = require('./ship')
 
 
 const Query = `
@@ -23,11 +23,11 @@ const typeDefs = [
   Mutation,
   Common,
 
-  Country,
   Cruise,
-  Ship,
   FeatureSet,
   Itinerary,
+  Option,
+  Ship,
 
 ]
 

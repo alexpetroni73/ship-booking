@@ -2,32 +2,41 @@
   <v-card
   max-width="600"
   class="mx-auto">
-    <v-toolbar
+    <!-- <v-toolbar
     color="white elevation-1"
      >
      <v-spacer></v-spacer>
      <v-toolbar-title>{{ item.name }}</v-toolbar-title>
      <v-spacer></v-spacer>
-   </v-toolbar>
+   </v-toolbar> -->
+
+   <v-card-title>
+     {{ item.name }}
+   </v-card-title>
+   <v-card class="mx-auto" max-width="450" flat >
    <v-container>
      <v-row>
-       <v-col xs="12" sm="8">
+       <v-col xs="12" sm="9">
        <v-text-field
          label="New Feature"
          v-model="newFeature"
          @keyup.enter="addItem"
        ></v-text-field>
       </v-col>
-        <v-col xs="12" sm="4">
+        <v-col xs="12" sm="3">
           <v-btn
           color="primary"
           :disabled="!validNewItem"
           @click="addItem"
+          class="ma-3"
           >
           Add
         </v-btn>
         </v-col>
      </v-row>
+   </v-container>
+    </v-card>
+   <v-container>
      <v-row v-if="hasItems">
        <v-col
        cols="12"
@@ -69,13 +78,13 @@
       </v-list>
        </v-col>
 
-       <v-col cols="12">
+       <!-- <v-col cols="12">
          <FormSubmitButtons
          :formState="formState"
          @update-item="updateItem"
          @create-item="createItem"
          />
-       </v-col>
+       </v-col> -->
      </v-row>
 
 
@@ -88,6 +97,47 @@
        </v-col>
      </v-row>
    </v-container>
+
+
+   <v-dialog
+     v-model="editorDialog"
+     width="450"
+   >
+     <v-card>
+       <v-card-title>
+         Feature Edit
+       </v-card-title>
+       <v-card-text>
+          <v-text-field
+           v-model="editedFeature.name"
+           label="Feature Name"
+          >
+          </v-text-field>
+       </v-card-text>
+
+       <v-card-actions>
+         <v-spacer></v-spacer>
+         <v-btn
+           color="primary"
+           text
+           @click="onDialogCancel"
+         >
+          Cancel
+         </v-btn>
+
+         <v-btn
+           color="primary"
+           text
+           @click="onDialogConfirm"
+           :disabled="!editedFeature.name"
+         >
+           Update
+         </v-btn>
+       </v-card-actions>
+     </v-card>
+   </v-dialog>
+
+
  </v-card>
 </template>
 
@@ -95,7 +145,9 @@
 import FormMixin from '@common/mixins/FormMixin'
 import draggable from 'vuedraggable'
 import NoData from '@common/components/NoData'
-import FormSubmitButtons from '@common/components/FormSubmitButtons'
+// import FormSubmitButtons from '@common/components/FormSubmitButtons'
+
+import { jsonCopy } from '@common/utils'
 
 export default {
   name: '',
@@ -103,7 +155,7 @@ export default {
   components: {
     draggable,
     NoData,
-    FormSubmitButtons,
+    // FormSubmitButtons,
   },
 
   mixins: [ FormMixin ],
@@ -111,6 +163,8 @@ export default {
   data () {
     return {
       newFeature: '',
+      editorDialog: false,
+      editedFeature: {},
     }
   },
 
@@ -130,21 +184,37 @@ export default {
 
   methods: {
     editItem (index) {
-      this.$emit('edit-item', index)
+      if(!this.hasItems || !this.editedItem.items[index]) return
+      this.editedFeature = jsonCopy(this.editedItem.items[index])
+      this.editedFeature.index = index
+      this.editorDialog = true
     },
 
     onReorder () {
-      this.$emit('reorder-list', this.editedItem)
+      this.$emit('update-item', this.editedItem)
     },
 
     addItem () {
       if(!this.validNewItem ) return
+      this.validNewItem = this.validNewItem.trim()
       let indexExists = this.editedItem.items.findIndex(e => e.name == this.newFeature)
       if(indexExists != -1){
         this.editedItem.items.splice(indexExists, 1)
       }
       this.editedItem.items.push({name: this.newFeature, slug: this.newFeature})
       this.newFeature = ''
+      this.$emit('update-item', this.editedItem)
+    },
+
+    onDialogCancel () {
+      this.editorDialog = false
+    },
+
+    onDialogConfirm () {
+      this.editedItem.items.splice(this.editedFeature.index, 1, {name: this.editedFeature.name, slug: this.editedFeature.slug })
+      this.editedFeature = {}
+      this.editorDialog = false
+      this.$emit('update-item', this.editedItem)
     },
   },
 
