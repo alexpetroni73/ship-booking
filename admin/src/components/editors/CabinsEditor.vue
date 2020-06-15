@@ -3,7 +3,7 @@
   <v-slide-x-transition>
     <CabinsListFormModel
     :id="id"
-    v-slot="{item, modelState, formEvents}"
+    v-slot="{item, modelState, crudEvents}"
     >
     <v-row
       v-show="isListView"
@@ -16,7 +16,7 @@
         <CabinsListForm
         :item="item"
         v-bind="modelState"
-        @update-item="formEvents['update-item']"
+        @update-item="crudEvents['update-item']"
         @edit-item="setCabinEditor"
         />
       </v-col>
@@ -32,7 +32,7 @@
     @item-deleted="setListView"
     @item-created="setListView"
     @item-updated="setListView"
-    v-slot="{item, modelState, formEvents, cabinFeatures}"
+    v-slot="{item, modelState, crudEvents, cabinFeatures}"
     v-on="pipeUpEvents(['item-created', 'item-updated', 'item-deleted'])"
     >
     <v-row
@@ -46,7 +46,7 @@
             :item="item"
             :cabinFeatures="cabinFeatures"
             v-bind="modelState"
-            v-on="formEvents"
+            v-on="crudEvents"
             @cancel="setListView"
             />
         </v-col>

@@ -32,7 +32,7 @@
 import FormItemMixin from '@common/mixins/FormItemMixin'
 import FormTopBar from '@common/components/FormTopBar'
 import FormSubmitButtons from '@common/components/FormSubmitButtons'
-// import MediaSelect from '@common/components/MediaSelect'
+// import AttachmentSelector from '@/components/selectors/AttachmentSelector'
 // import StopoversEditor from '@/components/editors/StopoversEditor'
 import ItineraryFormBase from '@/components/forms/inner-components/ItineraryFormBase'
 
@@ -49,7 +49,7 @@ export default {
   components: {
     FormTopBar,
     FormSubmitButtons,
-    // MediaSelect,
+    // AttachmentSelector,
     // StopoversEditor,
     ItineraryFormBase,
   },

@@ -1,14 +1,14 @@
 <template>
   <ShipFormModel
   :id="id"
-  v-slot="{item, modelState, formEvents}"
+  v-slot="{item, modelState, crudEvents}"
   v-on="pipeUpEvents('new-item', 'item-created', 'item-deleted')"
   >
   <div>
     <FormTopBar
     addNewTitle="Add New Ship"
     v-bind="modelState"
-    v-on="formEvents"
+    v-on="crudEvents"
     :name="item.name"
     @cancel="$emit('cancel')"
     />
@@ -33,7 +33,7 @@
         <ShipBasicInfoForm
         :item="shipBasicData(item)"
         v-bind="modelState"
-        v-on="formEvents"
+        v-on="crudEvents"
         />
       </v-tab-item>
 
@@ -43,7 +43,7 @@
         <ShipFeaturesFormContainer
         :item="shipFeaturesData(item)"
         v-bind="modelState"
-        v-on="formEvents"
+        v-on="crudEvents"
         />
       </v-tab-item>
 
@@ -53,7 +53,7 @@
         <ShipMediaForm
         :item="shipMediaData(item)"
         v-bind="modelState"
-        v-on="formEvents"
+        v-on="crudEvents"
         />
       </v-tab-item>
 

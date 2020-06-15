@@ -30,11 +30,12 @@
     </template>
 
     <template v-slot:item.logo="{ item }">
-      <cld-image
-      v-if="item.logo"
-      cloudName="kilohertz" :publicId="item.logo" secure="true">
-        <cld-transformation width="75" crop="scale" />
-      </cld-image>
+
+      <ImgKit
+        v-if="item.logo"
+        :path="item.logo"
+        :transformation="[{w:75}, {c:'scale'}]"
+      />
     </template>
 
     <template v-slot:item.updatedAt="{ item }">
@@ -68,12 +69,14 @@ import TableEditorMixin from '@common/mixins/TableEditorMixin'
 
 import TableEditorHeader from '@common/components/TableEditorHeader'
 import BulkActionSelector from '@common/components/BulkActionSelector'
+import ImgKit from '@common/components/img/ImgKit'
 
 export default {
 
   components: {
     TableEditorHeader,
     BulkActionSelector,
+    ImgKit,
   },
 
   mixins: [TableEditorMixin],

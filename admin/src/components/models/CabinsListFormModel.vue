@@ -25,9 +25,9 @@ export default {
       if(fetchPolicy) {
         queryObj.fetchPolicy = fetchPolicy
       }
-      // console.log('queryObj cabins %o', queryObj)
+      console.log('queryObj cabins %o', queryObj)
       let { data: {cabins}} = await this.$apollo.query(queryObj)
-      // console.log('loadItem cabins %o', cabins)
+      console.log('loadItem cabins %o', cabins)
       return cabins
     },
 

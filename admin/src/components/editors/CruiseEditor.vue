@@ -2,13 +2,13 @@
   <CruiseFormModel
     busEventName="cruise"
     :id="id"
-    v-slot="{item, modelState, formEvents}"
+    v-slot="{item, modelState, crudEvents}"
     v-on="pipeUpEvents('new-item', 'item-created', 'item-deleted', 'item-updated')"
   >
           <CruiseForm
             :item="item"
             v-bind="modelState"
-            v-on="formEvents"
+            v-on="crudEvents"
             @cancel="$emit('cancel')"
           />
   </CruiseFormModel>

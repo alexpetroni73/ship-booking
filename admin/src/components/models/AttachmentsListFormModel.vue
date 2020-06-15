@@ -9,20 +9,17 @@ export default {
 
   methods: {
     async loadPage (queryVars, fetchPolicy = 'network-only') {
-      console.log('load page queryVars %o', queryVars)
       try{
         let { data:{ paginatedAttachments } } = await this.$apollo.query({
           query: PaginatedAttachments,
           variables: {args: queryVars},
           fetchPolicy,
         })
-        console.log('paginatedAttachments %o', paginatedAttachments)
         return {
           items: paginatedAttachments.items,
           total: paginatedAttachments.total,
         }
       } catch (error) {
-        console.log('error %o', error)
         throw new Error(error)
       }
     },

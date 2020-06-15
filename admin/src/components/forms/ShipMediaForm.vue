@@ -6,14 +6,14 @@
        cols="12"
        >
 
-       <MediaSelect
+       <AttachmentSelector
         class="pb-8"
         title="Main image"
         :multiple="false"
         v-model="editedItem.image"
        />
 
-       <MediaSelect
+       <AttachmentSelector
         title="Gallery"
         :multiple="true"
         v-model="editedItem.gallery"
@@ -33,13 +33,13 @@
 <script>
 import FormItemMixin from '@common/mixins/FormItemMixin'
 import FormSubmitButtons from '@common/components/FormSubmitButtons'
-import MediaSelect from '@common/components/MediaSelect'
+import AttachmentSelector from '@/components/selectors/AttachmentSelector'
 
 export default {
   mixins: [ FormItemMixin ],
 
   components: {
-    MediaSelect,
+    AttachmentSelector,
     FormSubmitButtons,
   },
 

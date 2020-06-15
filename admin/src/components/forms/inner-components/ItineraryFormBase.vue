@@ -58,14 +58,14 @@
         cols="12"
         >
 
-        <MediaSelect
+        <AttachmentSelector
          class="pb-8"
          title="Main image"
          :multiple="false"
          v-model="item.image"
         />
 
-        <!-- <MediaSelect
+        <!-- <AttachmentSelector
          title="Gallery"
          :multiple="true"
          v-model="item.gallery"
@@ -91,7 +91,7 @@
 
 <script>
 //import FormSubmitButtons from '@common/components/FormSubmitButtons'
-import MediaSelect from '@common/components/MediaSelect'
+import AttachmentSelector from '@/components/selectors/AttachmentSelector'
 import StopoversEditor from '@/components/editors/StopoversEditor'
 
 export default {
@@ -117,7 +117,7 @@ export default {
   },
 
   components: {
-    MediaSelect,
+    AttachmentSelector,
     StopoversEditor,
   },
 

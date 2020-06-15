@@ -33,11 +33,12 @@
            </v-card-title>
 
            <v-card-text class="text-center">
-             <cld-image
+
+             <ImgKit
              v-if="item.image"
-             :publicId="item.image" secure="true" width="100%">
-               <cld-transformation :width="imgWidth" :crop="crop" />
-             </cld-image>
+             :path="item.image"
+             :transformation="[{w:150}, {c:'maintain_ratio'}]"
+              />
            </v-card-text>
           </v-card>
         </v-col>
@@ -54,6 +55,7 @@
 </template>
 
 <script>
+import ImgKit from '@common/components/img/ImgKit'
 import SearchItineraries from '@common/graphql/itinerary/SearchItineraries.gql'
 import ListEditorHeader from '@common/components/ListEditorHeader'
 import NoData from '@common/components/NoData'
@@ -64,6 +66,7 @@ export default {
   components: {
     ListEditorHeader,
     NoData,
+    ImgKit,
   },
 
   directives: {

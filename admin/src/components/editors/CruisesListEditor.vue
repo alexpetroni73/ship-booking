@@ -39,11 +39,13 @@
            </v-card-title>
 
            <v-card-text class="text-center">
-             <cld-image
-             v-if="item.itinerary.image"
-             :publicId="item.itinerary.image" secure="true" width="100%">
-               <cld-transformation :width="imgWidth" :crop="crop" />
-             </cld-image>
+
+             <ImgKit
+               v-if="item.itinerary.image"
+               :path="item.itinerary.image"
+               :transformation="[{w:imgWidth}, {c:'maintain_ratio'}]"
+             />
+
            </v-card-text>
           </v-card>
         </v-col>
@@ -63,6 +65,7 @@
 import SearchCruises from '@common/graphql/cruise/SearchCruises.gql'
 import ListEditorHeader from '@common/components/ListEditorHeader'
 import NoData from '@common/components/NoData'
+import ImgKit from '@common/components/img/ImgKit'
 
 import { parseDate } from '@common/utils'
 
@@ -72,6 +75,7 @@ export default {
   components: {
     ListEditorHeader,
     NoData,
+    ImgKit,
   },
 
   props: {

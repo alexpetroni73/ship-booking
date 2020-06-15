@@ -40,11 +40,11 @@
              {{ item.name }}
            </v-card-title>
            <v-card-text class="text-center">
-             <cld-image
-             v-if="item.image"
-             :publicId="item.image" secure="true" width="100%">
-               <cld-transformation :width="imgWidth" :crop="crop" />
-             </cld-image>
+             <ImgKit
+               v-if="item.image"
+               :path="item.image"
+               :transformation="[{w:imgWidth}, {c:'maintain_ratio'}]"
+             />
            </v-card-text>
           </v-card>
         </v-col>
@@ -66,7 +66,7 @@
 import SearchShips from '@common/graphql/ship/SearchShips.gql'
 import ListEditorHeader from '@common/components/ListEditorHeader'
 import NoData from '@common/components/NoData'
-
+import ImgKit from '@common/components/img/ImgKit'
 
 export default {
   name: 'ShipsListEditor',
@@ -74,6 +74,7 @@ export default {
   components: {
     ListEditorHeader,
     NoData,
+    ImgKit,
   },
 
   directives: {

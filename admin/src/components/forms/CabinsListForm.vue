@@ -30,11 +30,12 @@
           :key="item.id"
         >
         <v-list-item-avatar size="75">
-          <cld-image
-          v-if="item.image"
-          :publicId="item.image" secure="true">
-            <cld-transformation width="150" crop="scale" />
-          </cld-image>
+          <ImgKit
+            v-if="item.image"
+            :path="item.image"
+            :transformation="[{w:150}, {c:'scale'}]"
+          />
+
           <v-img :src="item.avatar"></v-img>
         </v-list-item-avatar>
 
@@ -85,6 +86,7 @@ import FormItemMixin from '@common/mixins/FormItemMixin'
 import FormSubmitButtons from '@common/components/FormSubmitButtons'
 import NoData from '@common/components/NoData'
 import draggable from 'vuedraggable'
+import ImgKit from '@common/components/img/ImgKit'
 
 export default {
   mixins: [ FormItemMixin ],
@@ -93,6 +95,7 @@ export default {
     FormSubmitButtons,
     NoData,
     draggable,
+    ImgKit,
   },
 
   data () {
