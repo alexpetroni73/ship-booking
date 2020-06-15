@@ -30,7 +30,7 @@
         >
         <v-spacer />
         <v-text-field
-          :label="$t('search')"
+          :label="search"
           color="secondary"
           hide-details
           v-model="searchTerm"

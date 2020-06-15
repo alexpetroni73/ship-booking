@@ -3,7 +3,7 @@ import upperFirst from 'lodash/upperFirst'
 import camelCase from 'lodash/camelCase'
 
 const requireComponent = require.context(
-  '@/components/base', true, /\.vue$/,
+  '@common/components/base', true, /\.vue$/,
 )
 
 requireComponent.keys().forEach(fileName => {
@@ -15,5 +15,3 @@ requireComponent.keys().forEach(fileName => {
 
   Vue.component(`Base${componentName}`, componentConfig.default || componentConfig)
 })
-
-console.log('plugin BASE')
