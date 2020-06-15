@@ -1,11 +1,11 @@
 <template>
-    <div>
-        <v-toolbar
+    <v-toolbar
         color="transparent"
         flat
          >
            <slot
            name="left"
+           v-if="!hideLeftSlot"
            v-bind="{
              isNewForm,
              isEditForm,
@@ -24,11 +24,12 @@
               </v-icon>
             </slot>
             <v-spacer></v-spacer>
-            <v-toolbar-title>{{ title }}</v-toolbar-title>
+            <v-toolbar-title v-html="title"></v-toolbar-title>
             <v-spacer></v-spacer>
 
             <slot
             name="right"
+            v-if="!hideRightSlot"
             v-bind="{
               isNewForm,
               isEditForm,
@@ -90,28 +91,19 @@
                 </v-list>
               </v-menu>
           </slot>
+
+          <ConfirmationDialog
+          v-model="confirmDialog"
+          v-bind="confirmOptions"
+          @confirm="confirmDelete"
+          @cancel="cancelDelete"
+          />
         </v-toolbar>
 
-      <slot name="error-display" v-bind="{error}">
-          <BaseError
-            :error="error"
-          />
-      </slot>
-
-      <ConfirmationDialog
-      :confirmDialog="showConfirmDialog"
-      :confirmationMsg="deleteConfirmationMsg"
-      @confirm="confirmDelete"
-      @cancel="cancelDelete"
-      >
-      </ConfirmationDialog>
-
-    </div>
 </template>
 
 <script>
 import ConfirmationDialog from '@common/components/ConfirmationDialog'
-import BaseError from '@common/components/BaseError'
 
 import {
   FormState,
@@ -120,11 +112,9 @@ import {
   } from '@common/utils'
 
 export default {
-  name: '',
 
   components: {
     ConfirmationDialog,
-    BaseError,
   },
 
   props: {
@@ -141,6 +131,11 @@ export default {
       type: String,
     },
 
+    loading: {
+      type: Boolean,
+      default: false,
+    },
+
     backIcon: {
       type: String,
       default: 'mdi-chevron-left'
@@ -149,6 +144,16 @@ export default {
     backIconTitle: {
       type: String,
       default: 'Back to list'
+    },
+
+    hideLeftSlot: {
+      type: Boolean,
+      default: false,
+    },
+
+    hideRightSlot: {
+      type: Boolean,
+      default: false,
     },
 
     hideDeleteBtn: {
@@ -207,7 +212,7 @@ export default {
 
   data () {
     return {
-      showConfirmDialog: false,
+      confirmDialog: false,
     }
   },
 
@@ -254,10 +259,12 @@ export default {
         return e
       })
     },
-  },
 
-  watch: {
-
+    confirmOptions () {
+      return {
+        message: this.deleteConfirmationMsg,
+      }
+    },
   },
 
   methods: {
@@ -270,7 +277,7 @@ export default {
     },
 
     onDelete () {
-      this.requireDeleteConfirmation ? this.showConfirmDialog = true : this.$emit('delete-item')
+      this.requireDeleteConfirmation ? this.confirmDialog = true : this.$emit('delete-item')
     },
 
     onReload () {
@@ -278,7 +285,7 @@ export default {
     },
 
     closeConfirmDeleteDialog () {
-      this.showConfirmDialog = false
+      this.confirmDialog = false
     },
 
     confirmDelete () {

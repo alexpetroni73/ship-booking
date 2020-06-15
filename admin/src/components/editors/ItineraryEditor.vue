@@ -17,7 +17,7 @@
 <script>
 import ItineraryFormModel from '@/components/models/ItineraryFormModel'
 import ItineraryForm from '@/components/forms/ItineraryForm'
-import { pipeEvents } from '@common/utils'
+import { pipeUp } from '@common/utils'
 
 export default {
   name: 'ItineraryEditor',
@@ -35,7 +35,7 @@ export default {
 
   methods: {
     pipeUpEvents (...events) {
-      return pipeEvents(this, ...events)
+      return pipeUp(this, ...events)
     },
   },
 

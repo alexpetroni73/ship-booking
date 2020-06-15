@@ -40,7 +40,7 @@
 
 
 <script>
-import FormMixin from '@common/mixins/FormMixin'
+import FormItemMixin from '@common/mixins/FormItemMixin'
 import FormTopBar from '@common/components/FormTopBar'
 import FormSubmitButtons from '@common/components/FormSubmitButtons'
 
@@ -51,7 +51,7 @@ export default {
     event: 'change'
   },
 
-  mixins: [ FormMixin ],
+  mixins: [ FormItemMixin ],
 
   components: {
     FormTopBar,

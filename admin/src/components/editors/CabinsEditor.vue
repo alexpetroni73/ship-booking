@@ -63,7 +63,7 @@ import CabinFormModel from '@/components/models/CabinFormModel'
 import CabinsListForm from '@/components/forms/CabinsListForm'
 import CabinForm from '@/components/forms/CabinForm'
 
-import { pipeEvents } from '@common/utils'
+import { pipeUp } from '@common/utils'
 
 export default {
   name: '',
@@ -112,7 +112,7 @@ export default {
 
   methods: {
     pipeUpEvents (...events) {
-      return pipeEvents(this, ...events)
+      return pipeUp(this, ...events)
     },
 
     setListView () {

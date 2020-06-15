@@ -41,13 +41,13 @@
 </template>
 
 <script>
-import FormMixin from '@common/mixins/FormMixin'
+import FormItemMixin from '@common/mixins/FormItemMixin'
 import ShipFeaturesForm from '@/components/forms/ShipFeaturesForm'
 import FormSubmitButtons from '@common/components/FormSubmitButtons'
 
 
 export default {
-  mixins: [ FormMixin ],
+  mixins: [ FormItemMixin ],
 
   components: {
     ShipFeaturesForm,

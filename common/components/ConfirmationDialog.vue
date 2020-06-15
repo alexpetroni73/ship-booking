@@ -1,32 +1,40 @@
 <template>
   <v-dialog
-    :value="confirmDialog"
-    :width="dialogWidth"
+    v-model="open"
+    :max-width="maxWidth"
   >
     <v-card>
-      <v-card-text>
-        <p class="title pt-5">
-          {{ confirmationMsg }}
-        </p>
+      <v-card-title>
+        <v-spacer />
+        <v-icon
+          aria-label="Close"
+          @click="onClose"
+        >
+          mdi-close
+        </v-icon>
+      </v-card-title>
+
+      <v-card-text class="pb-6 pt-6 text-center" v-html="message">
       </v-card-text>
 
       <v-card-actions>
-        <v-spacer></v-spacer>
+        <v-spacer />
         <v-btn
-          color="primary"
+          class="mr-3"
           text
-          @click="onDialogCancel"
+          @click="onClose"
         >
-          {{dialogNoBtn}}
+          {{ noBtnText }}
         </v-btn>
 
         <v-btn
-          color="primary"
+          color="success"
           text
           @click="onDialogConfirm"
         >
-          {{dialogYesBtn}}
+          {{ yesBtnText }}
         </v-btn>
+        <v-spacer />
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -35,82 +43,58 @@
 <script>
 
 export default {
-  name: '',
-
-  components: {
-
-  },
-
-  directives: {
-
-  },
-
-  filters: {
-
-  },
-
-  extends: {
-
-  },
-
-  mixins: {
-
-  },
-
   model: {
-
+    prop: 'dialog'
   },
 
   props:{
-    confirmDialog: {
+    dialog: {
       type: Boolean,
-      default: false,
+      required: true,
     },
 
-    confirmationMsg: {
+    message: {
       type: String,
       default: '?'
     },
 
-    dialogYesBtn: {
+    yesBtnText: {
       type: String,
       default: 'Yes'
     },
 
-    dialogNoBtn: {
+    noBtnText: {
       type: String,
-      default: 'Cancel'
+      default: 'Nevermind'
     },
 
-    dialogWidth: {
-      default: 350
-    }
-  },
-
-  data () {
-    return {
-
-    }
+    maxWidth: {
+      default: 400
+    },
   },
 
   computed: {
+    open: {
+      get: function () {
+        return this.dialog
+      },
 
-  },
-
-  watch: {
-
+      set: function (val) {
+        this.$emit('input', !!val)
+      }
+    }
   },
 
   methods: {
     onDialogConfirm () {
       this.$emit('confirm')
+      this.open = false
     },
 
-    onDialogCancel () {
+    onClose () {
       this.$emit('cancel')
+      this.open = false
     }
   },
-
-
 }
 </script>

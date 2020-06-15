@@ -142,21 +142,34 @@ const mergeObjectsToLeft = (o1, o2) => {
   }, {})
 }
 
-// take an events array and emit them from the specified component with the received value
-const pipeEvents = function (comp, ...args) {
-  let parent = comp
-  let events = args.reduce((acc, e) => {
-    acc[e] = parentEmitter(parent, e)
-    return acc
-  }, {})
-  return events
-}
+// // take an events array and emit them from the specified component with the received value
+// const pipeEvents = function (comp, ...args) {
+//   let parent = comp
+//   let events = args.reduce((acc, e) => {
+//     acc[e] = parentEmitter(parent, e)
+//     return acc
+//   }, {})
+//   return events
+// }
 
-const parentEmitter = function (comp, event) {
-  return function (val) {
-    // console.log('emit from parent val %s', val)
-    comp.$emit(event, val)
+// const parentEmitter = function (comp, event) {
+//   return function (val) {
+//     // console.log('emit from parent val %s', val)
+//     comp.$emit(event, val)
+//   }
+// }
+
+// emit events from the provided component
+const pipeUp = function (comp, eventsArr) {
+  if(!comp || !(comp instanceof Vue)){
+    throw new Error ("A Vue instance should be provided as emmiter component.")
   }
+
+  return eventsArr.reduce((acc, e) => {
+    acc[e] = (val) => { comp.$emit(e, val) }
+    return acc
+  },
+  {})
 }
 
 
@@ -177,5 +190,5 @@ export {
   isAnObject,
   objectSingleProperty,
   mergeObjectsToLeft,
-  pipeEvents,
+  pipeUp,
 }

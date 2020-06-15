@@ -81,13 +81,13 @@
 </template>
 
 <script>
-import FormMixin from '@common/mixins/FormMixin'
+import FormItemMixin from '@common/mixins/FormItemMixin'
 import FormSubmitButtons from '@common/components/FormSubmitButtons'
 import NoData from '@common/components/NoData'
 import draggable from 'vuedraggable'
 
 export default {
-  mixins: [ FormMixin ],
+  mixins: [ FormItemMixin ],
 
   components: {
     FormSubmitButtons,

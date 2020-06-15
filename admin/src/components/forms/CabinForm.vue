@@ -111,13 +111,13 @@
 </template>
 
 <script>
-import FormMixin from '@common/mixins/FormMixin'
+import FormItemMixin from '@common/mixins/FormItemMixin'
 import FormTopBar from '@common/components/FormTopBar'
 import FormSubmitButtons from '@common/components/FormSubmitButtons'
 import MediaSelect from '@common/components/MediaSelect'
 
 export default {
-  mixins: [ FormMixin ],
+  mixins: [ FormItemMixin ],
 
   props: {
     cabinFeatures: {

@@ -93,7 +93,7 @@ import ShipMediaForm from '@/components/forms/ShipMediaForm'
 import CabinsEditor from '@/components/editors/CabinsEditor'
 
 
-import { pipeEvents, mergeObjectsToLeft, isNewForm } from '@common/utils'
+import { pipeUp, mergeObjectsToLeft, isNewForm } from '@common/utils'
 
 export default {
   name: 'ShipEditor',
@@ -186,7 +186,7 @@ export default {
     },
 
     pipeUpEvents (...events) {
-      return pipeEvents(this, ...events)
+      return pipeUp(this, ...events)
     },
 
     isDisabledTab (slug, formState) {

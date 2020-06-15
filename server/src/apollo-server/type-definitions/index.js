@@ -1,5 +1,6 @@
 const Common = require('./common')
 
+const Attachment = require('./attachment')
 const Cruise = require('./cruise')
 const FeatureSet = require('./feature-set')
 const Itinerary = require('./itinerary')
@@ -23,6 +24,7 @@ const typeDefs = [
   Mutation,
   Common,
 
+  Attachment,
   Cruise,
   FeatureSet,
   Itinerary,

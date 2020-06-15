@@ -58,7 +58,7 @@ const routes = [
   {
     path: '/media',
     name: 'media',
-    component: () => import('../views/Media.vue')
+    component: () => import('../views/AttachmentsList.vue')
   },
 
   {

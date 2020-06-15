@@ -9,8 +9,8 @@
       class="text-center py-0"
       >
       <v-checkbox
-        :dense="true"
-        :multiple="true"
+        dense
+        multiple
         :input-value="selectedItems"
         @change="onItemsSelectionChange($event)"
         :label="item.name"

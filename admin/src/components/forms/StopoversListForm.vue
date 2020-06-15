@@ -79,7 +79,7 @@
 </template>
 
 <script>
-import FormMixin from '@common/mixins/FormMixin'
+import FormItemMixin from '@common/mixins/FormItemMixin'
 import draggable from 'vuedraggable'
 import NoData from '@common/components/NoData'
 
@@ -95,7 +95,7 @@ export default {
 
   },
 
-  mixins: [ FormMixin ],
+  mixins: [ FormItemMixin ],
 
   data () {
     return {

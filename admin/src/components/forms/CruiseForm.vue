@@ -160,7 +160,7 @@
 </template>
 
 <script>
-import FormMixin from '@common/mixins/FormMixin'
+import FormItemMixin from '@common/mixins/FormItemMixin'
 import FormTopBar from '@common/components/FormTopBar'
 import DatePickerInMenu from '@common/components/DatePickerInMenu'
 import CruiseItinerarySelectDialog from '@/components/forms/inner-components/CruiseItinerarySelectDialog'
@@ -171,7 +171,7 @@ import ItineraryFormBase from '@/components/forms/inner-components/ItineraryForm
 
 
 export default {
-  mixins: [ FormMixin ],
+  mixins: [ FormItemMixin ],
 
   components: {
     FormTopBar,
