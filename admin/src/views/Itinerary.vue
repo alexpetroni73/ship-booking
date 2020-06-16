@@ -30,19 +30,19 @@ export default {
 
   methods: {
     onAddNewItem () {
-      this.$router.push({ name: 'itinerary-edit' })
+      this.$router.push({ path: `/itinerary-edit` })
     },
 
     onItemCreated (item) {
-      this.$router.push({ name: 'itinerary-edit', params: {id: item.id} })
+      this.$router.push({ path: `/itinerary-edit/${item.id}` })
     },
 
     onItemDeleted () {
-      this.$router.push({ name: 'itineraries' })
+      this.$router.push({ path: 'itineraries' })
     },
 
     onCancel () {
-      this.$router.push({ name: 'itineraries' })
+      this.$router.push({ path: 'itineraries' })
     },
   },
 

@@ -1,0 +1,3 @@
+mutation deleteCruises ($idArr: [ID!]!) {
+    deleteCruises(idArr: $idArr)
+ }

@@ -1,0 +1,9 @@
+#import "./fragments/CruiseBasicData.gql"
+query paginatedCruises ($args: JSON) {
+    paginatedCruises(args: $args){
+      total
+      items {
+        ... CruiseBasicData
+      }
+    }
+ }

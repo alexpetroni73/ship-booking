@@ -2,7 +2,7 @@
   <ShipFormModel
   :id="id"
   v-slot="{item, modelState, crudEvents}"
-  v-on="pipeUpEvents('new-item', 'item-created', 'item-deleted')"
+  v-on="pipeUp('item-created', 'item-deleted')"
   >
   <div>
 
@@ -12,9 +12,8 @@
         <FormTopBar
         addNewTitle="Add New Ship"
         v-bind="modelState"
-        v-on="crudEvents"
+        v-on="Object.assign({}, crudEvents, pipeUp('new-item', 'cancel'))"
         :name="item.name"
-        @cancel="$emit('cancel')"
         />
 
         <v-tabs
@@ -185,7 +184,7 @@ export default {
       this.tab = 'tab-basic'
     },
 
-    pipeUpEvents (...events) {
+    pipeUp (...events) {
       return pipeUp(this, events)
     },
 

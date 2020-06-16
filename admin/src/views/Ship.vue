@@ -30,19 +30,20 @@ export default {
 
   methods: {
     onAddNewItem () {
-      this.$router.push({ name: 'ship-edit' })
+      console.log('new-item')
+      this.$router.push({ path: '/ship-edit' })
     },
 
     onItemCreated (item) {
-      this.$router.push({ name: 'ship-edit', params: {id: item.id} })
+      this.$router.push({ path:`ship-edit/${item.id}` })
     },
 
     onItemDeleted () {
-      this.$router.push({ name: 'ships' })
+      this.$router.push({ path: '/ships' })
     },
 
     onCancel () {
-      this.$router.push({ name: 'ships' })
+      this.$router.push({ path: '/ships' })
     },
   },
 

@@ -21,61 +21,61 @@ const routes = [
 
   {
     path: '/ships',
-    name: 'ships',
+    name: 'Ships',
     component: () => import('../views/ShipsList.vue')
   },
 
   {
     path: '/ship-edit/:id?',
-    name: 'ship-edit',
+    name: 'Ship Editor',
     component: () => import('../views/Ship.vue')
   },
 
   {
     path: '/cruises',
-    name: 'cruises',
+    name: 'Cruises',
     component: () => import('../views/Cruises.vue')
   },
 
   {
     path: '/cruise-edit/:id?',
-    name: 'cruise-edit',
+    name: 'Cruise Editor',
     component: () => import('../views/Cruise.vue')
   },
 
   {
     path: '/itineraries',
     name: 'itineraries',
-    component: () => import('../views/Itineraries.vue')
+    component: () => import('../views/ItinerariesList.vue')
   },
 
   {
     path: '/itinerary-edit/:id?',
-    name: 'itinerary-edit',
+    name: 'Itinerary Editor',
     component: () => import('../views/Itinerary.vue')
   },
 
   {
     path: '/media',
-    name: 'media',
+    name: 'Media',
     component: () => import('../views/AttachmentsList.vue')
   },
 
   {
     path: '/orders',
-    name: 'orders',
+    name: 'Orders',
     component: () => import('../views/Orders.vue')
   },
 
   {
     path: '/clients',
-    name: 'clients',
+    name: 'Clients',
     component: () => import('../views/Clients.vue')
   },
 
   {
     path: '/settings',
-    name: 'settings',
+    name: 'Settings',
     component: () => import('../views/Settings.vue')
   },
 

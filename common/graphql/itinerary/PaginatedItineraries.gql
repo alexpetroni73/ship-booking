@@ -1,0 +1,9 @@
+#import "./fragments/ItineraryBasicData.gql"
+query paginatedItineraries ($args: JSON) {
+   paginatedItineraries(args: $args){
+     total
+     items {
+       ... ItineraryBasicData
+     }
+   }
+}
