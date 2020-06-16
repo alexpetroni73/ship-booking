@@ -15,5 +15,3 @@ requireComponent.keys().forEach(fileName => {
 
   Vue.component(`Base${componentName}`, componentConfig.default || componentConfig)
 })
-
-console.log('plugin BASE')
