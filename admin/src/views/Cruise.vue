@@ -31,23 +31,23 @@ export default {
 
   methods: {
     onAddNewItem () {
-      this.$router.push({ name: 'cruise-edit' })
+      this.$router.push({ path: '/cruise-edit' })
     },
 
     onItemCreated () {
-      this.$router.push({ name: 'cruises' })
+      this.$router.push({ path: '/cruises' })
     },
 
     onItemUpdated () {
-      this.$router.push({ name: 'cruises' })
+      this.$router.push({ path: '/cruises' })
     },
 
     onItemDeleted () {
-      this.$router.push({ name: 'cruises' })
+      this.$router.push({ path: '/cruises' })
     },
 
     onCancel () {
-      this.$router.push({ name: 'cruises' })
+      this.$router.push({ path: '/cruises' })
     },
   },
 

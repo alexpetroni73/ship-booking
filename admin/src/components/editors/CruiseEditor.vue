@@ -3,13 +3,12 @@
     busEventName="cruise"
     :id="id"
     v-slot="{item, modelState, crudEvents}"
-    v-on="pipeUpEvents('new-item', 'item-created', 'item-deleted', 'item-updated')"
+    v-on="pipeUp('item-created', 'item-deleted')"
   >
           <CruiseForm
             :item="item"
             v-bind="modelState"
-            v-on="crudEvents"
-            @cancel="$emit('cancel')"
+            v-on="Object.assign({}, crudEvents, pipeUp('new-item', 'cancel'))"
           />
   </CruiseFormModel>
 </template>
@@ -34,8 +33,8 @@ export default {
   },
 
   methods: {
-    pipeUpEvents (...events) {
-      return pipeUp(this, ...events)
+    pipeUp (...events) {
+      return pipeUp(this, events)
     },
   },
 

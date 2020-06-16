@@ -74,11 +74,11 @@ const paginatedCruises = async function (args = {}) {
 
   let agg = [getMatchExpr(args)]
 
-  const itemsQ = Cruise.aggregate([...agg, aggExpr.sort(orderBy, order), ...aggExpr.pagination(page, resultsPerPage), aggExpr.addId()])
+  const itemsQ = Cruise.aggregate([...agg, aggExpr.sort(orderBy, order), ...aggExpr.pagination(page, resultsPerPage), ...aggCruiseShip(), aggExpr.addId()])
   const totalQ = Cruise.aggregate([...agg, {"$count": "total"}])
 
   const [items, total] = await Promise.all([itemsQ, totalQ])
-
+console.log('items %o', items)
   return {
     items,
     total: utils.parsePagTotalAggResult(total)
@@ -135,6 +135,26 @@ function getMatchExpr (args) {
     Object.assign(exprObject, aggExpr.parseMatchRegexFilters(search, searchPaths, searchOptions))
   }
   return {"$match": exprObject}
+}
+
+function aggCruiseShip () {
+  return [
+    { "$lookup": {
+    from: "ships",
+    localField: "ship",
+    foreignField: "_id",
+    as: "ship"
+  }},
+
+   { "$addFields": {
+     'ship': { $arrayElemAt: [ "$ship", 0] },
+   }},
+
+   { "$addFields": {
+     'ship.id': "$ship._id"
+   }},
+  ]
+
 }
 
 
