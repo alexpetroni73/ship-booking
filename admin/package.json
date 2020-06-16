@@ -13,6 +13,7 @@
     "imagekit-javascript": "^1.2.1",
     "imagekitio-vue": "^1.0.4",
     "lodash-es": "^4.17.15",
+    "mapbox-gl": "^1.11.0",
     "moment": "^2.25.3",
     "register-service-worker": "^1.6.2",
     "vue": "^2.6.11",

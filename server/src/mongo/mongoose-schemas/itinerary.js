@@ -40,5 +40,7 @@ module.exports = {
   stopovers: [{
       title: String,
       description: String,
+      lng: Number,
+      lat: Number,
   }],
 }

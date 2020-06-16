@@ -91,11 +91,15 @@ const typeDef = `
   type Stopover {
     title: String
     description: String
+    lng: Float
+    lat: Float
   }
 
   input StopoverInput {
     title: String
     description: String
+    lng: Float
+    lat: Float
   }
 
   type PaginatedItineraries {

@@ -13,5 +13,7 @@ fragment ItineraryData on Itinerary{
   stopovers {
     title
     description
+    lng
+    lat
   }
 }

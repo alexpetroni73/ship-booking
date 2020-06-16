@@ -65,17 +65,10 @@
          v-model="item.image"
         />
 
-        <!-- <AttachmentSelector
-         title="Gallery"
-         :multiple="true"
-         v-model="item.gallery"
-         :imgWidth="150"
-        /> -->
-
       </v-col>
     </v-row>
 
-    <v-row justify="center">
+    <v-row>
       <v-col
       sm="12"
       md="6"
@@ -83,6 +76,15 @@
         <StopoversEditor
           v-model="item.stopovers"
         />
+      </v-col>
+
+      <v-col
+      sm="12"
+      md="6"
+      >
+        <ItineraryMap
+        :locations="item.stopovers"
+         style="width: 400px; height: 400px; float: right;" />
       </v-col>
 
       </v-row>
@@ -93,6 +95,7 @@
 //import FormSubmitButtons from '@common/components/FormSubmitButtons'
 import AttachmentSelector from '@/components/selectors/AttachmentSelector'
 import StopoversEditor from '@/components/editors/StopoversEditor'
+import ItineraryMap from '@common/components/ItineraryMap'
 
 export default {
   props: {
@@ -119,6 +122,7 @@ export default {
   components: {
     AttachmentSelector,
     StopoversEditor,
+    ItineraryMap,
   },
 
   computed: {
@@ -131,6 +135,6 @@ export default {
     showList () {
       this.$emit('show-list')
     },
-  }
+  },
 }
 </script>

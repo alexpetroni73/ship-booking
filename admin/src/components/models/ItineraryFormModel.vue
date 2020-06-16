@@ -9,7 +9,7 @@ import DeleteItinerary from '@common/graphql/itinerary/DeleteItinerary.gql'
 
 export default {
   extends: BaseItemFormModel,
-  
+
   data () {
     return {
     }
@@ -35,6 +35,8 @@ export default {
       return {
         title: '',
         description: '',
+        lng: '',
+        lat: '',
       }
     },
 
@@ -77,7 +79,9 @@ export default {
         input.stopovers = input.stopovers.map(e => {
           return {
             title: e.title,
-            description: e.description
+            description: e.description,
+            lng: e.lng,
+            lat: e.lat,
           }
         })
       }

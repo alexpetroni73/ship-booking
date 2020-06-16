@@ -208,5 +208,11 @@ export default {
     },
 
   },
+
+  watch: {
+    item: function () {
+      this.currentStep = 1
+    }
+  }
 }
 </script>

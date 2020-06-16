@@ -17,6 +17,8 @@
       />
    </v-card-text>
 
+
+
     <FormSubmitButtons
     v-if="!cruiseEmbeded"
     :disabled="submitDisabled"
@@ -68,6 +70,7 @@ export default {
     showList () {
       this.$emit('show-list')
     },
-  }
+  },
+
 }
 </script>

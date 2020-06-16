@@ -72,6 +72,8 @@ export default {
       return {
         title: '',
         description: '',
+        lng: undefined,
+        lat: undefined, 
       }
     },
 
