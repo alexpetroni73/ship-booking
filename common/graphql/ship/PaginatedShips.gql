@@ -1,12 +1,9 @@
+#import "./fragments/ShipBasicData.gql"
 query paginatedShips ($args: JSON) {
     paginatedShips(args: $args){
       total
       items {
-        id
-        createdAt
-        updatedAt
-        name
-        slug
+        ... ShipBasicData
       }
     }
  }

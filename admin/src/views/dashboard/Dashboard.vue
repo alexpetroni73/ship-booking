@@ -5,6 +5,53 @@
     tag="section"
   >
     <v-row>
+      <v-col cols="12">
+        <base-material-card
+          icon="mdi-earth"
+          title="Global Sales by Top Locations"
+        >
+          <v-row>
+            <v-col
+              cols="12"
+              md="6"
+              class="mt-10"
+            >
+              <v-simple-table
+                class="ml-2"
+              >
+                <tbody>
+                  <tr
+                    v-for="(sale, i) in sales"
+                    :key="i"
+                  >
+                    <td>
+                      <v-img
+                        :src="sale.flag"
+                        width="18"
+                      />
+                    </td>
+                    <td v-text="sale.country" />
+                    <td v-text="sale.salesInM" />
+                    <td v-text="((sale.salesInM / totalSales) * 100).toFixed(2) + '%'" />
+                  </tr>
+                </tbody>
+              </v-simple-table>
+            </v-col>
+
+            <v-col
+              cols="12"
+              md="6"
+            >
+              <v-world-map
+                :country-data="countryData"
+                high-color="#838383"
+                low-color="#BBBBBB"
+              />
+            </v-col>
+          </v-row>
+        </base-material-card>
+      </v-col>
+
       <v-col
         cols="12"
         lg="4"
@@ -13,7 +60,7 @@
           :data="emailsSubscriptionChart.data"
           :options="emailsSubscriptionChart.options"
           :responsive-options="emailsSubscriptionChart.responsiveOptions"
-          color="#E91E63"
+          color="primary"
           hover-reveal
           type="Bar"
         >
@@ -54,11 +101,11 @@
           </template>
 
           <h4 class="card-title font-weight-light mt-2 ml-2">
-            Monthly Booking Views
+            Website Views
           </h4>
 
           <p class="d-inline-flex font-weight-light ml-2 mt-1">
-            Based on confirmed payments
+            Last Campaign Performance
           </p>
 
           <template v-slot:actions>
@@ -121,7 +168,7 @@
           </template>
 
           <h4 class="card-title font-weight-light mt-2 ml-2">
-            Daily Reservations
+            Daily Sales
           </h4>
 
           <p class="d-inline-flex font-weight-light ml-2 mt-1">
@@ -132,7 +179,7 @@
               mdi-arrow-up
             </v-icon>
             <span class="green--text">55%</span>&nbsp;
-            increase in today's reservations
+            increase in today's sales
           </p>
 
           <template v-slot:actions>
@@ -195,11 +242,11 @@
           </template>
 
           <h3 class="card-title font-weight-light mt-2 ml-2">
-            Last 24 hours visits
+            Completed Tasks
           </h3>
 
           <p class="d-inline-flex font-weight-light ml-2 mt-1">
-            Include all owned ships
+            Last Last Campaign Performance
           </p>
 
           <template v-slot:actions>
@@ -209,7 +256,7 @@
             >
               mdi-clock-outline
             </v-icon>
-            <span class="caption grey--text font-weight-light">updated 26 minutes ago</span>
+            <span class="caption grey--text font-weight-light">campaign sent 26 minutes ago</span>
           </template>
         </base-material-chart-card>
       </v-col>
@@ -224,6 +271,7 @@
           icon="mdi-twitter"
           title="Followers"
           value="+245"
+          smallValue="xxx"
           sub-icon="mdi-clock"
           sub-text="Just Updated"
         />
@@ -266,127 +314,13 @@
       >
         <base-material-stats-card
           color="orange"
-          icon="mdi-sofa"
-          title="Bookings"
+          icon="mdi-flag"
+          title="Products"
           value="184"
           sub-icon="mdi-alert"
           sub-icon-color="red"
           sub-text="Get More Space..."
         />
-      </v-col>
-
-      <v-col
-        cols="12"
-        md="6"
-      >
-        <base-material-card
-          color="warning"
-          class="px-5 py-3"
-        >
-          <template v-slot:heading>
-            <div class="display-2 font-weight-light">
-              Most Recent Reservations Stats
-            </div>
-
-            <div class="subtitle-1 font-weight-light">
-              New reservations on {{ today }}
-            </div>
-          </template>
-          <v-card-text>
-            <v-data-table
-              :headers="headers"
-              :items="items"
-            />
-          </v-card-text>
-        </base-material-card>
-      </v-col>
-
-      <v-col
-        cols="12"
-        md="6"
-      >
-        <base-material-card class="px-5 py-3">
-          <template v-slot:heading>
-            <v-tabs
-              v-model="tabs"
-              background-color="transparent"
-              slider-color="white"
-            >
-              <span
-                class="subheading font-weight-light mx-3"
-                style="align-self: center"
-              >Tasks:</span>
-              <v-tab class="mr-3">
-                <v-icon class="mr-2">
-                  mdi-message-alert
-                </v-icon>
-                Messages
-              </v-tab>
-              <v-tab class="mr-3">
-                <v-icon class="mr-2">
-                  mdi-code-tags
-                </v-icon>
-                Website
-              </v-tab>
-              <v-tab>
-                <v-icon class="mr-2">
-                  mdi-star-half-full
-                </v-icon>
-                Reviews
-              </v-tab>
-            </v-tabs>
-          </template>
-
-          <v-tabs-items
-            v-model="tabs"
-            class="transparent"
-          >
-            <v-tab-item
-              v-for="n in 3"
-              :key="n"
-            >
-              <v-card-text>
-                <template v-for="(task, i) in tasks[tabs]">
-                  <v-row
-                    :key="i"
-                    align="center"
-                  >
-                    <v-col cols="1">
-                      <v-list-item-action>
-                        <v-checkbox
-                          v-model="task.value"
-                          color="secondary"
-                        />
-                      </v-list-item-action>
-                    </v-col>
-
-                    <v-col cols="9">
-                      <div
-                        class="font-weight-light"
-                        v-text="task.text"
-                      />
-                    </v-col>
-
-                    <v-col
-                      cols="2"
-                      class="text-right"
-                    >
-                      <v-icon class="mx-1">
-                        mdi-pencil
-                      </v-icon>
-                      <v-icon
-                        color="error"
-                        class="mx-1"
-                      >
-                        mdi-close
-                      </v-icon>
-                    </v-col>
-                  </v-row>
-                </template>
-              </v-card-text>
-            </v-tab-item>
-          </v-tabs-items>
-        </base-material-card>
       </v-col>
 
       <!-- ============================================= DEVELOPMENT ============================================= -->
@@ -687,20 +621,26 @@
       </v-col>
 
     </template>
-
     </v-row>
   </v-container>
 </template>
 
 <script>
-import moment from 'moment'
+
 
   export default {
     name: 'DashboardDashboard',
 
     data () {
       return {
-        today: moment().format('Do MMMM YYYY'),
+        countryData: {
+          CH: 2920,
+          DE: 1390,
+          AU: 760,
+          GB: 690,
+          RO: 600,
+          BR: 550,
+        },
         dailySalesChart: {
           data: {
             labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
@@ -788,20 +728,20 @@ import moment from 'moment'
           },
           {
             sortable: false,
-            text: 'Location',
-            value: 'location',
+            text: 'Salary',
+            value: 'salary',
             align: 'right',
           },
           {
             sortable: false,
-            text: 'Cruise Start',
-            value: 'cruieDate',
+            text: 'Country',
+            value: 'country',
             align: 'right',
           },
           {
             sortable: false,
-            text: 'Status',
-            value: 'status',
+            text: 'City',
+            value: 'city',
             align: 'right',
           },
         ],
@@ -809,84 +749,72 @@ import moment from 'moment'
           {
             id: 1,
             name: 'Dakota Rice',
-            location: 'Indonesia',
-            cruieDate: '2020-09-11',
-            status: 'paid',
+            country: 'Niger',
+            city: 'Oud-Tunrhout',
+            salary: '$35,738',
           },
           {
             id: 2,
             name: 'Minerva Hooper',
-            location: 'Maldives',
-            cruieDate: '2020-05-16',
-            status: 'pending',
+            country: 'Curaçao',
+            city: 'Sinaai-Waas',
+            salary: '$23,738',
           },
           {
             id: 3,
             name: 'Sage Rodriguez',
-            location: 'Indonesia',
-            cruieDate: '2020-05-11',
-            status: 'pending',
+            country: 'Netherlands',
+            city: 'Overland Park',
+            salary: '$56,142',
           },
           {
             id: 4,
             name: 'Philip Chanley',
-            location: 'Myanmar',
-            cruieDate: '2021-09-01',
-            status: 'reservation',
+            country: 'Korea, South',
+            city: 'Gloucester',
+            salary: '$38,735',
           },
           {
             id: 5,
             name: 'Doris Greene',
-            location: 'Maldives',
-            cruieDate: '2021-02-13',
-            status: 'paid',
+            country: 'Malawi',
+            city: 'Feldkirchen in Kārnten',
+            salary: '$63,542',
+          },
+        ],
+        sales: [
+          {
+            country: 'CH',
+            flag: 'https://www.amazeemetrics.com/content/uploads/2015/07/Switzerland-Flag.png',
+            salesInM: 2920,
+          },
+          {
+            country: 'Germany',
+            flag: 'https://demos.creative-tim.com/vue-material-dashboard-pro/img/flags/DE.png',
+            salesInM: 1300,
+          },
+          {
+            country: 'Australia',
+            flag: 'https://demos.creative-tim.com/vue-material-dashboard-pro/img/flags/AU.png',
+            salesInM: 760,
+          },
+          {
+            country: 'United Kingdom',
+            flag: 'https://demos.creative-tim.com/vue-material-dashboard-pro/img/flags/GB.png',
+            salesInM: 690,
+          },
+          {
+            country: 'Romania',
+            flag: 'https://demos.creative-tim.com/vue-material-dashboard-pro/img/flags/RO.png',
+            salesInM: 600,
+          },
+          {
+            country: 'Brasil',
+            flag: 'https://demos.creative-tim.com/vue-material-dashboard-pro/img/flags/BR.png',
+            salesInM: 550,
           },
         ],
         tabs: 0,
-        tasks: {
-          0: [
-            {
-              text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit"',
-              value: true,
-            },
-            {
-              text: 'Lorem ipsum dolor sit amet, consectetur adipiscing Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ',
-              value: false,
-            },
-            {
-              text: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-              value: false,
-            },
-            {
-              text: 'Excepteur sint occaecat cupidatat non proident.',
-              value: true,
-            },
-          ],
-          1: [
-            {
-              text: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-              value: true,
-            },
-            {
-              text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit"',
-              value: false,
-            },
-          ],
-          2: [
-            {
-              text: 'Lorem ipsum dolor sit amet, consectetur adipiscing Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ',
-              value: false,
-            },
-            {
-              text: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-              value: true,
-            },
-            {
-              text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit"',
-              value: true,
-            },
-          ],
-        },
         list: {
           0: false,
           1: false,
@@ -896,6 +824,10 @@ import moment from 'moment'
     },
 
     computed: {
+      totalSales () {
+        return this.sales.reduce((acc, val) => acc + val.salesInM, 0)
+      },
+
       isDevelopmentMode () {
         return process.env.NODE_ENV == 'development'
       },

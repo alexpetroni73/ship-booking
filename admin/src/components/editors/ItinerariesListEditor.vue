@@ -37,7 +37,8 @@
              <ImgKit
              v-if="item.image"
              :path="item.image"
-             :transformation="[{w:150}, {c:'maintain_ratio'}]"
+             :transformation="[{ar:4-3},{w:150}]"
+             class="imgKit"
               />
            </v-card-text>
           </v-card>

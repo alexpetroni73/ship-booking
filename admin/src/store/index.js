@@ -3,10 +3,12 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
+let image = '@/assets/bg1.jpg'
+
 export default new Vuex.Store({
   state: {
     barColor: 'rgba(0, 0, 0, .7), rgba(0, 0, 0, .7)',
-    barImage: 'https://demos.creative-tim.com/material-dashboard/assets/img/sidebar-1.jpg',
+    barImage: image,
     drawer: null,
   },
   mutations: {

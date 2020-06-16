@@ -34,7 +34,8 @@
       <ImgKit
         v-if="item.logo"
         :path="item.logo"
-        :transformation="[{w:75}, {c:'scale'}]"
+        :transformation="[{ar:4-3},{w:75}]"
+        class="imgKit"
       />
     </template>
 

@@ -43,7 +43,8 @@
              <ImgKit
                v-if="item.itinerary.image"
                :path="item.itinerary.image"
-               :transformation="[{w:imgWidth}, {c:'maintain_ratio'}]"
+               :transformation="[{ar:4-3},{w:imgWidth}]"
+               class="imgKit"
              />
 
            </v-card-text>

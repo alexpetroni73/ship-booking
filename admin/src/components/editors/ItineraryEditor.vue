@@ -3,7 +3,7 @@
     busEventName="itinerary"
     :id="id"
     v-slot="{item, modelState, crudEvents}"
-    v-on="pipeUpEvents('new-item', 'item-created', 'item-deleted')"
+    v-on="pipeUp('new-item', 'item-created', 'item-deleted')"
   >
           <ItineraryForm
             :item="item"
@@ -34,8 +34,8 @@ export default {
   },
 
   methods: {
-    pipeUpEvents (...events) {
-      return pipeUp(this, ...events)
+    pipeUp (...events) {
+      return pipeUp(this, events)
     },
   },
 

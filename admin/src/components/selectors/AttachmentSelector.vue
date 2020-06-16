@@ -11,7 +11,8 @@
               <div class="img-container">
               <ImgKit
               :path="img"
-              :transformation="[{w:150, h: 150}]"
+              :transformation="[{ar:1-1},{w:150}]"
+              class="imgKit"
                />
                <v-btn
                 v-if="hover"
@@ -44,7 +45,8 @@
               <div class="img-container">
               <ImgKit
               :path="item"
-              :transformation="[{w:150, h: 150}]"
+              :transformation="[{ar:1-1},{w:150}]"
+              class="imgKit"
                />
                <v-btn
                 v-if="hover"

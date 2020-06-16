@@ -33,7 +33,8 @@
           <ImgKit
             v-if="item.image"
             :path="item.image"
-            :transformation="[{w:150}, {c:'scale'}]"
+            :transformation="[{ar:4-3},{w:150}]"
+            class="imgKit"
           />
 
           <v-img :src="item.avatar"></v-img>

@@ -36,9 +36,9 @@
 
 <script>
 
-import AppBar from '@/components/core/AppBar'
-import Drawer from '@/components/core/Drawer'
-// import AppFooter from '@/components/AppFooter'
+import AppBar from '@/views/dashboard/components/core/AppBar'
+import Drawer from '@/views/dashboard/components/core/Drawer'
+// import Footer from '@/views/dashboard/components/core/Footer'
 
   export default {
     props: {
@@ -69,5 +69,9 @@ import Drawer from '@/components/core/Drawer'
 
 .link {
   cursor: pointer;
+}
+
+.imgKit {
+  max-width: 100%;
 }
 </style>
