@@ -1,0 +1,6 @@
+#import "./fragments/ShipData.gql"
+query shipBy ($field: String!, $value: String!) {
+    shipBy (field: $field, value: $value) {
+      ... ShipData
+    }
+ }

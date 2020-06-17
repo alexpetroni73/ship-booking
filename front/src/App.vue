@@ -25,3 +25,9 @@ export default {
   }),
 };
 </script>
+
+<style>
+.link {
+  cursor: pointer;
+}
+</style>

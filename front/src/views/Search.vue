@@ -1,12 +1,14 @@
 <template>
   <v-container>
-    <v-row>
-      <v-col md="3">
+    <v-row dense>
+      <v-col md="2">
         Search
       </v-col>
 
-      <v-col md="9">
+      <v-col md="10">
         <CruisesListFormModel
+        :destination="destination"
+        :departure="departure"
         v-slot="{items, totalItems, tableOptions, tableEvents, modelState}"
         >
 
@@ -16,6 +18,8 @@
           :tableOptions="tableOptions"
           v-bind="modelState"
           v-on="Object.assign({}, tableEvents, pipeUp('view-item'))"
+          :destination="destination"
+          :departure="departure"
         />
 
         </CruisesListFormModel>
@@ -35,11 +39,29 @@ export default {
     CruisesListForm,
   },
 
+  data () {
+    return {
+      destination: 'all',
+      departure: ''
+    }
+  },
+
   methods: {
     pipeUp (...args) {
       return pipeUp(this, args)
     },
-  }
+  },
+
+  watch: {
+    '$route.params': {
+      handler: function (val) {
+        console.log('val route %o', val)
+        this.destination = val.destination
+        this.departure = val.daparture
+      },
+      immediate: true,
+    },
+  },
 
 }
 </script>

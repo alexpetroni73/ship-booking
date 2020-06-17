@@ -6,7 +6,7 @@
     color="white"
   >
     <v-container>
-      <v-toolbar-title>My Logo</v-toolbar-title>
+      <v-toolbar-title @click="goHome" class="link">My Logo</v-toolbar-title>
     </v-container>
   </v-app-bar>
 </template>
@@ -15,5 +15,11 @@
 
   export default {
     name: 'AppBar',
+
+    methods: {
+      goHome () {
+        this.$router.push({path: '/'})
+      }
+    }
   }
 </script>

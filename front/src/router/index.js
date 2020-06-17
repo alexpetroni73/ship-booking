@@ -23,7 +23,13 @@ Vue.use(VueRouter)
     path: '/search/:destination/:departure?',
     name: 'Search',
     component: () => import('../views/Search.vue')
-  }
+  },
+
+  {
+    path: '/cruise/:shipSlug/:destination/:departure?',
+    name: 'Cruise',
+    component: () => import('../views/Cruise.vue')
+  },
 ]
 
 const router = new VueRouter({
