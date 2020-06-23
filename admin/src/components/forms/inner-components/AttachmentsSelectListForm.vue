@@ -11,7 +11,7 @@
     >
     <v-btn absolute fab small top right icon @click="onCancel" class="pt-12"><v-icon small>mdi-close</v-icon></v-btn>
     <v-alert v-if="error" type="error">{{ error }}</v-alert>
-    
+
     <v-data-iterator
       v-model="selected"
       :items="items"
@@ -67,16 +67,13 @@
           <base-material-card
             color="transparent"
             image
+            class="mt-4"
           >
               <template v-slot:image>
-                <div class="thumbContainer">
-                  <div class="mx-auto">
-                <ImgTransf :src="item.thumbnail" />
-              </div>
-                </div>
+                <ImgTransf :path="item.filePath" :transformations="[{w:250}]" />
               </template>
 
-              <v-card-text class="body-1 text-center mb-3 font-weight-light grey--text">
+              <v-card-text class="body-1 text-center font-weight-light grey--text">
                 <v-tooltip bottom>
                   <template v-slot:activator="{ on }">
                     <span v-on="on">{{ shortName(item.name) }} </span>
@@ -88,7 +85,13 @@
               <template v-slot:actions>
                 <v-spacer />
 
-                <v-checkbox :multiple="multiple" dense v-model="selectedImages" :value="item.filePath"/>
+                <v-checkbox
+                :value="item.filePath"
+                v-model="selectedImages"
+                :multiple="multiple"
+                dense
+                class="mt-0 mb-n4 pt-0"
+                />
               </template>
           </base-material-card>
             </v-col>
