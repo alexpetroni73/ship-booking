@@ -30,7 +30,7 @@
         >
         <v-spacer />
         <v-text-field
-          :label="search"
+          :label="$t('search')"
           color="secondary"
           hide-details
           v-model="searchTerm"
@@ -51,11 +51,10 @@
           </template>
         </v-text-field>
         <v-spacer />
-        <ImgKitUpload
-        v-if="showUpload"
-        @item-uploaded="$emit('reload')"
+        <FileUploadsSelector
+        multiple
+        @files-uploaded="$emit('reload')"
         />
-          <AddNewBtn @click="onShowUpload"/>
         </v-toolbar>
       </template>
 
@@ -68,7 +67,7 @@
       </template>
 
       <template v-slot:item.thumbnail="{item}">
-        <ImgKit :src="item.thumbnail" />
+        <ImgTransf :path="item.filePath" :transformation="[{w:90, h: 90}]" class="tab-img-thumbnail" />
       </template>
 
       <template v-slot:item.actions="{item}">
@@ -97,13 +96,12 @@
 
 <script>
 import FormPagListMixin from '@common/mixins/FormPagListMixin'
-import AddNewBtn from '@common/components/btn/AddNewBtn'
 import EditBtn from '@common/components/btn/EditBtn'
 import DeleteBtn from '@common/components/btn/DeleteBtn'
 import ConfirmationDialog from '@common/components/ConfirmationDialog'
 import BulkActionSelector from '@common/components/BulkActionSelector'
-import ImgKit from '@common/components/img/ImgKit'
-import ImgKitUpload from '@common/components/img/ImgKitUpload'
+import ImgTransf from '@common/components/img/ImgTransf'
+import FileUploadsSelector from '@/components/selectors/FileUploadsSelector'
 
 import { parseDate } from '@common/utils'
 
@@ -112,13 +110,12 @@ export default {
   mixins: [ FormPagListMixin ],
 
   components: {
-    AddNewBtn,
     EditBtn,
     DeleteBtn,
     ConfirmationDialog,
     BulkActionSelector,
-    ImgKit,
-    ImgKitUpload,
+    ImgTransf,
+    FileUploadsSelector,
   },
 
   data () {
@@ -159,7 +156,7 @@ export default {
 
     onShowUpload () {
       this.showUpload = !this.showUpload
-    }
+    },
   },
 }
 </script>

@@ -71,7 +71,7 @@
               <template v-slot:image>
                 <div class="thumbContainer">
                   <div class="mx-auto">
-                <ImgKit :src="item.thumbnail" />
+                <ImgTransf :src="item.thumbnail" />
               </div>
                 </div>
               </template>
@@ -111,7 +111,7 @@
 
 <script>
 import FormPagListMixin from '@common/mixins/FormPagListMixin'
-import ImgKit from '@common/components/img/ImgKit'
+import ImgTransf from '@common/components/img/ImgTransf'
 
 export default {
   props: {
@@ -123,7 +123,7 @@ export default {
   mixins: [ FormPagListMixin ],
 
   components: {
-    ImgKit,
+    ImgTransf,
   },
 
   data () {

@@ -71,7 +71,8 @@ import Drawer from '@/views/dashboard/components/core/Drawer'
   cursor: pointer;
 }
 
-.imgKit {
-  max-width: 100%;
+.tab-img-thumbnail {
+  width: 90px;
+  height: 90px;
 }
 </style>

@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import moment from 'moment'
 
+import imagekit from '@common/imagekit'
+
 const EventBus = new Vue()
 
 const FormState = {
@@ -173,6 +175,10 @@ const pipeUp = function (comp, eventsArr) {
 }
 
 
+const imgUrl = function (path, transformation) {
+  return imagekit.url({path, transformation})
+}
+
 export {
   EventBus,
   FormState,
@@ -191,4 +197,6 @@ export {
   objectSingleProperty,
   mergeObjectsToLeft,
   pipeUp,
+
+  imgUrl,
 }

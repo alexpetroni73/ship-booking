@@ -9,7 +9,7 @@ import i18n from './i18n'
 import './plugins/base'
 import './plugins/chartist'
 import './plugins/vee-validate'
-import './plugins/dam-img'
+// import './plugins/dam-img'
 
 Vue.config.productionTip = false
 

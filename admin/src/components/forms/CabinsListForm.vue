@@ -30,11 +30,10 @@
           :key="item.id"
         >
         <v-list-item-avatar size="75">
-          <ImgKit
+          <ImgTransf
             v-if="item.image"
             :path="item.image"
             :transformation="[{ar:4-3},{w:150}]"
-            class="imgKit"
           />
 
           <v-img :src="item.avatar"></v-img>
@@ -87,7 +86,7 @@ import FormItemMixin from '@common/mixins/FormItemMixin'
 import FormSubmitButtons from '@common/components/FormSubmitButtons'
 import NoData from '@common/components/NoData'
 import draggable from 'vuedraggable'
-import ImgKit from '@common/components/img/ImgKit'
+import ImgTransf from '@common/components/img/ImgTransf'
 
 export default {
   mixins: [ FormItemMixin ],
@@ -96,7 +95,7 @@ export default {
     FormSubmitButtons,
     NoData,
     draggable,
-    ImgKit,
+    ImgTransf,
   },
 
   data () {

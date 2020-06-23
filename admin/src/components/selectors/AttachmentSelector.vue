@@ -9,7 +9,7 @@
                   v-slot:default="{ hover }"
                 >
               <div class="img-container">
-              <ImgKit
+              <ImgTransf
               :path="img"
               :transformation="[{ar:1-1},{w:150}]"
               class="imgKit"
@@ -43,7 +43,7 @@
           <template v-else-if="hasSingleContent">
             <v-hover v-slot:default="{ hover }">
               <div class="img-container">
-              <ImgKit
+              <ImgTransf
               :path="item"
               :transformation="[{ar:1-1},{w:150}]"
               class="imgKit"
@@ -101,7 +101,7 @@
 </template>
 
 <script>
-import ImgKit from '@common/components/img/ImgKit'
+import ImgTransf from '@common/components/img/ImgTransf'
 import ConfirmationDialog from '@common/components/ConfirmationDialog'
 import AttachmentsSelectDialog from '@/components/selectors/AttachmentsSelectDialog'
 
@@ -134,7 +134,7 @@ export default {
   },
 
   components: {
-    ImgKit,
+    ImgTransf,
     ConfirmationDialog,
     AttachmentsSelectDialog,
   },

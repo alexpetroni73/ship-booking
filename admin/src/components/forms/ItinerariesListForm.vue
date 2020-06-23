@@ -63,7 +63,7 @@
           image
         >
           <template v-slot:image>
-            <v-img :src="imgUrl(item.image, [{ar:4-3},{w:400}])" class="imgKit" />
+            <ImgTransf :path="item.image" :transformation="[{ar:4-3},{w:400}]" />
           </template>
 
           <template v-slot:reveal-actions>
@@ -164,6 +164,7 @@
 <script>
 import FormPagListMixin from '@common/mixins/FormPagListMixin'
 import AddNewBtn from '@common/components/btn/AddNewBtn'
+import ImgTransf from '@common/components/img/ImgTransf'
 // import EditBtn from '@common/components/btn/EditBtn'
 // import DeleteBtn from '@common/components/btn/DeleteBtn'
 import ConfirmationDialog from '@common/components/ConfirmationDialog'
@@ -176,6 +177,7 @@ export default {
 
   components: {
     AddNewBtn,
+    ImgTransf,
     // EditBtn,
     // DeleteBtn,
     ConfirmationDialog,
