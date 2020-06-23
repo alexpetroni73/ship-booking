@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build --dest ./../server/public/control-panel",
+    "build": "vue-cli-service build --dest ./../../ship-booking-demo/public/control-panel",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
