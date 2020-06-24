@@ -7,6 +7,7 @@ const Cruise = require('./cruise')
 const FeatureSet = require('./feature-set')
 const Itinerary = require('./itinerary')
 const Option = require('./option')
+const Search = require('./search')
 const Ship = require('./ship')
 
 const resolvers = merge.all([
@@ -17,6 +18,7 @@ const resolvers = merge.all([
   FeatureSet,
   Itinerary,
   Option,
+  Search,
   Ship,
 ])
 

@@ -165,10 +165,7 @@
 import FormPagListMixin from '@common/mixins/FormPagListMixin'
 import AddNewBtn from '@common/components/btn/AddNewBtn'
 import ImgTransf from '@common/components/img/ImgTransf'
-// import EditBtn from '@common/components/btn/EditBtn'
-// import DeleteBtn from '@common/components/btn/DeleteBtn'
 import ConfirmationDialog from '@common/components/ConfirmationDialog'
-// import BulkActionSelector from '@common/components/BulkActionSelector'
 import { parseDate } from '@common/utils'
 
 export default {
@@ -178,10 +175,7 @@ export default {
   components: {
     AddNewBtn,
     ImgTransf,
-    // EditBtn,
-    // DeleteBtn,
     ConfirmationDialog,
-    // BulkActionSelector,
   },
 
   data () {

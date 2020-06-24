@@ -1,34 +1,45 @@
 <template>
-  <v-card v-if="ship" flat color="transparent" class="pa-0">
+  <v-card v-if="item" flat outlined class="pa-0 mt-0">
     <v-container>
       <v-row dense>
-        <v-col md="4"><v-img :src="imgUrl(ship.image, [{ar:4-3},{w:360}])" class="imgKit mr-2" /></v-col>
+        <v-col md="4"><ImgTransf :path="item.ship.image" :transformation="[{ar:4-3},{w:360}]" class="mr-2" /></v-col>
         <v-col md="8">
 
           <v-row dense>
-            <v-col md="8"><router-link :to="cruisePath" class="display-2 ship-name"> {{ ship.name }} </router-link></v-col> <v-col sm="4" class="text-right start-price-txt display-1">start from $<span class="start-price  display-2">{{ startFrom }}</span>/day</v-col>
+            <v-col md="8"><router-link :to="cruisePath" class="display-2 ship-name"> {{ item.ship.name }} </router-link></v-col> <v-col sm="4" class="text-right start-price-txt display-1">start from $<span class="start-price  display-2">{{ startFrom }}</span>/day</v-col>
             <v-col sm="8">
               <div style="display: inline-block;"><v-rating dense :value="ratingOfFive" half-increments color="warning" ></v-rating></div><span class="rating-value"> {{ rating.toFixed(1) }}</span><span class="rating-text"></span> <br />
               <div class="ship-features">some ship features</div>
             </v-col>
             <v-col sm="4" class="text-right"><v-btn primary color="accent" @click="onSelect">Select</v-btn></v-col>
-            <v-col sm="12">{{ ship.excerpt }}</v-col>
+            <v-col sm="12">{{ item.ship.excerpt }}</v-col>
           </v-row>
 
         </v-col>
+
+        <v-col cols="12">
+          <v-row v-for="(c, index) in item.cruises" class="cruise-list" :key="index">
+            <v-col md="3" class="departure-date">{{departureDate(c.startDate)}}</v-col>
+            <v-col md="3" class="location"> {{ c.location }} </v-col>
+            <v-col md="3" class="availability"> available </v-col>
+            <v-col md="3" class="duartion"> {{ c.length }} </v-col>
+          </v-row>
+        </v-col>
       </v-row>
+
     </v-container>
   </v-card>
 </template>
 
 <script>
-
+import ImgTransf from '@common/components/img/ImgTransf'
+import { parseDate } from '@common/utils'
 
 export default {
   name: '',
 
   components: {
-
+    ImgTransf,
   },
 
   directives: {
@@ -50,7 +61,7 @@ export default {
   },
 
   props: {
-    ship: {
+    item: {
       type: Object,
     },
 
@@ -72,7 +83,7 @@ export default {
 
   computed: {
     cruisePath () {
-      let path =  `/cruise/${this.ship.slug}/${this.destination}`
+      let path =  `/cruise/${this.item.ship.slug}/${this.destination}`
       if(this.departure) {
         path +=`/${this.departure}`
       }
@@ -98,9 +109,18 @@ export default {
 
   methods: {
     onSelect () {
-      //this.$emit('selected', this.ship.slug)
+      //this.$emit('selected', this.item.ship.slug)
       this.$router.push({path: this.cruisePath })
-    }
+    },
+
+    departureDate (date) {
+      return parseDate(date, 'Do MMMM YYYY')
+    },
+
+    duration (cruise) {
+
+      return cruise && cruise.length ? cruise.length : ''
+    },
   },
 
 
@@ -122,5 +142,18 @@ font-weight: 700;
 
 .rating-value {
   font-weight: 700;
+}
+
+.cruise-list {
+  background-color: #F8F9FA;
+  border-top: 1px solid #d8d9dA;
+}
+
+.departure-date {
+  font-weight: 700;
+}
+
+.availability {
+  color:  #8DC63F;
 }
 </style>

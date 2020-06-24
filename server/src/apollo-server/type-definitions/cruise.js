@@ -20,6 +20,14 @@ const typeDef = `
     deleteCruises(idArr: [ID!]!): [ID!]!
   }
 
+  type CruisePreview {
+    id: ID!
+    startDate: Date
+    endDate: Date
+    location: String
+    length: String
+  }
+
   type Cruise {
     id: ID!
     createdAt: Date

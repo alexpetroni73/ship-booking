@@ -12,7 +12,7 @@
       </v-row>
 
       <v-row>
-        <v-col sm="12"><v-img :src="imgUrl(ship.image, [{ar:4-3},{w:800}])" class="imgKit mr-2" /></v-col>
+        <v-col sm="12"><ImgTransf :path="ship.image" :transformations="[{ar:4-3},{w:800}]" class="imgKit mr-2" /></v-col>
 
         <v-col sm="12">
           {{ ship.description }}
@@ -43,7 +43,7 @@
 </template>
 
 <script>
-
+import ImgTransf from '@common/components/img/ImgTransf'
 
 export default {
   props: {
@@ -59,6 +59,10 @@ export default {
     departure: {
       type: String,
     },
+  },
+
+  components: {
+    ImgTransf,
   },
 
   data () {

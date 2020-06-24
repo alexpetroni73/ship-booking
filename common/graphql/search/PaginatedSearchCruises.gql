@@ -1,0 +1,19 @@
+query PaginatedSearchCruises ($args: JSON) {
+  paginatedSearchCruises(args: $args){
+    total
+    items {
+      ship {
+        name
+        slug
+        excerpt
+        image
+      }
+      cruises {
+        startDate
+        endDate
+        location
+        length
+      }
+    }
+  }
+}

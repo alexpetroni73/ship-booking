@@ -6,13 +6,13 @@
       </v-col>
 
       <v-col md="10">
-        <CruisesListFormModel
+        <SearchCruisesListFormModel
         :destination="destination"
         :departure="departure"
         v-slot="{items, totalItems, tableOptions, tableEvents, modelState}"
         >
 
-        <CruisesListForm
+        <SearchCruisesListForm
           :items="items"
           :totalItems="totalItems"
           :tableOptions="tableOptions"
@@ -22,21 +22,21 @@
           :departure="departure"
         />
 
-        </CruisesListFormModel>
+        </SearchCruisesListFormModel>
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
-import CruisesListFormModel from '@/components/models/CruisesListFormModel'
-import CruisesListForm from '@/components/forms/CruisesListForm'
+import SearchCruisesListFormModel from '@/components/models/SearchCruisesListFormModel'
+import SearchCruisesListForm from '@/components/forms/SearchCruisesListForm'
 import { pipeUp } from '@common/utils'
 
 export default {
   components: {
-    CruisesListFormModel,
-    CruisesListForm,
+    SearchCruisesListFormModel,
+    SearchCruisesListForm,
   },
 
   data () {

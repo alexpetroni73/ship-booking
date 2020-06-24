@@ -7,7 +7,7 @@ import { createProvider } from './vue-apollo'
 import i18n from './i18n'
 import vuetify from './plugins/vuetify';
 import './plugins/base'
-import './plugins/dam-img'
+// import './plugins/dam-img'
 
 Vue.config.productionTip = false
 

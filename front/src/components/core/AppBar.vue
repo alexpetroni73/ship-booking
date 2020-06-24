@@ -6,7 +6,7 @@
     color="white"
   >
     <v-container>
-      <v-toolbar-title @click="goHome" class="link">My Logo</v-toolbar-title>
+      <v-toolbar-title @click="goHome" class="link">Logo</v-toolbar-title>
     </v-container>
   </v-app-bar>
 </template>

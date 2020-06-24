@@ -5,6 +5,7 @@ const Cruise = require('./cruise')
 const FeatureSet = require('./feature-set')
 const Itinerary = require('./itinerary')
 const Option = require('./option')
+const Search = require('./search')
 const Ship = require('./ship')
 
 
@@ -29,6 +30,7 @@ const typeDefs = [
   FeatureSet,
   Itinerary,
   Option,
+  Search,
   Ship,
 
 ]

@@ -36,6 +36,14 @@ const typeDef = `
     updateCabinGallery(id: ID!, inputArr: [String!]!): [String!]!
   }
 
+  type ShipPreview {
+    id: ID!
+    name: String
+    slug: String
+    excerpt: String
+    image: String
+  }
+
   type Ship {
     id: ID!
     createdAt: Date

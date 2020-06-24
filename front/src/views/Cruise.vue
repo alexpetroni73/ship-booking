@@ -10,7 +10,7 @@
     :id="shipSlug"
     v-slot="{item}">
 
-    <CruiseFullCard
+    <CruiseShipPresentation
     :ship="item"
     />
 
@@ -23,14 +23,14 @@
 
 <script>
 import CruiseShipModel from '@/components/models/CruiseShipModel'
-import CruiseFullCard from '@/components/forms/CruiseFullCard'
+import CruiseShipPresentation from '@/components/forms/CruiseShipPresentation'
 
 export default {
   name: '',
 
   components: {
     CruiseShipModel,
-    CruiseFullCard,
+    CruiseShipPresentation,
   },
 
   directives: {

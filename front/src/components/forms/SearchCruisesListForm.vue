@@ -20,11 +20,12 @@
       </v-col>
     </v-row>
   </template>
+
   <template v-slot:default="props">
-    <CruiseShipCard
-    v-for="ship in props.items"
-    :key="ship.id"
-    :ship="ship"
+    <SearchCruiseCard
+    v-for="item in props.items"
+    :key="item.ship.id"
+    :item="item"
     :destination="destination"
     :departure="departure"
     />
@@ -37,14 +38,14 @@
 <script>
 import FormPagListMixin from '@common/mixins/FormPagListMixin'
 import { parseDate } from '@common/utils'
-import CruiseShipCard from '@/components/forms/CruiseShipCard'
+import SearchCruiseCard from '@/components/forms/SearchCruiseCard'
 
 export default {
 
   mixins: [ FormPagListMixin ],
 
   components: {
-    CruiseShipCard,
+    SearchCruiseCard,
   },
 
   props: {
