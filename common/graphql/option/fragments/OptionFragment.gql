@@ -1,0 +1,6 @@
+fragment OptionData on Option {
+  createdAt
+  updatedAt
+  name
+  value
+}

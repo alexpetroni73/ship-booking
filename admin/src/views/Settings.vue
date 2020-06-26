@@ -1,5 +1,15 @@
 <template>
   <div class="about">
-    <h1>This is an settings page</h1>
+    <ShipTypeOptionsEditor />
   </div>
 </template>
+
+<script>
+import ShipTypeOptionsEditor from '@/components/editors/options/ShipTypeOptionsEditor'
+export default {
+  components: {
+    ShipTypeOptionsEditor,
+  },
+
+}
+</script>

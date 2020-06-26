@@ -69,7 +69,7 @@
       </v-tab-item>
 
       <v-tab-item
-      value="tab-cabins"
+      value="tab-accomodation"
       >
         <CabinsEditor
         :id="id"
@@ -120,9 +120,10 @@ export default {
 
       tabs: [
         {title: "Basic data", slug: 'basic', component: ShipBasicInfoForm},
+        {title: "Accomodation", slug: 'accomodation', component: CabinsEditor},
         {title: "Features", slug: 'features', component: ShipFeaturesFormContainer},
         {title: "Media", slug: 'media', component: ShipMediaForm},
-        {title: "Cabins", slug: 'cabins', component: CabinsEditor},
+
       ],
 
       cabinActiv: 0,
@@ -139,20 +140,49 @@ export default {
         shipLayout: '',
         shipLayoutText: '',
         shipSpecifications: {
+          yard: '',
+          country: '',
+          built: null,
+          refit: '',
+          flag: '',
+          classed: '',
           length: null,
-          beam: null,
-          topSpeed: null,
-          cruisingSpeed: null,
-          engines: '',
-          maxGuests: null,
-          bathrooms: null,
-          tenders: '',
-          waterCapacity: null,
+          breadth: null,
+          maxDraft: null,
+          height: null,
+          grt: '',
+          shipType: '',
+          hullMaterial: '',
+          superstructure: '',
+          bodyStructure: '',
+          noOfDecks: null,
+          noOfMasts: null,
+          crewNo: null,
+          noOfEngines: null,
+          engineMaker: '',
+          power: '',
+          cruisingSpeed: '',
+          maximumSpeed: '',
           fuelCapacity: null,
-          freshwaterMaker: false
+          autonomy: null,
+          hotWater: false,
+          hotWaterType: '',
+          airConditioning: false,
+          airConditioningType: '',
+          waterMaker: false,
+          waterMakerCapacity: null,
+          bowThruster: false,
+          sternThruster: false,
+          maxCapacity: null,
+          maxCapacityCabins: null,
+          dayTrips: null,
+          atBerth: null,
+          noOfCabins: null,
+          operatingLicense: '',
         },
         shipSpecificationsText: '',
       }
+      console.log('item %o', item)
       return mergeObjectsToLeft(data, item)
     },
 
@@ -193,7 +223,7 @@ export default {
     },
 
     onTabsChange (val) {
-      if(val == 'tab-cabins') {
+      if(val == 'tab-accomodation') {
         this.cabinActiv++
       }
     }

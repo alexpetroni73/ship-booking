@@ -1,0 +1,6 @@
+#import "./fragments/OptionFragment.gql"
+mutation CreateOption ($input: OptionInput!){
+  createOption(input: $input) {
+    ... OptionData
+  }
+}

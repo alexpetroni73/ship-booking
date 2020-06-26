@@ -19,17 +19,45 @@ fragment ShipData on Ship{
   shipLayout
   shipLayoutText
   shipSpecifications {
+    yard
+    country
+    built
+    refit
+    flag
+    classed
     length
-    beam
-    topSpeed
+    breadth
+    maxDraft
+    height
+    grt
+    shipType
+    hullMaterial
+    superstructure
+    bodyStructure
+    noOfDecks
+    noOfMasts
+    crewNo
+    noOfEngines
+    engineMaker
+    power
     cruisingSpeed
-    engines
-    maxGuests
-    bathrooms
-    tenders
-    waterCapacity
+    maximumSpeed
     fuelCapacity
-    freshwaterMaker
+    autonomy
+    hotWater
+    hotWaterType
+    airConditioning
+    airConditioningType
+    waterMaker
+    waterMakerCapacity
+    bowThruster
+    sternThruster
+    maxCapacity
+    maxCapacityCabins
+    dayTrips
+    atBerth
+    noOfCabins
+    operatingLicense
   }
   shipSpecificationsText
   navSafteyFeatures

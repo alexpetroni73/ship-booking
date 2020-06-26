@@ -7,14 +7,13 @@ const typeDef = `
 
   extend type Mutation {
     createOption(input: OptionInput!): Option
-    updateOption(name: ID!, input: OptionInput!): Option
+    updateOption(name: ID!, value: String): Option
     deleteOption(name: ID!): ID
     deleteOptions(nameArr: [ID!]!): [ID!]!
   }
 
 
   type Option{
-    id: String!
     createdAt: Date
     updatedAt: Date
     name: ID!

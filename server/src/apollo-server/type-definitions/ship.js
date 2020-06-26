@@ -49,6 +49,8 @@ const typeDef = `
     createdAt: Date
     updatedAt: Date
     name: String
+
+
     slug: String
     excerpt: String
     description: String
@@ -98,31 +100,91 @@ const typeDef = `
   }
 
   type ShipSpecifications {
+    yard: String
+    country: String
+    built: Int
+    refit: String
+    flag: String
+    classed: String
     length: Float
-    beam: Float
-    topSpeed: Float
+    breadth: Float
+    maxDraft: Float
+    height: Float
+    grt: String
+    shipType: String
+    hullMaterial: String
+    superstructure: String
+
+    bodyStructure: String
+
+    noOfDecks: Int
+    noOfMasts: Int
+    crewNo: Int
+    noOfEngines: Int
+    engineMaker: String
+    power: Float
     cruisingSpeed: Float
-    engines: String
-    maxGuests: Int
-    bathrooms: Int
-    tenders: String
-    waterCapacity: Int
+    maximumSpeed: Float
     fuelCapacity: Int
-    freshwaterMaker: Boolean
+    autonomy: Int
+    hotWater: Boolean
+    hotWaterType: String
+    airConditioning: Boolean
+    airConditioningType: String
+    waterMaker: Boolean
+    waterMakerCapacity: Int
+    bowThruster: Boolean
+    sternThruster: Boolean
+    maxCapacity: Int
+    maxCapacityCabins: Int
+    dayTrips: Int
+    atBerth: Int
+    noOfCabins: Int
+
+    operatingLicense: String
   }
 
   input ShipSpecificationsInput {
+    yard: String
+    country: String
+    built: Int
+    refit: String
+    flag: String
+    classed: String
     length: Float
-    beam: Float
-    topSpeed: Float
+    breadth: Float
+    maxDraft: Float
+    height: Float
+    grt: String
+    shipType: String
+    hullMaterial: String
+    superstructure: String
+    bodyStructure: String
+    noOfDecks: Int
+    noOfMasts: Int
+    crewNo: Int
+    noOfEngines: Int
+    engineMaker: String
+    power: Float
     cruisingSpeed: Float
-    engines: String
-    maxGuests: Int
-    bathrooms: Int
-    tenders: String
-    waterCapacity: Int
+    maximumSpeed: Float
     fuelCapacity: Int
-    freshwaterMaker: Boolean
+    autonomy: Int
+    hotWater: Boolean
+    hotWaterType: String
+    airConditioning: Boolean
+    airConditioningType: String
+    waterMaker: Boolean
+    waterMakerCapacity: Int
+    bowThruster: Boolean
+    sternThruster: Boolean
+    maxCapacity: Int
+    maxCapacityCabins: Int
+    dayTrips: Int
+    atBerth: Int
+    noOfCabins: Int
+
+    operatingLicense: String
   }
 
   type Cabin {

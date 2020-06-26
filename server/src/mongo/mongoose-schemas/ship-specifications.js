@@ -1,47 +1,120 @@
 module.exports = {
+  yard: {
+    type: String,
+ },
+  country: {
+    type: String,
+ },
+  built: {
+    type: Number,
+ },
+  refit: {
+    type: String,
+ },
+  flag: {
+    type: String,
+ },
+  classed: {
+    type: String,
+ },
   length: {
+    type: Number,
+ },
+  breadth: {
+    type: Number,
+ },
+  maxDraft: {
+    type: Number,
+ },
+  height: {
+    type: Number,
+ },
+  grt: {
+    type: String,
+ },
+  shipType: {
+    type: String,
+ },
+  hullMaterial: {
+    type: String,
+ },
+  superstructure: {
+    type: String,
+ },
+  bodyStructure: {
+    type: String,
+ },
+  noOfDecks: {
     type: Number
-  },
-
-  beam: {
+ },
+  noOfMasts: {
     type: Number
-  },
-
-  topSpeed: {
+ },
+  crewNo: {
     type: Number
-  },
-
+ },
+  noOfEngines: {
+    type: Number
+ },
+  engineMaker: {
+    type: String,
+ },
+  power: {
+    type: Number
+ },
   cruisingSpeed: {
     type: Number
-  },
-
-  engines: {
-    type: String,
-    default: ''
-  },
-
-  maxGuests: {
+ },
+  maximumSpeed: {
     type: Number
-  },
-
-  bathrooms: {
-    type: Number
-  },
-
-  tenders: {
-    type: String,
-  },
-
-  waterCapacity: {
-    type: Number
-  },
-
+ },
   fuelCapacity: {
     type: Number
-  },
-
-  freshwaterMaker: {
+ },
+  autonomy: {
+    type: Number
+ },
+  hotWater: {
     type: Boolean,
-    default: false
-  },
+ },
+  hotWaterType: {
+    type: String,
+ },
+  airConditioning: {
+    type: Boolean,
+ },
+  airConditioningType: {
+    type: String,
+ },
+  waterMaker: {
+    type: Boolean,
+ },
+  waterMakerCapacity: {
+    type: Number
+ },
+  bowThruster: {
+    type: Boolean,
+ },
+  sternThruster: {
+    type: Boolean,
+ },
+  maxCapacity: {
+    type: Number
+ },
+  maxCapacityCabins: {
+    type: Number
+ },
+  dayTrips: {
+    type: Number
+ },
+  atBerth: {
+    type: Number
+ },
+  noOfCabins: {
+    type: Number
+ },
+
+  operatingLicense: {
+      type: String,
+   },
 }

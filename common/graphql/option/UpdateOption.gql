@@ -1,0 +1,6 @@
+#import "./fragments/OptionFragment.gql"
+mutation UpdateOption ($name: ID!, $value: String){
+  updateOption(name: $name, value: $value) {
+    ... OptionData
+  }
+}

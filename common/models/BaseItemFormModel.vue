@@ -177,7 +177,7 @@ export default {
     },
 
     async onUpdateItem (val) {
-      // console.log('onUpdateItem %o', val)
+      console.log('MODEL onUpdateItem %o', val)
       this.clearError()
       this.loading = true
       try{

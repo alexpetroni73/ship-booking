@@ -36,9 +36,6 @@ const paginatedSearchCruises = async function (args ={}) {
   conditions.push({'startDate': { '$gte': start}})
   conditions.push({'startDate': { '$lte': end}})
 
-
-  console.log('conditions %o', conditions)
-
   const aggCond = [
     {$match: {$and: conditions} },
 
@@ -69,37 +66,11 @@ const paginatedSearchCruises = async function (args ={}) {
   const totalQ = Cruise.aggregate([...aggCond, {"$count": "total"}])
 
   const [items, total] = await Promise.all([itemsQ, totalQ])
-  console.log('items %o', items)
+
   return {
     items,
     total: utils.parsePagTotalAggResult(total)
   }
-
-  // let result = await Cruise.aggregate([
-  //   {$match: {$and: conditions} },
-  //
-  //   {$group: {
-  //     _id: "$ship",
-  //     cruises: {$push: { startDate: "$startDate", endDate: "$endDate", location: "$itinerary.location" } },
-  //   }},
-  //
-  //
-  //   {$lookup: {
-  //     from: "ships",
-  //     localField: "_id",
-  //     foreignField: "_id",
-  //     as: "ship"
-  //   }},
-  // ])
-  //
-  // console.log('result %o', result)
-  //
-  // console.log('no, results %s', result.length)
-  //
-  // return {
-  //   total: 0,
-  //   items: []
-  // }
 }
 
 module.exports = {

@@ -15,8 +15,8 @@ const resolvers = {
       return context.models.Option.createOption(input)
     },
 
-    updateOption(_, { name, input }, context){
-      return context.models.Option.updateOption(name, input)
+    updateOption(_, { name, value }, context){
+      return context.models.Option.updateOption(name, value)
     },
 
     deleteOption(_, { name }, context){

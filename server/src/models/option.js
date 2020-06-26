@@ -8,7 +8,10 @@ const ObjectId = mongoose.Types.ObjectId
 
 
 const option = async function (name) {
-  return Option.find({name: name})
+  console.log('name %o', name)
+  let o = await Option.findOne({name: name})
+  console.log('o %o', o)
+  return Option.findOne({name: name})
 }
 
 const options = async function (nameArr) {
@@ -28,16 +31,11 @@ const createOption = async function (input) {
   return Option.create(input)
 }
 
-const updateOption = async function (name, input) {
+const updateOption = async function (name, value) {
   // check for non-empty & unique field values if provnameed
-  const uniqueFieldsProvnameed = utils.checkNonEmptyProperties(['name', 'slug'], input, false)
+  // const uniqueFieldsProvnameed = utils.checkNonEmptyProperties(['name'], input, false)
 
-  input = utils.slugifyObjProperties(input, 'slug')
-  if(uniqueFieldsProvnameed.length){
-    await Promise.all(uniqueFieldsProvnameed.map(e => utils.checkUniqueFieldValue(Option, e, input[e], name)))
-  }
-
-  return Option.findByIdAndUpdate(name, input, {new: true})
+  return Option.findByIdAndUpdate(name, value, {new: true})
 }
 
 const deleteOption = async function (name) {

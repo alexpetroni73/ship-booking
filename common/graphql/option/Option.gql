@@ -1,0 +1,6 @@
+#import "./fragments/OptionFragment.gql"
+query Option ($name: ID!){
+  option(name: $name) {
+    ... OptionData
+  }
+}
