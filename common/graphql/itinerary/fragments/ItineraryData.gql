@@ -5,6 +5,14 @@ fragment ItineraryData on Itinerary{
   name
   slug
   location
+  departure {
+    location
+    time
+  }
+  return {
+    location
+    time
+  }
   length
   dives
   experience

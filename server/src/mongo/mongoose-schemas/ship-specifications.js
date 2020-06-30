@@ -41,7 +41,7 @@ module.exports = {
   superstructure: {
     type: String,
  },
-  bodyStructure: {
+  hullType: {
     type: String,
  },
   noOfDecks: {
@@ -113,8 +113,14 @@ module.exports = {
   noOfCabins: {
     type: Number
  },
-
   operatingLicense: {
       type: String,
-   },
+  },
+  designation: {
+    type: [String]
+  },
+  availableFor: {
+    type: [String]
+  }
+
 }

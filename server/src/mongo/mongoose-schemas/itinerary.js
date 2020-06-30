@@ -9,6 +9,16 @@ module.exports = {
     unique: true,
   },
 
+  departure: {
+    place: String,
+    time: String,
+  },
+
+  return: {
+    place: String,
+    time: String,
+  },
+
   location: {
     type: String,
   },

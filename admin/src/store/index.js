@@ -5,10 +5,15 @@ import countriesList from '@common/assets/all-countries-list'
 import classedList from '@common/assets/classed-list'
 import shipTypesList from '@common/assets/ship-types-list'
 import hullMaterialsList from '@common/assets/hull-materials-list'
-import bodyTypesList from '@common/assets/body-types-list'
+import hullTypesList from '@common/assets/hull-types-list'
 import hotWaterTypesList from '@common/assets/hot-water-types-list'
 import airConditioningTypesList from '@common/assets/air-conditioning-types-list'
 import operatingLicenseTypesList from '@common/assets/operating-licenses-types-list'
+import designationTypesList from '@common/assets/designation-types-list'
+import availableForTypesList from '@common/assets/available-for-types-list'
+import cabinsTypesList from '@common/assets/cabins-types-list'
+import bedsTypesList from '@common/assets/beds-types-list'
+import pullmanBedsTypesList from '@common/assets/pullman-beds-types-list'
 
 Vue.use(Vuex)
 
@@ -24,10 +29,15 @@ export default new Vuex.Store({
     classedList: classedList,
     shipTypesList: shipTypesList,
     hullMaterialsList: hullMaterialsList,
-    bodyTypesList: bodyTypesList,
+    hullTypesList: hullTypesList,
     hotWaterTypesList: hotWaterTypesList,
     airConditioningTypesList: airConditioningTypesList,
-    operatingLicenseTypesList: operatingLicenseTypesList, 
+    operatingLicenseTypesList: operatingLicenseTypesList,
+    designationTypesList: designationTypesList,
+    availableForTypesList: availableForTypesList,
+    cabinsTypesList: cabinsTypesList,
+    bedsTypesList: bedsTypesList,
+    pullmanBedsTypesList: pullmanBedsTypesList, 
 
   },
   mutations: {

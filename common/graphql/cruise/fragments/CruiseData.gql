@@ -19,6 +19,14 @@ fragment CruiseData on Cruise{
     name
     slug
     location
+    departure {
+      location
+      time
+    }
+    return {
+      location
+      time
+    }
     length
     dives
     experience

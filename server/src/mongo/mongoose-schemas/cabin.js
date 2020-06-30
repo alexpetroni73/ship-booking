@@ -8,6 +8,31 @@ module.exports = {
     index: true,
   },
 
+  type: {
+  type: String
+},
+  ensuite: {
+  type: Boolean
+},
+  showerBathub: {
+  type: Boolean
+},
+  seaView: {
+  type: Boolean
+},
+  bedding: {
+  type: String
+},
+  pullmanBedding: {
+  type: String
+},
+  airconditioning: {
+  type: Boolean
+},
+  tv: {
+  type: Boolean
+},
+
   excerpt: {
     type: String
   },

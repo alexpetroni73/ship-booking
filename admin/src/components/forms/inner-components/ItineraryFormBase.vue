@@ -27,6 +27,46 @@
            <v-text-field v-model="item.length" label="Length of trip"></v-text-field>
          </v-col>
 
+         <!-- =========================== Embark | Disembark =========================== -->
+         <v-col
+         sm="6"
+         md="4"
+         >
+           <v-text-field v-model="item.departure.location" label="Embark from"></v-text-field>
+         </v-col>
+
+         <v-col
+         sm="6"
+         md="2"
+         >
+         <v-text-field
+           label="Embark Time"
+           v-model="item.departure.time"
+           type="time"
+           suffix="PST"
+         ></v-text-field>
+           <!-- <v-text-field v-model="item.departure.time" label="Embark Time"></v-text-field> -->
+         </v-col>
+
+         <v-col
+         sm="6"
+         md="4"
+         >
+           <v-text-field v-model="item.return.location" label="Disembark to"></v-text-field>
+         </v-col>
+
+         <v-col
+         sm="6"
+         md="2"
+         >
+         <v-text-field
+           label="Disembark Time"
+           v-model="item.return.time"
+           type="time"
+           suffix="PST"
+         ></v-text-field>
+         </v-col>
+
          <v-col
          sm="12"
          md="6"

@@ -2,6 +2,10 @@
   <v-card flat>
     <v-card-text>
   <v-container>
+    <v-form
+      ref="form"
+      v-model="valid"
+    >
       <v-row>
         <v-col
         sm="12"
@@ -10,6 +14,7 @@
           <v-text-field
             v-model="editedItem.name"
             label="Name"
+             :rules="nameRules"
             required
           ></v-text-field>
         </v-col>
@@ -220,11 +225,11 @@
           md="3"
           >
           <v-select
-            v-model="editedItem.shipSpecifications.bodyStructure"
-            :items="bodyTypesList"
+            v-model="editedItem.shipSpecifications.hullType"
+            :items="hullTypesList"
             item-text="name"
             item-value="code"
-            label="Body type"
+            label="Hull Type"
           ></v-select>
         </v-col>
 
@@ -254,8 +259,55 @@
         :items="operatingLicenseTypesList"
         item-text="name"
         item-value="code"
-        label="Operating licence"
+        label="Operating Licence"
       ></v-select>
+      </v-col>
+
+      <v-col
+      sm="12"
+      md="3"
+      >
+      <v-select
+        v-model="editedItem.shipSpecifications.designation"
+        :items="designationTypesList"
+        item-text="name"
+        item-value="code"
+        label="Select What Qualify Best Your Boat"
+        hint="multiple select posible"
+        multiple
+      >
+        <template v-slot:selection="{ item, index }">
+          <span v-if="index === 0">{{ item.name }}</span>
+        <span
+          v-if="index === 1"
+          class="grey--text caption"
+        >(+{{ editedItem.shipSpecifications.designation.length - 1 }} others)</span>
+      </template>
+
+    </v-select>
+      </v-col>
+
+      <v-col
+      sm="12"
+      md="3"
+      >
+      <v-select
+        v-model="editedItem.shipSpecifications.availableFor"
+        :items="availableForTypesList"
+        item-text="name"
+        item-value="code"
+        label="Available For"
+       multiple
+      >
+
+      <template v-slot:selection="{ item, index }">
+        <span v-if="index === 0">{{ item.name }}</span>
+      <span
+        v-if="index === 1"
+        class="grey--text caption"
+      >(+{{ editedItem.shipSpecifications.availableFor.length - 1 }} others)</span>
+    </template>
+  </v-select>
       </v-col>
 
       <v-col
@@ -509,7 +561,7 @@
 
     <v-row>
 
-        <v-col
+        <!-- <v-col
         sm="12"
         md="12"
         >
@@ -519,7 +571,7 @@
             hint="The short description visible on ship list page"
             outlined
           ></v-textarea>
-       </v-col>
+       </v-col> -->
 
        <v-col
        sm="12"
@@ -532,151 +584,11 @@
          ></v-textarea>
       </v-col>
     </v-row>
-
-    <!-- <v-row>
-      <v-col
-      sm="12"
-      class="title"
-      >
-      Boat Specifications
-    </v-col>
-
-    <v-col
-    sm="12"
-    md="3"
-    >
-    <v-text-field
-      v-model.number="editedItem.shipSpecifications.length"
-      label="Length"
-      required
-    ></v-text-field>
-   </v-col>
-
-   <v-col
-   sm="12"
-   md="3"
-   >
-   <v-text-field
-     v-model.number="editedItem.shipSpecifications.beam"
-     label="Beam"
-     required
-   ></v-text-field>
-  </v-col>
-
-  <v-col
-  sm="12"
-  md="3"
-  >
-  <v-text-field
-    v-model.number="editedItem.shipSpecifications.topSpeed"
-    label="Top Speed"
-    required
-  ></v-text-field>
-  </v-col>
-
-  <v-col
-  sm="12"
-  md="3"
-  >
-  <v-text-field
-   v-model.number="editedItem.shipSpecifications.cruisingSpeed"
-   label="Cruising Speed"
-   required
-  ></v-text-field>
-  </v-col>
-
-  <v-col
-  sm="12"
-  md="3"
-  >
-  <v-text-field
-   v-model="editedItem.shipSpecifications.engines"
-   label="Engines"
-   required
-  ></v-text-field>
-  </v-col>
-
-  <v-col
-  sm="12"
-  md="3"
-  >
-  <v-text-field
-   v-model.number="editedItem.shipSpecifications.maxGuests"
-   label="Max Guests"
-   required
-  ></v-text-field>
-  </v-col>
-
- <v-col
-  sm="12"
-  md="3"
-  >
-  <v-text-field
-   v-model.number="editedItem.shipSpecifications.cabins"
-   label="Cabins"
-   required
-  ></v-text-field>
-  </v-col>
-
-  <v-col
-  sm="12"
-  md="3"
-  >
-  <v-text-field
-   v-model.number="editedItem.shipSpecifications.bathrooms"
-   label="Bathrooms"
-   required
-  ></v-text-field>
-  </v-col>
-
-  <v-col
-  sm="12"
-  md="3"
-  >
-  <v-text-field
-   v-model="editedItem.shipSpecifications.tenders"
-   label="Tenders"
-   required
-  ></v-text-field>
-  </v-col>
-
-  <v-col
-  sm="12"
-  md="3"
-  >
-  <v-text-field
-   v-model.number="editedItem.shipSpecifications.waterCapacity"
-   label="Water Capacity"
-   required
-  ></v-text-field>
-  </v-col>
-
-  <v-col
-  sm="12"
-  md="3"
-  >
-  <v-text-field
-   v-model.number="editedItem.shipSpecifications.fuelCapacity"
-   label="Fuel Capacity"
-   required
-  ></v-text-field>
-  </v-col>
-
-  <v-col
-  sm="12"
-  md="3"
-  >
-  <v-checkbox
-   v-model="editedItem.shipSpecifications.freshwaterMaker"
-   label="Freshwater Maker"
-   required
-  ></v-checkbox>
-  </v-col>
-
-    </v-row> -->
+  </v-form>
   </v-container>
   </v-card-text>
   <FormSubmitButtons
+  :disabled="!valid"
   :formState="formState"
   @create-item="createItem"
   @update-item="updateItem"
@@ -697,16 +609,29 @@ export default {
     FormSubmitButtons,
   },
 
+  data () {
+    return {
+      valid: true,
+
+      // validation rules
+      nameRules: [
+        v => !!v || 'Name is required',
+      ],
+    }
+  },
+
   computed: {
     ...mapState([
       'countriesList',
       'classedList',
       'shipTypesList',
       'hullMaterialsList',
-      'bodyTypesList',
+      'hullTypesList',
       'hotWaterTypesList',
       'airConditioningTypesList',
       'operatingLicenseTypesList',
+      'designationTypesList',
+      'availableForTypesList',
     ]),
 
     superYachtHint () {

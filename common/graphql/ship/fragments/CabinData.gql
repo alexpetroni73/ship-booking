@@ -4,6 +4,14 @@ fragment CabinData on Cabin{
   updatedAt
   name
   slug
+  type
+  ensuite
+  showerBathub
+  seaView
+  bedding
+  pullmanBedding
+  airconditioning
+  tv
   excerpt
   description
   order
@@ -12,6 +20,4 @@ fragment CabinData on Cabin{
   features
   featuresText
   capacity
-  bedding
-  airconditioning
 }

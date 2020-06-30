@@ -21,6 +21,14 @@ export default {
         name: '',
         slug: '',
         location: '',
+        departure: {
+          location: '',
+          time: '12:30:00',
+        },
+        return: {
+          location: '',
+          time: '16:30:00',
+        },
         length: '',
         dives: '',
         experience: '',

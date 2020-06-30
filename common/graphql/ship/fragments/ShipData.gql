@@ -33,7 +33,7 @@ fragment ShipData on Ship{
     shipType
     hullMaterial
     superstructure
-    bodyStructure
+    hullType
     noOfDecks
     noOfMasts
     crewNo
@@ -58,6 +58,8 @@ fragment ShipData on Ship{
     atBerth
     noOfCabins
     operatingLicense
+    designation
+    availableFor
   }
   shipSpecificationsText
   navSafteyFeatures

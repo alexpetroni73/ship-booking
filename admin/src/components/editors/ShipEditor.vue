@@ -154,7 +154,7 @@ export default {
           shipType: '',
           hullMaterial: '',
           superstructure: '',
-          bodyStructure: '',
+          hullType: '',
           noOfDecks: null,
           noOfMasts: null,
           crewNo: null,
@@ -179,6 +179,8 @@ export default {
           atBerth: null,
           noOfCabins: null,
           operatingLicense: '',
+          designation: [],
+          availableFor: [],
         },
         shipSpecificationsText: '',
       }

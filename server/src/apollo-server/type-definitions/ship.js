@@ -115,7 +115,7 @@ const typeDef = `
     hullMaterial: String
     superstructure: String
 
-    bodyStructure: String
+    hullType: String
 
     noOfDecks: Int
     noOfMasts: Int
@@ -142,6 +142,8 @@ const typeDef = `
     noOfCabins: Int
 
     operatingLicense: String
+    designation: [String!]
+    availableFor: [String!]
   }
 
   input ShipSpecificationsInput {
@@ -159,7 +161,7 @@ const typeDef = `
     shipType: String
     hullMaterial: String
     superstructure: String
-    bodyStructure: String
+    hullType: String
     noOfDecks: Int
     noOfMasts: Int
     crewNo: Int
@@ -185,6 +187,8 @@ const typeDef = `
     noOfCabins: Int
 
     operatingLicense: String
+    designation: [String!]
+    availableFor: [String!]
   }
 
   type Cabin {
@@ -193,6 +197,17 @@ const typeDef = `
     updatedAt: Date
     name: String
     slug: String
+
+    type: String
+    ensuite: Boolean
+    showerBathub: Boolean
+    seaView: Boolean
+    bedding: String
+    pullmanBedding: String
+    airconditioning: Boolean
+    tv: Boolean
+
+
     excerpt: String
     description: String
     order: Int
@@ -201,14 +216,23 @@ const typeDef = `
     features: [String!]
     featuresText: String
     capacity: Int
-    bedding: String
-    airconditioning: String
+
   }
 
   input CabinInput {
     id: ID
     name: String
     slug: String
+
+    type: String
+    ensuite: Boolean
+    showerBathub: Boolean
+    seaView: Boolean
+    bedding: String
+    pullmanBedding: String
+    airconditioning: Boolean
+    tv: Boolean
+
     excerpt: String
     description: String
     order: Int
@@ -217,8 +241,6 @@ const typeDef = `
     features: [String!]
     featuresText: String
     capacity: Int
-    bedding: String
-    airconditioning: String
   }
 
   type PaginatedCabins {

@@ -24,6 +24,8 @@ const typeDef = `
     name: String
     slug: String
     location: String
+    departure: Boarding
+    return: Boarding
     length: String
     dives: String
     experience: String
@@ -40,6 +42,8 @@ const typeDef = `
     name: String
     slug: String
     location: String
+    departure: Boarding
+    return: Boarding
     length: String
     dives: String
     experience: String
@@ -53,6 +57,8 @@ const typeDef = `
     name: String
     slug: String
     location: String
+    departure: BoardingInput
+    return: BoardingInput
     length: String
     dives: String
     experience: String
@@ -66,6 +72,8 @@ const typeDef = `
     name: String
     slug: String
     location: String
+    departure: Boarding
+    return: Boarding
     length: String
     dives: String
     experience: String
@@ -79,6 +87,8 @@ const typeDef = `
     name: String
     slug: String
     location: String
+    departure: BoardingInput
+    return: BoardingInput
     length: String
     dives: String
     experience: String
@@ -100,6 +110,16 @@ const typeDef = `
     description: String
     lng: Float
     lat: Float
+  }
+
+  type Boarding {
+    location: String
+    time: String
+  }
+
+  input BoardingInput {
+    location: String
+    time: String
   }
 
   type PaginatedItineraries {

@@ -38,11 +38,11 @@ export default {
     },
 
     onItemDeleted () {
-      this.$router.push({ path: 'itineraries' })
+      this.$router.push({ path: '/itineraries' })
     },
 
     onCancel () {
-      this.$router.push({ path: 'itineraries' })
+      this.$router.push({ path: '/itineraries' })
     },
   },
 
