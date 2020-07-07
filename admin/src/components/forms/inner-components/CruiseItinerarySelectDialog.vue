@@ -12,9 +12,6 @@
     </template>
 
     <v-card>
-      <!-- <v-card-title>
-        <span class="headline">Itineraries</span>
-      </v-card-title> -->
       <v-card-text>
         <v-container>
           <v-row>

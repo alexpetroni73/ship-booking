@@ -67,6 +67,8 @@ const typeDef = `
     shipLayout: String
     shipLayoutText: String
     shipSpecifications: ShipSpecifications
+    shipEntertainment: ShipEntertainment
+    shipSafety: ShipSafety
     shipSpecificationsText: String
     navSafteyFeatures: [String!]
     navSafteyFeaturesText: String
@@ -92,6 +94,8 @@ const typeDef = `
     shipLayout: String
     shipLayoutText: String
     shipSpecifications: ShipSpecificationsInput
+    shipEntertainment: ShipEntertainmentInput
+    shipSafety: ShipSafetyInput
     shipSpecificationsText: String
     navSafteyFeatures: [String!]
     navSafteyFeaturesText: String
@@ -157,7 +161,7 @@ const typeDef = `
     breadth: Float
     maxDraft: Float
     height: Float
-    grt: String
+    grt: Float
     shipType: String
     hullMaterial: String
     superstructure: String
@@ -189,6 +193,181 @@ const typeDef = `
     operatingLicense: String
     designation: [String!]
     availableFor: [String!]
+  }
+
+  type ShipSafety {
+    lifejackets: Boolean
+    lifejacketsNo: Int
+    lifejacketsNoKids: Int
+    radar: Boolean
+    ais: Boolean
+    liferafts: Boolean
+    liferaftsNo: Int
+    chartPlotter: Boolean
+    sart: Boolean
+    lifebuoys: Boolean
+    lifebuoysNo: Int
+    vhf: Boolean
+    epirb: Boolean
+    rescueBoats: Boolean
+    rescueBoatsNo: Int
+    mfhf: Boolean
+    medicalFirsAidKit: Boolean
+    medicalOxygen: Boolean
+  }
+
+  input ShipSafetyInput {
+    lifejackets: Boolean
+    lifejacketsNo: Int
+    lifejacketsNoKids: Int
+    radar: Boolean
+    ais: Boolean
+    liferafts: Boolean
+    liferaftsNo: Int
+    chartPlotter: Boolean
+    sart: Boolean
+    lifebuoys: Boolean
+    lifebuoysNo: Int
+    vhf: Boolean
+    epirb: Boolean
+    rescueBoats: Boolean
+    rescueBoatsNo: Int
+    mfhf: Boolean
+    medicalFirsAidKit: Boolean
+    medicalOxygen: Boolean
+  }
+
+
+  type ShipEntertainment {
+    stabilizers: String
+
+    tenders: [ Tender ]
+
+    waveRunners: [ WaveRunner ]
+
+    paddleBoards: Boolean
+    paddleBoardsNo: Int
+
+    seabobs: Boolean
+    seabobsNo: Int
+
+    waterSkis: Boolean
+    waterSkisNo: Int
+
+    wakeboards: Boolean
+    wakeboardsNo: Int
+
+    waterSlide: Boolean
+    waterSlideLength: Int
+
+    bananas: Boolean
+    bananasNo: Int
+
+    surfboards: Boolean
+    surfboardsNo: Int
+
+    kayacs: Boolean
+    kayacsNo: Int
+
+    ocanPool: Boolean
+
+    sailingDinghies: Boolean
+    sailingDinghiesType: String
+
+    snorkelingEquipment: Boolean
+    snorkelingEquipmentNo: Int
+
+    divingEquipment: Boolean
+    divingEquipmentNo: Int
+
+    airCompressors: [ AirCompressor ]
+
+    nitroxOnBoard: [ NitroxOnBoard ]
+  }
+
+  input ShipEntertainmentInput {
+    stabilizers: String
+
+    tenders: [ TenderInput ],
+
+    waveRunners: [ WaveRunnerInput ],
+
+    paddleBoards: Boolean
+    paddleBoardsNo: Int
+
+    seabobs: Boolean
+    seabobsNo: Int
+
+    waterSkis: Boolean
+    waterSkisNo: Int
+
+    wakeboards: Boolean
+    wakeboardsNo: Int
+
+    waterSlide: Boolean
+    waterSlideLength: Int
+
+    bananas: Boolean
+    bananasNo: Int
+
+    surfboards: Boolean
+    surfboardsNo: Int
+
+    kayacs: Boolean
+    kayacsNo: Int
+
+    ocanPool: Boolean
+
+    sailingDinghies: Boolean
+    sailingDinghiesType: String
+
+    snorkelingEquipment: Boolean
+    snorkelingEquipmentNo: Int
+
+    divingEquipment: Boolean
+    divingEquipmentNo: Int
+
+    airCompressors: [ AirCompressorInput ]
+
+    nitroxOnBoard: [ NitroxOnBoardInput ]
+  }
+
+  type Tender {
+    type: String
+    length: Float
+  }
+
+  input TenderInput {
+    type: String
+    length: Float
+  }
+
+  type WaveRunner {
+      maker: String
+      length: Float
+      type: String
+  }
+
+  input WaveRunnerInput {
+      maker: String
+      length: Float
+      type: String
+  }
+
+  type AirCompressor {
+      capacity: Float
+  }
+
+  input AirCompressorInput {
+      capacity: Float
+  }
+
+  type NitroxOnBoard {
+      type: String
+  }
+
+  input NitroxOnBoardInput {
+      type: String
   }
 
   type Cabin {

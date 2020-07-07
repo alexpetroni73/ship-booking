@@ -15,7 +15,6 @@
 <script>
 import SearchShips from '@common/graphql/ship/SearchShips.gql'
 import Ship from '@common/graphql/ship/Ship.gql'
-// import { deleteObjFields } from '@common/utils'
 
 export default {
   props: {

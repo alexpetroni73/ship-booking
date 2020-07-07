@@ -1,0 +1,21 @@
+// shipSafety default values
+export default {
+  lifejackets: false,
+  lifejacketsNo: null,
+  lifejacketsNoKids: null,
+  radar: false,
+  ais: false,
+  liferafts: false,
+  liferaftsNo: null,
+  chartPlotter: false,
+  sart: false,
+  lifebuoys: false,
+  lifebuoysNo: null,
+  vhf: false,
+  epirb: false,
+  rescueBoats: false,
+  rescueBoatsNo: null,
+  mfhf: false,
+  medicalFirsAidKit: false,
+  medicalOxygen: false,
+}

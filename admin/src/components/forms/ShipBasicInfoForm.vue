@@ -158,7 +158,7 @@
         md="2"
         >
         <v-text-field
-         v-model="editedItem.shipSpecifications.grt"
+         v-model.number="editedItem.shipSpecifications.grt"
          label="GRT"
          required
         ></v-text-field>

@@ -34,25 +34,6 @@ export default {
     DatePickerInMenu,
   },
 
-  directives: {
-
-  },
-
-  filters: {
-
-  },
-
-  extends: {
-
-  },
-
-  mixins: [],
-
-  // model: {
-  //   prop: 'item',
-  //   event: 'change'
-  // },
-
   props: {
     item: {
       type: Object,
@@ -63,20 +44,6 @@ export default {
       type: Boolean,
       default: false,
     }
-  },
-
-  data () {
-    return {
-
-    }
-  },
-
-  computed: {
-
-  },
-
-  watch: {
-
   },
 
   methods: {
@@ -93,8 +60,3 @@ export default {
 
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-
-</style>

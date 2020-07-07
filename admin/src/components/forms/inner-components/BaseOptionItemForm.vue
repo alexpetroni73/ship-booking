@@ -27,50 +27,15 @@ export default {
     FormSubmitButtons,
   },
 
-  directives: {
-
-  },
-
-  filters: {
-
-  },
-
-  extends: {
-
-  },
-
   mixins: [
     FormItemMixin,
   ],
-
-  model: {
-
-  },
-
-  props: {
-
-  },
-
-  data () {
-    return {
-
-    }
-  },
 
   computed: {
     enableSubmit () {
       return true
     }
   },
-
-  watch: {
-
-  },
-
-  methods: {
-
-  },
-
 
 }
 </script>

@@ -2,6 +2,8 @@ const { buildTimestampSchema } = require('./../utils')
 const cabinObj = require('./cabin')
 const Cabin = buildTimestampSchema(cabinObj)
 const ShipSpecifications = require('./ship-specifications')
+const ShipEntertainment = require('./ship-entertainment')
+const ShipSafety = require('./ship-safety')
 
 module.exports = {
   name: {
@@ -64,6 +66,16 @@ module.exports = {
 
   shipSpecifications: {
     type: ShipSpecifications,
+    default: {}
+  },
+
+  shipSafety: {
+    type: ShipSafety,
+    default: {}
+  },
+
+  shipEntertainment: {
+    type: ShipEntertainment,
     default: {}
   },
 

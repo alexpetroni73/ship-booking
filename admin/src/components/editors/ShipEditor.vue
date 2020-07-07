@@ -48,11 +48,31 @@
         />
       </v-tab-item>
 
-      <v-tab-item
+      <!-- <v-tab-item
       value="tab-features"
       >
         <ShipFeaturesFormContainer
         :item="shipFeaturesData(item)"
+        v-bind="modelState"
+        v-on="crudEvents"
+        />
+      </v-tab-item> -->
+
+      <v-tab-item
+      value="tab-safety"
+      >
+        <ShipSafetyForm
+        :item="shipSafetyData(item)"
+        v-bind="modelState"
+        v-on="crudEvents"
+        />
+      </v-tab-item>
+
+      <v-tab-item
+      value="tab-entertainment"
+      >
+        <ShipEntertainmentForm
+        :item="shipEntertainmentData(item)"
         v-bind="modelState"
         v-on="crudEvents"
         />
@@ -87,12 +107,17 @@
 import ShipFormModel from '@/components/models/ShipFormModel'
 import FormTopBar from '@common/components/FormTopBar'
 import ShipBasicInfoForm from '@/components/forms/ShipBasicInfoForm'
-import ShipFeaturesFormContainer from '@/components/forms/ShipFeaturesFormContainer'
+import ShipSafetyForm from '@/components/forms/ShipSafetyForm'
+import ShipEntertainmentForm from '@/components/forms/ShipEntertainmentForm'
+// import ShipFeaturesFormContainer from '@/components/forms/ShipFeaturesFormContainer'
 import ShipMediaForm from '@/components/forms/ShipMediaForm'
 import CabinsEditor from '@/components/editors/CabinsEditor'
 
+import shipSpecifications from '@/data/ship-specifications'
+import shipSafety from '@/data/ship-safety'
+import shipEntertainment from '@/data/ship-entertainment'
 
-import { pipeUp, mergeObjectsToLeft, isNewForm } from '@common/utils'
+import { pipeUp, mergeObjectsToLeft, isNewForm, deleteObjField } from '@common/utils'
 
 export default {
   name: 'ShipEditor',
@@ -109,7 +134,9 @@ export default {
     ShipFormModel,
     FormTopBar,
     ShipBasicInfoForm,
-    ShipFeaturesFormContainer,
+    ShipEntertainmentForm,
+    ShipSafetyForm,
+    // ShipFeaturesFormContainer,
     ShipMediaForm,
     CabinsEditor,
   },
@@ -121,9 +148,10 @@ export default {
       tabs: [
         {title: "Basic data", slug: 'basic', component: ShipBasicInfoForm},
         {title: "Accomodation", slug: 'accomodation', component: CabinsEditor},
-        {title: "Features", slug: 'features', component: ShipFeaturesFormContainer},
+        {title: "Entertainment", slug: 'entertainment', component: ShipEntertainmentForm},
+        {title: "Safety", slug: 'safety', component: ShipSafetyForm},
+        // {title: "Features", slug: 'features', component: ShipFeaturesFormContainer},
         {title: "Media", slug: 'media', component: ShipMediaForm},
-
       ],
 
       cabinActiv: 0,
@@ -139,53 +167,29 @@ export default {
         description: '',
         shipLayout: '',
         shipLayoutText: '',
-        shipSpecifications: {
-          yard: '',
-          country: '',
-          built: null,
-          refit: '',
-          flag: '',
-          classed: '',
-          length: null,
-          breadth: null,
-          maxDraft: null,
-          height: null,
-          grt: '',
-          shipType: '',
-          hullMaterial: '',
-          superstructure: '',
-          hullType: '',
-          noOfDecks: null,
-          noOfMasts: null,
-          crewNo: null,
-          noOfEngines: null,
-          engineMaker: '',
-          power: '',
-          cruisingSpeed: '',
-          maximumSpeed: '',
-          fuelCapacity: null,
-          autonomy: null,
-          hotWater: false,
-          hotWaterType: '',
-          airConditioning: false,
-          airConditioningType: '',
-          waterMaker: false,
-          waterMakerCapacity: null,
-          bowThruster: false,
-          sternThruster: false,
-          maxCapacity: null,
-          maxCapacityCabins: null,
-          dayTrips: null,
-          atBerth: null,
-          noOfCabins: null,
-          operatingLicense: '',
-          designation: [],
-          availableFor: [],
-        },
+        shipSpecifications: shipSpecifications,
         shipSpecificationsText: '',
       }
-      console.log('item %o', item)
       return mergeObjectsToLeft(data, item)
+    },
+
+    shipSafetyData (item) {
+      let data = {
+        shipSafety: shipSafety
+      }
+      return mergeObjectsToLeft(data, item)
+    },
+
+    shipEntertainmentData (item) {
+      let data = {
+        shipEntertainment: shipEntertainment
+      }
+      // console.log('data.tenders %o', data.shipEntertainment.tenders)
+      // console.log('item.tenders %o', item.shipEntertainment.tenders)
+      // let r = mergeObjectsToLeft(data, item)
+      // console.log('merged.tenders %o', r.shipEntertainment.tenders)
+      let entertainment = mergeObjectsToLeft(data, item)
+      return deleteObjField(entertainment, '__typename')
     },
 
     shipFeaturesData (item) {

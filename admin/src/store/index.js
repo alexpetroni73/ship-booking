@@ -14,6 +14,10 @@ import availableForTypesList from '@common/assets/available-for-types-list'
 import cabinsTypesList from '@common/assets/cabins-types-list'
 import bedsTypesList from '@common/assets/beds-types-list'
 import pullmanBedsTypesList from '@common/assets/pullman-beds-types-list'
+import stabilizersTypesList from '@common/assets/stabilizers-types-list'
+import tendersTypesList from '@common/assets/tenders-types-list'
+import nitroxOnBoardTypesList from '@common/assets/nitrox-on-board-types-list'
+
 
 Vue.use(Vuex)
 
@@ -37,7 +41,10 @@ export default new Vuex.Store({
     availableForTypesList: availableForTypesList,
     cabinsTypesList: cabinsTypesList,
     bedsTypesList: bedsTypesList,
-    pullmanBedsTypesList: pullmanBedsTypesList, 
+    pullmanBedsTypesList: pullmanBedsTypesList,
+    stabilizersTypesList: stabilizersTypesList,
+    tendersTypesList: tendersTypesList,
+    nitroxOnBoardTypesList: nitroxOnBoardTypesList, 
 
   },
   mutations: {

@@ -61,6 +61,87 @@ fragment ShipData on Ship{
     designation
     availableFor
   }
+
+  shipSafety {
+    lifejackets
+    lifejacketsNo
+    lifejacketsNoKids
+    radar
+    ais
+    liferafts
+    liferaftsNo
+    chartPlotter
+    sart
+    lifebuoys
+    lifebuoysNo
+    vhf
+    epirb
+    rescueBoats
+    rescueBoatsNo
+    mfhf
+    medicalFirsAidKit
+    medicalOxygen
+  }
+
+  shipEntertainment {
+    stabilizers
+
+    tenders {
+      type
+      length
+    }
+
+    waveRunners {
+      maker
+      length
+      type
+    }
+
+    paddleBoards
+    paddleBoardsNo
+
+    seabobs
+    seabobsNo
+
+    waterSkis
+    waterSkisNo
+
+    wakeboards
+    wakeboardsNo
+
+    waterSlide
+    waterSlideLength
+
+    bananas
+    bananasNo
+
+    surfboards
+    surfboardsNo
+
+    kayacs
+    kayacsNo
+
+    ocanPool
+
+    sailingDinghies
+    sailingDinghiesType
+
+    snorkelingEquipment
+    snorkelingEquipmentNo
+
+    divingEquipment
+    divingEquipmentNo
+
+    airCompressors {
+      capacity
+    }
+
+    nitroxOnBoard {
+      type
+    }
+  }
+
+
   shipSpecificationsText
   navSafteyFeatures
   navSafteyFeaturesText
