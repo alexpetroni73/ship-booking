@@ -6,7 +6,10 @@ fragment CabinData on Cabin{
   slug
   type
   ensuite
-  showerBathub
+  surface
+  balcony
+  shower
+  bathub
   seaView
   bedding
   pullmanBedding

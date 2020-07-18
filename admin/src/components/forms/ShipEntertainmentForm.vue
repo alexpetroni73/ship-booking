@@ -6,20 +6,6 @@
       ref="form"
       v-model="valid"
     >
-      <v-row>
-        <v-col
-        sm="12"
-        md="2"
-        >
-        <v-select
-          v-model="editedItem.shipEntertainment.stabilizers"
-          :items="stabilizersTypesList"
-          item-text="name"
-          item-value="code"
-          label="Stabilizers"
-        ></v-select>
-        </v-col>
-      </v-row>
       <!-- =============================== TENDERS =============================== -->
       <v-row>
         <v-col
@@ -310,8 +296,8 @@
         md="2"
         >
         <v-checkbox
-         v-model="editedItem.shipEntertainment.ocanPool"
-         label="Ocan Pool"
+         v-model="editedItem.shipEntertainment.oceanPool"
+         label="Ocean Pool"
         ></v-checkbox>
         </v-col>
       </v-row>
@@ -333,7 +319,7 @@
         >
         <v-text-field
          v-model.number="editedItem.shipEntertainment.snorkelingEquipmentNo"
-         label="No. of diving sets"
+         label="No. of snorkeling sets"
          :disabled="!editedItem.shipEntertainment.snorkelingEquipment"
         ></v-text-field>
         </v-col>
@@ -437,6 +423,18 @@
           :itemNo="index+1"
           />
         </v-col>
+
+        <v-col
+        sm="12"
+        >
+          <v-textarea
+            v-model="editedItem.shipEntertainment.description"
+            label="Description"
+            persistent-hint
+            hint="Add any other equipment that your craft is fitted with and has not been captured above"
+            outlined
+          ></v-textarea>
+       </v-col>
       </template>
     </v-row>
 
@@ -460,7 +458,6 @@ import WaveRunnerForm from '@/components/forms/inner-components/WaveRunnerForm'
 import AirCompressorForm from '@/components/forms/inner-components/AirCompressorForm'
 import NitroxOnBoardForm from '@/components/forms/inner-components/NitroxOnBoardForm'
 
-import { mapState } from 'vuex'
 
 export default {
   mixins: [ FormItemMixin ],
@@ -485,9 +482,6 @@ export default {
   },
 
   computed: {
-    ...mapState([
-      'stabilizersTypesList',
-    ]),
 
     hasTenders: {
       get () {

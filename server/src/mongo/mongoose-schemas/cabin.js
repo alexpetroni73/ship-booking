@@ -14,10 +14,21 @@ module.exports = {
   ensuite: {
   type: Boolean
 },
-  showerBathub: {
+surface: {
+  type: Number
+},
+balcony: {
   type: Boolean
 },
-  seaView: {
+  shower: {
+  type: Boolean
+},
+
+bathub: {
+  type: Boolean
+},
+
+seaView: {
   type: Boolean
 },
   bedding: {

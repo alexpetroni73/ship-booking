@@ -98,7 +98,7 @@
         >
           <v-autocomplete
             v-model="editedItem.shipSpecifications.classed"
-            label="Classed"
+            label="Classification Society"
             :items="classedList"
             item-text="name"
             item-value="code"
@@ -135,7 +135,7 @@
         >
         <v-text-field
          v-model.number="editedItem.shipSpecifications.maxDraft"
-         label="Max Draft"
+         label="Max Draft (m)"
          required
         ></v-text-field>
         </v-col>
@@ -146,7 +146,7 @@
         >
         <v-text-field
          v-model.number="editedItem.shipSpecifications.height"
-         label="Height"
+         label="Height (m)"
          hint="hull only, without masts"
          required
         ></v-text-field>
@@ -175,6 +175,7 @@
           item-text="name"
           item-value="code"
           label="Type"
+          persistent-hint
           :hint="superYachtHint"
         ></v-select>
         </v-col>
@@ -245,85 +246,6 @@
         </v-col>
 
         <v-col md="12"></v-col>
-    </v-row>
-
-    <!-- ===============================  Crew No.  =============================== -->
-    <v-row>
-
-      <v-col
-      sm="12"
-      md="3"
-      >
-      <v-select
-        v-model="editedItem.shipSpecifications.operatingLicense"
-        :items="operatingLicenseTypesList"
-        item-text="name"
-        item-value="code"
-        label="Operating Licence"
-      ></v-select>
-      </v-col>
-
-      <v-col
-      sm="12"
-      md="3"
-      >
-      <v-select
-        v-model="editedItem.shipSpecifications.designation"
-        :items="designationTypesList"
-        item-text="name"
-        item-value="code"
-        label="Select What Qualify Best Your Boat"
-        hint="multiple select posible"
-        multiple
-      >
-        <template v-slot:selection="{ item, index }">
-          <span v-if="index === 0">{{ item.name }}</span>
-        <span
-          v-if="index === 1"
-          class="grey--text caption"
-        >(+{{ editedItem.shipSpecifications.designation.length - 1 }} others)</span>
-      </template>
-
-    </v-select>
-      </v-col>
-
-      <v-col
-      sm="12"
-      md="3"
-      >
-      <v-select
-        v-model="editedItem.shipSpecifications.availableFor"
-        :items="availableForTypesList"
-        item-text="name"
-        item-value="code"
-        label="Available For"
-       multiple
-      >
-
-      <template v-slot:selection="{ item, index }">
-        <span v-if="index === 0">{{ item.name }}</span>
-      <span
-        v-if="index === 1"
-        class="grey--text caption"
-      >(+{{ editedItem.shipSpecifications.availableFor.length - 1 }} others)</span>
-    </template>
-  </v-select>
-      </v-col>
-
-      <v-col
-      sm="12"
-      md="2"
-      >
-      <v-text-field
-       v-model.number="editedItem.shipSpecifications.crewNo"
-       label="Crew No."
-       required
-      ></v-text-field>
-      </v-col>
-
-
-
-
     </v-row>
 
     <!-- ===============================  Engines & Features =============================== -->
@@ -498,10 +420,101 @@
       ></v-checkbox>
       </v-col>
 
+
+        <v-col
+        sm="12"
+        md="2"
+        >
+        <v-select
+          v-model="editedItem.shipSpecifications.stabilizers"
+          :items="stabilizersTypesList"
+          item-text="name"
+          item-value="code"
+          label="Stabilizers"
+        ></v-select>
+        </v-col>
+
     </v-row>
 
-    <!-- ===============================  Capacity  =============================== -->
+    <!-- ===============================  Crew No.  =============================== -->
     <v-row>
+      <v-col sm="12" dense><v-divider></v-divider></v-col>
+      <v-col
+      sm="12"
+      md="3"
+      >
+      <v-select
+        v-model="editedItem.shipSpecifications.operatingLicense"
+        :items="operatingLicenseTypesList"
+        item-text="name"
+        item-value="code"
+        label="Operating Licence"
+      ></v-select>
+      </v-col>
+
+      <v-col
+      sm="12"
+      md="3"
+      >
+      <v-select
+        v-model="editedItem.shipSpecifications.designation"
+        :items="designationTypesList"
+        item-text="name"
+        item-value="code"
+        label="Select What Qualify Best Your Boat"
+        hint="multiple select posible"
+        multiple
+      >
+        <template v-slot:selection="{ item, index }">
+          <span v-if="index === 0">{{ item.name }}</span>
+        <span
+          v-if="index === 1"
+          class="grey--text caption"
+        >(+{{ editedItem.shipSpecifications.designation.length - 1 }} others)</span>
+      </template>
+
+    </v-select>
+      </v-col>
+
+      <v-col
+      sm="12"
+      md="3"
+      >
+      <v-select
+        v-model="editedItem.shipSpecifications.availableFor"
+        :items="availableForTypesList"
+        item-text="name"
+        item-value="code"
+        label="Available For"
+       multiple
+      >
+
+      <template v-slot:selection="{ item, index }">
+        <span v-if="index === 0">{{ item.name }}</span>
+      <span
+        v-if="index === 1"
+        class="grey--text caption"
+      >(+{{ editedItem.shipSpecifications.availableFor.length - 1 }} others)</span>
+    </template>
+  </v-select>
+      </v-col>
+
+      <v-col
+      sm="12"
+      md="2"
+      >
+      <v-text-field
+       v-model.number="editedItem.shipSpecifications.crewNo"
+       label="Crew No."
+       required
+      ></v-text-field>
+      </v-col>
+      <v-col sm="12" dense><v-divider></v-divider></v-col>
+
+    </v-row>
+
+    <!-- ===============================  Capacity moved to Cabins editor =============================== -->
+    <!-- <v-row>
       <v-col
       sm="12"
       md="2"
@@ -557,7 +570,7 @@
       ></v-text-field>
       </v-col>
 
-    </v-row>
+    </v-row> -->
 
     <v-row>
 
@@ -579,7 +592,8 @@
          <v-textarea
            v-model="editedItem.description"
            label="Description"
-           hint="The description that will appear on ship presentation page"
+           persistent-hint
+           hint="Type a short presentation of your craft - Highlight any key features that are of concern to potential customers. Please keep it under 300 characters."
            outlined
          ></v-textarea>
       </v-col>
@@ -632,11 +646,12 @@ export default {
       'operatingLicenseTypesList',
       'designationTypesList',
       'availableForTypesList',
+      'stabilizersTypesList'
     ]),
 
     superYachtHint () {
-      let selectedType = this.editedItem.shipSpecifications.shipType
-      return  selectedType == 'mega-yacht' ? 'Notes: To qualify as super/mega yacht – minimum length is 40 m (or 130 ft) in registered length' : null
+      // let selectedType = this.editedItem.shipSpecifications.shipType
+      return 'Notes: To qualify as super/mega yacht – minimum length is 40 m (or 130 ft) in registered length'
     },
 
     isPhinisiOrSailingYacht () {

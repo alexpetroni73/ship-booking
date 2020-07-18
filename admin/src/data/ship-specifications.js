@@ -33,6 +33,7 @@ export default {
   waterMakerCapacity: null,
   bowThruster: false,
   sternThruster: false,
+  stabilizers: '',
   maxCapacity: null,
   maxCapacityCabins: null,
   dayTrips: null,

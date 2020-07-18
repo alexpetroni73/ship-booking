@@ -98,6 +98,9 @@ module.exports = {
   sternThruster: {
     type: Boolean,
  },
+ stabilizers: {
+   type: String,
+ },
   maxCapacity: {
     type: Number
  },

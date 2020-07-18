@@ -1,7 +1,4 @@
 module.exports = {
-  stabilizers: {
-    type: String,
-  },
 
   tenders: {
     type: [{
@@ -74,7 +71,7 @@ module.exports = {
   type: Number,
   },
 
-  ocanPool: {
+  oceanPool: {
    type: Boolean,
   },
 
@@ -110,5 +107,9 @@ module.exports = {
       type: String
     }],
   },
+
+  description: {
+    type: String
+  }
 
 }

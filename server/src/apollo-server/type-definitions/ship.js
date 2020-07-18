@@ -139,6 +139,7 @@ const typeDef = `
     waterMakerCapacity: Int
     bowThruster: Boolean
     sternThruster: Boolean
+    stabilizers: String
     maxCapacity: Int
     maxCapacityCabins: Int
     dayTrips: Int
@@ -184,6 +185,7 @@ const typeDef = `
     waterMakerCapacity: Int
     bowThruster: Boolean
     sternThruster: Boolean
+    stabilizers: String
     maxCapacity: Int
     maxCapacityCabins: Int
     dayTrips: Int
@@ -239,7 +241,6 @@ const typeDef = `
 
 
   type ShipEntertainment {
-    stabilizers: String
 
     tenders: [ Tender ]
 
@@ -269,7 +270,7 @@ const typeDef = `
     kayacs: Boolean
     kayacsNo: Int
 
-    ocanPool: Boolean
+    oceanPool: Boolean
 
     sailingDinghies: Boolean
     sailingDinghiesType: String
@@ -283,10 +284,11 @@ const typeDef = `
     airCompressors: [ AirCompressor ]
 
     nitroxOnBoard: [ NitroxOnBoard ]
+
+    description: String
   }
 
   input ShipEntertainmentInput {
-    stabilizers: String
 
     tenders: [ TenderInput ],
 
@@ -316,7 +318,7 @@ const typeDef = `
     kayacs: Boolean
     kayacsNo: Int
 
-    ocanPool: Boolean
+    oceanPool: Boolean
 
     sailingDinghies: Boolean
     sailingDinghiesType: String
@@ -330,6 +332,8 @@ const typeDef = `
     airCompressors: [ AirCompressorInput ]
 
     nitroxOnBoard: [ NitroxOnBoardInput ]
+
+    description: String
   }
 
   type Tender {
@@ -379,7 +383,10 @@ const typeDef = `
 
     type: String
     ensuite: Boolean
-    showerBathub: Boolean
+    surface: Float
+    balcony: Boolean
+    shower: Boolean
+    bathub: Boolean
     seaView: Boolean
     bedding: String
     pullmanBedding: String
@@ -405,7 +412,10 @@ const typeDef = `
 
     type: String
     ensuite: Boolean
-    showerBathub: Boolean
+    surface: Float
+    balcony: Boolean
+    shower: Boolean
+    bathub: Boolean
     seaView: Boolean
     bedding: String
     pullmanBedding: String

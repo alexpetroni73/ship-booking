@@ -15,7 +15,7 @@
          sm="12"
          md="4"
          >
-           <v-text-field v-model="editedItem.name" label="Cabin name"></v-text-field>
+           <v-text-field v-model="editedItem.name" label="Name of Cabin"></v-text-field>
          </v-col>
 
          <v-col
@@ -24,7 +24,7 @@
          >
          <v-radio-group v-model="editedItem.type" class="mt-0">
            <template v-slot:label>
-            Cabin type
+            Type of Cabin
           </template>
           <v-radio
             v-for="t in cabinsTypesList"
@@ -57,6 +57,20 @@
          </v-col>
 
          <v-col
+         sm="3"
+         md="2"
+         >
+           <v-text-field v-model.number="editedItem.surface" label="Size of Cabin(sqm)" />
+         </v-col>
+
+         <v-col
+         sm="6"
+         md="2"
+         >
+           <v-checkbox v-model="editedItem.balcony" label="Balcony" />
+        </v-col>
+
+         <v-col
          sm="6"
          md="2"
          >
@@ -81,7 +95,7 @@
 
      <v-row>
 
-       <v-col sm="4" md="2">
+       <v-col sm="4" md="3">
          <v-select
          v-model="editedItem.bedding"
          label="Bed"
@@ -92,7 +106,7 @@
        </v-col>
 
 
-       <v-col sm="4" md="2">
+       <v-col sm="4" md="3">
          <v-select
          v-model="editedItem.pullmanBedding"
          label="Pullman bed"
@@ -104,8 +118,15 @@
 
      <v-col sm="4" md="2">
        <v-checkbox
-       v-model="editedItem.showerBathub"
-       label="Shower Bathub"
+       v-model="editedItem.shower"
+       label="Shower"
+       ></v-checkbox>
+     </v-col>
+
+     <v-col sm="4" md="2">
+       <v-checkbox
+       v-model="editedItem.bathub"
+       label="Bathub"
        ></v-checkbox>
      </v-col>
 
@@ -147,7 +168,8 @@
            <v-textarea
              v-model="editedItem.description"
              label="Description"
-             hint="Description visible on cabin presentation"
+             persistent-hint
+             hint="Enter a short description for the cabin you have just created"
              outlined
            ></v-textarea>
         </v-col>
@@ -234,7 +256,7 @@ export default {
 
   data () {
     return {
-      paxItems: [{text: '1 pax', value: 1},{text: '2 pax', value: 2}]
+      paxItems: this.paxItemsValues()
     }
   },
 
@@ -259,6 +281,14 @@ export default {
     showList () {
       this.$emit('show-list')
     },
+
+    paxItemsValues () {
+      let arr = []
+      for(let i = 1; i <= 6; i++){
+        arr.push({text: i + ' pax', value: i})
+      }
+      return arr
+    }
   },
 
   watch: {

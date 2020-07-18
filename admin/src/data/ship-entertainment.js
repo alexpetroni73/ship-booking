@@ -1,6 +1,5 @@
 // shipEtertainment default values
 export default {
-  stabilizers: '',
 
   tenders: [],
 
@@ -30,7 +29,7 @@ export default {
   kayacs: false,
   kayacsNo: null,
 
-  ocanPool: false,
+  oceanPool: false,
 
   sailingDinghies: false,
   sailingDinghiesType: '',
@@ -44,4 +43,6 @@ export default {
   airCompressors: [],
 
   nitroxOnBoard: [],
+
+  description: null,
 }

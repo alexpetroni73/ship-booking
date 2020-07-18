@@ -4,7 +4,7 @@
       <v-col sm="4" class="d-flex align-center">
         Tender {{ itemNo }}
       </v-col>
-      <v-col sm="8">
+      <v-col sm="4">
       <v-select
          label="Type"
          :items="tendersTypesList"
