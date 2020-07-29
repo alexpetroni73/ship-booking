@@ -92,13 +92,16 @@ module.exports = {
   waterMakerCapacity: {
     type: Number
  },
-  bowThruster: {
+  thruster: {
     type: Boolean,
  },
-  sternThruster: {
-    type: Boolean,
+  thrusterType: {
+    type: String,
  },
  stabilizers: {
+   type: Boolean,
+ },
+ stabilizersType: {
    type: String,
  },
   maxCapacity: {

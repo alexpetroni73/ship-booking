@@ -34,14 +34,14 @@
         sm="12"
         md="3"
         >
-          <v-autocomplete
+          <v-select
             v-model="editedItem.shipSpecifications.country"
             label="Country"
             :items="countriesList"
             item-text="name"
             item-value="code"
             required
-          ></v-autocomplete>
+          ></v-select>
         </v-col>
 
         <v-col
@@ -98,11 +98,10 @@
         >
           <v-autocomplete
             v-model="editedItem.shipSpecifications.classed"
-            label="Classification Society"
+            label="Classification Society (if any)"
             :items="classedList"
             item-text="name"
             item-value="code"
-            required
           ></v-autocomplete>
         </v-col>
 
@@ -115,6 +114,8 @@
          v-model.number="editedItem.shipSpecifications.length"
          label="Length (m)"
          required
+         persistent-hint
+         :hint="metersToFeet(editedItem.shipSpecifications.length)"
         ></v-text-field>
         </v-col>
 
@@ -125,6 +126,8 @@
         <v-text-field
          v-model.number="editedItem.shipSpecifications.breadth"
          label="Breadth (m)"
+         persistent-hint
+         :hint="metersToFeet(editedItem.shipSpecifications.breadth)"
          required
         ></v-text-field>
         </v-col>
@@ -136,6 +139,8 @@
         <v-text-field
          v-model.number="editedItem.shipSpecifications.maxDraft"
          label="Max Draft (m)"
+         persistent-hint
+         :hint="metersToFeet(editedItem.shipSpecifications.maxDraft)"
          required
         ></v-text-field>
         </v-col>
@@ -147,7 +152,8 @@
         <v-text-field
          v-model.number="editedItem.shipSpecifications.height"
          label="Height (m)"
-         hint="hull only, without masts"
+         persistent-hint
+         :hint="metersToFeet(editedItem.shipSpecifications.height) + ' (hull only, without masts)'"
          required
         ></v-text-field>
         </v-col>
@@ -280,8 +286,7 @@
       >
       <v-text-field
        v-model.number="editedItem.shipSpecifications.power"
-       label="Power"
-       hint="BHP"
+       label="Power (BHP)"
        required
       ></v-text-field>
       </v-col>
@@ -292,8 +297,7 @@
       >
       <v-text-field
        v-model.number="editedItem.shipSpecifications.cruisingSpeed"
-       label="Cruising Speed"
-       hint="knots"
+       label="Cruising Speed (knots)"
        required
       ></v-text-field>
       </v-col>
@@ -304,8 +308,7 @@
       >
       <v-text-field
        v-model.number="editedItem.shipSpecifications.maximumSpeed"
-       label="Maximum Speed"
-       hint="knots"
+       label="Maximum Speed (knots)"
        required
       ></v-text-field>
       </v-col>
@@ -316,8 +319,7 @@
       >
       <v-text-field
        v-model.number="editedItem.shipSpecifications.fuelCapacity"
-       label="Fuel Capacity"
-       hint="ltrs"
+       label="Fuel Capacity (ltrs)"
        required
       ></v-text-field>
       </v-col>
@@ -328,8 +330,7 @@
       >
       <v-text-field
        v-model.number="editedItem.shipSpecifications.autonomy"
-       label="Autonomy"
-       hint="days"
+       label="Autonomy (days)"
        required
       ></v-text-field>
       </v-col>
@@ -360,9 +361,21 @@
       ></v-select>
       </v-col>
 
+
+            <v-col
+            sm="12"
+            md="2"
+            >
+            <v-checkbox
+             v-model="editedItem.shipSpecifications.airConditioning"
+             label="Air conditioning"
+            ></v-checkbox>
+            </v-col>
+
       <v-col
       sm="12"
-      md="4"
+      md="2"
+      v-if="editedItem.shipSpecifications.airConditioning"
       >
 
       <v-select
@@ -394,8 +407,7 @@
       >
       <v-text-field
        v-model.number="editedItem.shipSpecifications.waterMakerCapacity"
-       label="Capacity"
-       hint="ltrs"
+       label="Capacity (ltrs)"
        required
       ></v-text-field>
       </v-col>
@@ -405,19 +417,24 @@
       md="2"
       >
       <v-checkbox
-       v-model="editedItem.shipSpecifications.bowThruster"
-       label="Bow thruster"
+       v-model="editedItem.shipSpecifications.thruster"
+       label="Thruster(s)"
       ></v-checkbox>
       </v-col>
 
       <v-col
       sm="12"
       md="2"
+      v-if="editedItem.shipSpecifications.thruster"
       >
-      <v-checkbox
-       v-model="editedItem.shipSpecifications.sternThruster"
-       label="Stern thruster"
-      ></v-checkbox>
+
+      <v-select
+        v-model="editedItem.shipSpecifications.thrusterType"
+        :items="thrustersTypesList"
+        item-text="name"
+        item-value="code"
+        label="Thruster type"
+      ></v-select>
       </v-col>
 
 
@@ -425,12 +442,24 @@
         sm="12"
         md="2"
         >
-        <v-select
+        <v-checkbox
           v-model="editedItem.shipSpecifications.stabilizers"
+          label="Stabilizers"
+        ></v-checkbox>
+        </v-col>
+
+        <v-col
+        sm="12"
+        md="2"
+        v-if="editedItem.shipSpecifications.stabilizers"
+        >
+
+        <v-select
+          v-model="editedItem.shipSpecifications.stabilizersType"
           :items="stabilizersTypesList"
           item-text="name"
           item-value="code"
-          label="Stabilizers"
+          label="Stabilizers type"
         ></v-select>
         </v-col>
 
@@ -462,7 +491,6 @@
         item-text="name"
         item-value="code"
         label="Select What Qualify Best Your Boat"
-        hint="multiple select posible"
         multiple
       >
         <template v-slot:selection="{ item, index }">
@@ -595,6 +623,8 @@
            persistent-hint
            hint="Type a short presentation of your craft - Highlight any key features that are of concern to potential customers. Please keep it under 300 characters."
            outlined
+           counter
+           maxlength="500"
          ></v-textarea>
       </v-col>
     </v-row>
@@ -613,6 +643,7 @@
 <script>
 import FormItemMixin from '@common/mixins/FormItemMixin'
 import FormSubmitButtons from '@common/components/FormSubmitButtons'
+import { metersToFeet } from '@common/utils'
 
 import { mapState } from 'vuex'
 
@@ -646,7 +677,8 @@ export default {
       'operatingLicenseTypesList',
       'designationTypesList',
       'availableForTypesList',
-      'stabilizersTypesList'
+      'stabilizersTypesList',
+      'thrustersTypesList',
     ]),
 
     superYachtHint () {
@@ -658,6 +690,46 @@ export default {
       let selectedType = this.editedItem.shipSpecifications.shipType
       return selectedType == 'sailing-yacht' || selectedType == 'phinisi'
     },
+  },
+
+  methods: {
+    metersToFeet (val) {
+      return metersToFeet(val)
+    }
+  },
+
+  watch: {
+    'editedItem.shipSpecifications.waterMaker': function (val) {
+      if(!val) {
+        this.editedItem.shipSpecifications.waterMakerCapacity = null
+      }
+    },
+
+    'editedItem.shipSpecifications.airConditioning': function (val) {
+      if(!val) {
+        this.editedItem.shipSpecifications.airConditioningType = ''
+      }
+    },
+
+    'editedItem.shipSpecifications.hotWater': function (val) {
+      if(!val) {
+        this.editedItem.shipSpecifications.hotWaterType = ''
+      }
+    },
+
+    'editedItem.shipSpecifications.stabilizers': function (val) {
+      if(!val) {
+        this.editedItem.shipSpecifications.stabilizersType = ''
+      }
+    },
+
+
+    'editedItem.shipSpecifications.thruster': function (val) {
+      if(!val) {
+        this.editedItem.shipSpecifications.thrusterType = ''
+      }
+    },
+
   }
 }
 </script>

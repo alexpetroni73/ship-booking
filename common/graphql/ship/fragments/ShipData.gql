@@ -50,9 +50,10 @@ fragment ShipData on Ship{
     airConditioningType
     waterMaker
     waterMakerCapacity
-    bowThruster
-    sternThruster
+    thruster
+    thrusterType
     stabilizers
+    stabilizersType
     maxCapacity
     maxCapacityCabins
     dayTrips
@@ -85,15 +86,22 @@ fragment ShipData on Ship{
   }
 
   shipEntertainment {
+    gsm
+    satelliteCommunication
+    satelliteCommunicationType
+
     tenders {
       type
       length
+      power
     }
 
     waveRunners {
       maker
       length
       type
+      power
+      pax
     }
 
     paddleBoards
@@ -144,8 +152,8 @@ fragment ShipData on Ship{
 
 
   shipSpecificationsText
-  navSafteyFeatures
-  navSafteyFeaturesText
+  navSafetyFeatures
+  navSafetyFeaturesText
   cabins {
     id
     name

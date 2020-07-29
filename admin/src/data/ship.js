@@ -25,8 +25,8 @@ export default {
   shipEntertainment: shipEntertainment,
 
   shipSpecificationsText: '',
-  navSafteyFeatures: [],
-  navSafteyFeaturesText: '',
+  navSafetyFeatures: [],
+  navSafetyFeaturesText: '',
   cabins: [],
   cabinsText: '',
 }

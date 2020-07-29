@@ -1,5 +1,8 @@
 // shipEtertainment default values
 export default {
+  gsm: false,
+  satelliteCommunication: false,
+  satelliteCommunicationType: '',
 
   tenders: [],
 

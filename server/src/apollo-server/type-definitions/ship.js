@@ -70,8 +70,8 @@ const typeDef = `
     shipEntertainment: ShipEntertainment
     shipSafety: ShipSafety
     shipSpecificationsText: String
-    navSafteyFeatures: [String!]
-    navSafteyFeaturesText: String
+    navSafetyFeatures: [String!]
+    navSafetyFeaturesText: String
     cabins: [Cabin!]
     cabinsText: String
   }
@@ -97,8 +97,8 @@ const typeDef = `
     shipEntertainment: ShipEntertainmentInput
     shipSafety: ShipSafetyInput
     shipSpecificationsText: String
-    navSafteyFeatures: [String!]
-    navSafteyFeaturesText: String
+    navSafetyFeatures: [String!]
+    navSafetyFeaturesText: String
     cabins: [CabinInput!]
     cabinsText: String
   }
@@ -137,9 +137,10 @@ const typeDef = `
     airConditioningType: String
     waterMaker: Boolean
     waterMakerCapacity: Int
-    bowThruster: Boolean
-    sternThruster: Boolean
-    stabilizers: String
+    thruster: Boolean
+    thrusterType: String
+    stabilizers: Boolean
+    stabilizersType: String
     maxCapacity: Int
     maxCapacityCabins: Int
     dayTrips: Int
@@ -183,9 +184,10 @@ const typeDef = `
     airConditioningType: String
     waterMaker: Boolean
     waterMakerCapacity: Int
-    bowThruster: Boolean
-    sternThruster: Boolean
-    stabilizers: String
+    thruster: Boolean
+    thrusterType: String
+    stabilizers: Boolean
+    stabilizersType: String
     maxCapacity: Int
     maxCapacityCabins: Int
     dayTrips: Int
@@ -242,6 +244,10 @@ const typeDef = `
 
   type ShipEntertainment {
 
+    gsm: Boolean
+    satelliteCommunication: Boolean
+    satelliteCommunicationType: String
+
     tenders: [ Tender ]
 
     waveRunners: [ WaveRunner ]
@@ -289,7 +295,10 @@ const typeDef = `
   }
 
   input ShipEntertainmentInput {
-
+    gsm: Boolean
+    satelliteCommunication: Boolean
+    satelliteCommunicationType: String
+    
     tenders: [ TenderInput ],
 
     waveRunners: [ WaveRunnerInput ],
@@ -339,23 +348,29 @@ const typeDef = `
   type Tender {
     type: String
     length: Float
+    power: Float
   }
 
   input TenderInput {
     type: String
     length: Float
+    power: Float
   }
 
   type WaveRunner {
       maker: String
       length: Float
       type: String
+      power: Float
+      pax: Int
   }
 
   input WaveRunnerInput {
       maker: String
       length: Float
       type: String
+      power: Float
+      pax: Int
   }
 
   type AirCompressor {

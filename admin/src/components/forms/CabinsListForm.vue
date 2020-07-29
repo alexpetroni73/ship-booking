@@ -26,14 +26,14 @@
         <draggable v-model="editedItem" handle=".handle">
 
         <v-list-item
-          v-for="item in editedItem"
+          v-for="(item, index) in editedItem"
           :key="item.id"
         >
         <v-list-item-avatar size="75">
           <ImgTransf
             v-if="item.image"
             :path="item.image"
-            :transformation="[{ar:4-3},{w:150}]"
+            :transformation="[{ar:1-1},{w:150}]"
           />
 
           <v-img :src="item.avatar"></v-img>
@@ -48,7 +48,8 @@
                 >
                     <v-icon small title="Edit Cabin">mdi-pencil</v-icon>
                 </v-btn>
-                {{ item.name }}
+
+                {{ cabinExcerpt(item, index) }}
               </v-list-item-title>
               <v-list-item-subtitle v-html="item.excerpt"></v-list-item-subtitle>
         </v-list-item-content>
@@ -87,6 +88,7 @@ import FormSubmitButtons from '@common/components/FormSubmitButtons'
 import NoData from '@common/components/NoData'
 import draggable from 'vuedraggable'
 import ImgTransf from '@common/components/img/ImgTransf'
+import cabinsTypesList from '@common/assets/cabins-types-list'
 
 export default {
   mixins: [ FormItemMixin ],
@@ -125,6 +127,16 @@ export default {
 
     editItem (val) {
       this.$emit('edit-item', val)
+    },
+
+    cabinExcerpt (item, index) {
+      let type = this.cabinTypeName(item.type)
+      return  `${index + 1} ${item.name}, ${type}, ${item.capacity} pax, ${item.surface} sqm `
+    },
+
+    cabinTypeName (code) {
+      let type = cabinsTypesList.find(e => e.code == code)
+      return type ? type.name : ''
     },
   },
 }

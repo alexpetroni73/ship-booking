@@ -6,6 +6,49 @@
       ref="form"
       v-model="valid"
     >
+    <!-- =============================== TENDERS =============================== -->
+    <v-row>
+      <v-col
+      sm="12"
+      md="2"
+      >
+      <v-checkbox
+       v-model="editedItem.shipEntertainment.gsm"
+       label="3G/4G on board"
+      ></v-checkbox>
+      </v-col>
+
+      <v-col
+      sm="12"
+      md="2"
+      >
+      <v-checkbox
+       v-model="editedItem.shipEntertainment.satelliteCommunication"
+       label="Satellite communication"
+       @change="updateNo($event, 'satelliteCommunicationType')"
+      ></v-checkbox>
+      </v-col>
+
+
+
+      <v-col
+      v-if="editedItem.shipEntertainment.satelliteCommunication"
+      sm="12"
+      md="2"
+      >
+      <v-select
+       label="Select type"
+       :items="satelliteCommunicationsTypesList"
+       v-model="editedItem.shipEntertainment.satelliteCommunicationType"
+       item-text="name"
+       item-value="code"
+      ></v-select>
+      </v-col>
+      <v-col sm="12" dense>
+        <v-divider />
+      </v-col>
+    </v-row>
+
       <!-- =============================== TENDERS =============================== -->
       <v-row>
         <v-col
@@ -35,7 +78,8 @@
       <v-row v-if="hasTenders">
         <v-col
         cols="12"
-        md="6"
+        sm="12"
+        md="8"
         v-for="(t, index) in editedItem.shipEntertainment.tenders"
         :key="index">
           <TenderForm
@@ -45,7 +89,7 @@
         </v-col>
         </v-row>
 
-        <!-- =============================== Wave Runners =============================== -->
+        <!-- =============================== WaveRunners =============================== -->
         <v-row>
           <v-col
           sm="12"
@@ -53,7 +97,7 @@
           >
           <v-checkbox
            v-model="hasWaveRunners"
-           label="Wave Runner(s)"
+           label="WaveRunner(s)"
           ></v-checkbox>
           </v-col>
 
@@ -74,7 +118,8 @@
         <v-row v-if="hasWaveRunners">
           <v-col
           cols="12"
-          md="6"
+          sm="12"
+          md="8"
           v-for="(t, index) in editedItem.shipEntertainment.waveRunners"
           :key="index">
             <WaveRunnerForm
@@ -104,7 +149,8 @@
         <v-text-field
          v-model.number="editedItem.shipEntertainment.paddleBoardsNo"
          label="Paddle boards No."
-         :disabled="!editedItem.shipEntertainment.paddleBoards"
+         v-show="editedItem.shipEntertainment.paddleBoards"
+         type="number"
         ></v-text-field>
         </v-col>
 
@@ -127,7 +173,8 @@
         <v-text-field
          v-model.number="editedItem.shipEntertainment.seabobsNo"
          label="Seabobs No."
-         :disabled="!editedItem.shipEntertainment.seabobs"
+         v-show="editedItem.shipEntertainment.seabobs"
+         type="number"
         ></v-text-field>
         </v-col>
 
@@ -149,7 +196,8 @@
         <v-text-field
          v-model.number="editedItem.shipEntertainment.waterSkisNo"
          label="Water Skis No."
-         :disabled="!editedItem.shipEntertainment.waterSkis"
+         v-show="editedItem.shipEntertainment.waterSkis"
+         type="number"
         ></v-text-field>
         </v-col>
 
@@ -173,7 +221,8 @@
         <v-text-field
          v-model.number="editedItem.shipEntertainment.wakeboardsNo"
          label="Wakeboards No."
-         :disabled="!editedItem.shipEntertainment.wakeboards"
+         v-show="editedItem.shipEntertainment.wakeboards"
+         type="number"
         ></v-text-field>
         </v-col>
 
@@ -196,7 +245,8 @@
         <v-text-field
          v-model.number="editedItem.shipEntertainment.waterSlideLength"
          label="Waterslide Length"
-         :disabled="!editedItem.shipEntertainment.waterSlide"
+         v-show="editedItem.shipEntertainment.waterSlide"
+         type="number"
         ></v-text-field>
         </v-col>
 
@@ -219,7 +269,8 @@
         <v-text-field
          v-model.number="editedItem.shipEntertainment.bananasNo"
          label="Bananas No."
-         :disabled="!editedItem.shipEntertainment.bananas"
+         v-show="editedItem.shipEntertainment.bananas"
+         type="number"
         ></v-text-field>
         </v-col>
 
@@ -242,7 +293,8 @@
         <v-text-field
          v-model.number="editedItem.shipEntertainment.surfboardsNo"
          label="Surfboards No."
-         :disabled="!editedItem.shipEntertainment.surfboards"
+         v-show="editedItem.shipEntertainment.surfboards"
+         type="number"
         ></v-text-field>
         </v-col>
 
@@ -265,7 +317,8 @@
         <v-text-field
          v-model.number="editedItem.shipEntertainment.kayacsNo"
          label="Kayacs No."
-         :disabled="!editedItem.shipEntertainment.kayacs"
+         v-show="editedItem.shipEntertainment.kayacs"
+         type="number"
         ></v-text-field>
         </v-col>
 
@@ -287,7 +340,8 @@
         <v-text-field
          v-model="editedItem.shipEntertainment.sailingDinghiesType"
          label="Sailing Dinghies Type"
-         :disabled="!editedItem.shipEntertainment.sailingDinghies"
+         v-show="editedItem.shipEntertainment.sailingDinghies"
+         type="number"
         ></v-text-field>
         </v-col>
 
@@ -320,7 +374,8 @@
         <v-text-field
          v-model.number="editedItem.shipEntertainment.snorkelingEquipmentNo"
          label="No. of snorkeling sets"
-         :disabled="!editedItem.shipEntertainment.snorkelingEquipment"
+         v-show="editedItem.shipEntertainment.snorkelingEquipment"
+         type="number"
         ></v-text-field>
         </v-col>
 
@@ -341,7 +396,8 @@
         <v-text-field
          v-model.number="editedItem.shipEntertainment.divingEquipmentNo"
          label="No. of diving sets"
-         :disabled="!editedItem.shipEntertainment.divingEquipment"
+         v-show="editedItem.shipEntertainment.divingEquipment"
+         type="number"
         ></v-text-field>
         </v-col>
 
@@ -458,6 +514,7 @@ import WaveRunnerForm from '@/components/forms/inner-components/WaveRunnerForm'
 import AirCompressorForm from '@/components/forms/inner-components/AirCompressorForm'
 import NitroxOnBoardForm from '@/components/forms/inner-components/NitroxOnBoardForm'
 
+import { mapState } from 'vuex'
 
 export default {
   mixins: [ FormItemMixin ],
@@ -482,6 +539,7 @@ export default {
   },
 
   computed: {
+        ...mapState(['satelliteCommunicationsTypesList']),
 
     hasTenders: {
       get () {
@@ -648,10 +706,8 @@ export default {
     },
 
     updateNo (val, field) {
-      console.log('val %o, field %s', val, field)
       if(!val && this.editedItem.shipEntertainment[field]) {
         this.editedItem.shipEntertainment[field] = null
-        console.log('canceled')
       }
     },
   },

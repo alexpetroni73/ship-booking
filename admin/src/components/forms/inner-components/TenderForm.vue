@@ -1,10 +1,10 @@
 <template>
   <v-card flat class="ma-0">
     <v-row>
-      <v-col sm="4" class="d-flex align-center">
+      <v-col sm="3" class="d-flex align-center">
         Tender {{ itemNo }}
       </v-col>
-      <v-col sm="4">
+      <v-col sm="3">
       <v-select
          label="Type"
          :items="tendersTypesList"
@@ -14,14 +14,23 @@
          class="d-inline-flex"
        />
     </v-col>
-    <v-col sm="4">
+    <v-col sm="2">
        <v-text-field
-       label="Length"
+       label="Length (m)"
        type="number"
        v-model.number="item.length"
-       hint="meter"
+       persistent-hint
+       :hint="metersToFeet(item.length)"
        />
      </v-col>
+
+     <v-col sm="2">
+        <v-text-field
+        label="Power (BHP)"
+        type="number"
+        v-model.number="item.power"
+        />
+      </v-col>
     </v-row>
   </v-card>
 
@@ -29,6 +38,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import { metersToFeet } from '@common/utils'
 
 export default {
   name: 'TenderForm',
@@ -53,6 +63,12 @@ export default {
     ...mapState([
       'tendersTypesList',
     ]),
+  },
+
+  methods: {
+    metersToFeet (val) {
+      return metersToFeet(val)
+    }
   },
 
 }

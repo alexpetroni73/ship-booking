@@ -17,6 +17,8 @@ import pullmanBedsTypesList from '@common/assets/pullman-beds-types-list'
 import stabilizersTypesList from '@common/assets/stabilizers-types-list'
 import tendersTypesList from '@common/assets/tenders-types-list'
 import nitroxOnBoardTypesList from '@common/assets/nitrox-on-board-types-list'
+import thrustersTypesList from '@common/assets/thrusters-types-list'
+import satelliteCommunicationsTypesList from '@common/assets/satellite-communications-types-list'
 
 
 Vue.use(Vuex)
@@ -44,7 +46,9 @@ export default new Vuex.Store({
     pullmanBedsTypesList: pullmanBedsTypesList,
     stabilizersTypesList: stabilizersTypesList,
     tendersTypesList: tendersTypesList,
-    nitroxOnBoardTypesList: nitroxOnBoardTypesList, 
+    nitroxOnBoardTypesList: nitroxOnBoardTypesList,
+    thrustersTypesList: thrustersTypesList,
+    satelliteCommunicationsTypesList: satelliteCommunicationsTypesList, 
 
   },
   mutations: {

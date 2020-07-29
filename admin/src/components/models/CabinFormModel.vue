@@ -39,7 +39,7 @@ export default {
       return {
         name: '',
         slug: '',
-        type: '',
+        type: 'standard',
         ensuite: false,
         surface: null,
         balcony: false,

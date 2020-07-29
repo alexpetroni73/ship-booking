@@ -179,6 +179,18 @@ const imgUrl = function (path, transformation) {
   return imagekit.url({path, transformation})
 }
 
+const metersToFeet = function (val, omitUnit) {
+  if(!val || isNaN(val)) return
+  let transf = (val/0.3048).toFixed(2)
+  return omitUnit ? transf : transf + ' ft'
+}
+
+const areaMetersToFeet = function (val, omitUnit) {
+  if(!val || isNaN(val)) return
+  let transf = (val * 10.7639).toFixed(2)
+  return omitUnit ? transf : transf + ' sqft'
+}
+
 export {
   EventBus,
   FormState,
@@ -199,4 +211,6 @@ export {
   pipeUp,
 
   imgUrl,
+  metersToFeet,
+  areaMetersToFeet,
 }

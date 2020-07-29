@@ -83,11 +83,11 @@ module.exports = {
     type: String,
   },
 
-  navSafteyFeatures: {
+  navSafetyFeatures: {
     type: [String],
   },
 
-  navSafteyFeaturesText: {
+  navSafetyFeaturesText: {
     type: String,
   },
 

@@ -60,7 +60,12 @@
          sm="3"
          md="2"
          >
-           <v-text-field v-model.number="editedItem.surface" label="Size of Cabin(sqm)" />
+           <v-text-field
+           v-model.number="editedItem.surface"
+           label="Size of Cabin (sqm)"
+           persistent-hint
+           :hint="areaMetersToFeet(editedItem.surface)"
+           />
          </v-col>
 
          <v-col
@@ -244,6 +249,15 @@ import FormSubmitButtons from '@common/components/FormSubmitButtons'
 import AttachmentSelector from '@/components/selectors/AttachmentSelector'
 import { mapState } from 'vuex'
 
+import { areaMetersToFeet } from '@common/utils'
+
+
+const cabinTypeCapacities = {
+  standard: {min: 1, max: 2},
+  shared: {min: 3, max: 8},
+  superior: {min: 1, max: 4},
+}
+
 export default {
   mixins: [ FormItemMixin ],
 
@@ -256,7 +270,6 @@ export default {
 
   data () {
     return {
-      paxItems: this.paxItemsValues()
     }
   },
 
@@ -274,7 +287,20 @@ export default {
     ]),
     enableSubmit () {
       return this.editedItem.name && this.editedItem.capacity
-    }
+    },
+
+    cabinCapacity () {
+      return cabinTypeCapacities[this.editedItem.type] ? cabinTypeCapacities[this.editedItem.type] : cabinTypeCapacities.standard
+    },
+
+    paxItems () {
+      let {min, max} = this.cabinCapacity
+      let arr = []
+      for(let i = min; i <= max; i++){
+        arr.push({text: i + ' pax', value: i})
+      }
+      return arr
+    },
   },
 
   methods: {
@@ -282,13 +308,9 @@ export default {
       this.$emit('show-list')
     },
 
-    paxItemsValues () {
-      let arr = []
-      for(let i = 1; i <= 6; i++){
-        arr.push({text: i + ' pax', value: i})
-      }
-      return arr
-    }
+    areaMetersToFeet (val) {
+      return areaMetersToFeet(val)
+    },
   },
 
   watch: {

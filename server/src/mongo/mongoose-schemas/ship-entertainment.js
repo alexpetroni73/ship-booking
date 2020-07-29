@@ -1,9 +1,22 @@
 module.exports = {
 
+  gsm: {
+    type: Boolean,
+  },
+
+  satelliteCommunication: {
+    type: Boolean,
+  },
+
+  satelliteCommunicationType: {
+    type: String,
+  },
+
   tenders: {
     type: [{
       type: String,
       length: Number,
+      power: Number,
     }],
   },
 
@@ -11,7 +24,9 @@ module.exports = {
     type: [{
       maker: String,
       length: Number,
-      type: String
+      type: String,
+      power: Number,
+      pax: Number,
     }],
   },
 
