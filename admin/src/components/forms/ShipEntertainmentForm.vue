@@ -244,9 +244,11 @@
         >
         <v-text-field
          v-model.number="editedItem.shipEntertainment.waterSlideLength"
-         label="Waterslide Length"
+         label="Waterslide Length (m)"
          v-show="editedItem.shipEntertainment.waterSlide"
          type="number"
+         persistent-hint
+         :hint="metersToFeet(editedItem.shipEntertainment.waterSlideLength)"
         ></v-text-field>
         </v-col>
 
@@ -516,6 +518,8 @@ import NitroxOnBoardForm from '@/components/forms/inner-components/NitroxOnBoard
 
 import { mapState } from 'vuex'
 
+import { metersToFeet } from '@common/utils'
+
 export default {
   mixins: [ FormItemMixin ],
 
@@ -709,6 +713,10 @@ export default {
       if(!val && this.editedItem.shipEntertainment[field]) {
         this.editedItem.shipEntertainment[field] = null
       }
+    },
+
+    metersToFeet (val) {
+      return metersToFeet(val)
     },
   },
 }

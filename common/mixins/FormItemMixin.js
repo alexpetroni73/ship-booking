@@ -1,6 +1,14 @@
 // FormItemMixin - provide basic properties for an item editing form
 import { jsonCopy, FormState, isNewForm, isEditForm } from '@common/utils'
 
+import { ValidationProvider, extend } from 'vee-validate';
+import { required } from 'vee-validate/dist/rules';
+
+extend('required', {
+  ...required,
+  message: 'This field is required'
+});
+
 export default {
   props: {
     item: {
@@ -24,9 +32,14 @@ export default {
     },
   },
 
+  components: {
+    ValidationProvider,
+  },
+
   data: function () {
     return {
-      editedItem: jsonCopy(this.item)
+      editedItem: jsonCopy(this.item),
+      valid: true,
     }
   },
 
@@ -61,10 +74,18 @@ export default {
 
   methods: {
     createItem () {
+      if(!this.valid) {
+        console.log('invalid')
+        return this.$emit('invalid-form')
+      }
       this.$emit('create-item', this.editedItem)
     },
 
     updateItem () {
+      if(!this.valid) {
+        console.log('invalid')
+        return this.$emit('invalid-form')
+      }
       console.log('update %o', this.editedItem)
       this.$emit('update-item', this.editedItem)
     },

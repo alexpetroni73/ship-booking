@@ -14,6 +14,7 @@
         <v-checkbox
          v-model="editedItem.shipSafety.lifejackets"
          label="Lifejackets (all pax)"
+         @change="updateNo($event, ['lifejacketsNo', 'lifejacketsNoKids'])"
         ></v-checkbox>
         </v-col>
 
@@ -26,6 +27,7 @@
          v-model.number="editedItem.shipSafety.lifejacketsNo"
          label="Lifejackets No."
          required
+         v-show="editedItem.shipSafety.lifejackets"
         ></v-text-field>
         </v-col>
 
@@ -37,6 +39,7 @@
          v-model.number="editedItem.shipSafety.lifejacketsNoKids"
          label="Lifejackets Kids No."
          required
+         v-show="editedItem.shipSafety.lifejackets"
         ></v-text-field>
         </v-col>
 
@@ -70,6 +73,7 @@
         <v-checkbox
          v-model="editedItem.shipSafety.liferafts"
          label="Liferafts"
+         @change="updateNo($event, 'liferaftsNo')"
         ></v-checkbox>
         </v-col>
 
@@ -81,6 +85,7 @@
          v-model.number="editedItem.shipSafety.liferaftsNo"
          label="Liferafts No."
          required
+         v-show="editedItem.shipSafety.liferafts"
         ></v-text-field>
         </v-col>
 
@@ -111,6 +116,7 @@
         <v-checkbox
          v-model="editedItem.shipSafety.lifebuoys"
          label="Lifebuoys"
+         @change="updateNo($event, 'lifebuoysNo')"
         ></v-checkbox>
         </v-col>
 
@@ -122,6 +128,7 @@
          v-model.number="editedItem.shipSafety.lifebuoysNo"
          label="Lifebuoys No."
          required
+        v-show="editedItem.shipSafety.lifebuoys"
         ></v-text-field>
         </v-col>
 
@@ -153,6 +160,7 @@
         <v-checkbox
          v-model="editedItem.shipSafety.rescueBoats"
          label="Rescue Boats"
+         @change="updateNo($event, 'rescueBoatsNo')"
         ></v-checkbox>
         </v-col>
 
@@ -164,6 +172,7 @@
          v-model.number="editedItem.shipSafety.rescueBoatsNo"
          label="Rescue Boats No."
          required
+         v-show="editedItem.shipSafety.rescueBoats"
         ></v-text-field>
         </v-col>
 
@@ -235,6 +244,19 @@ export default {
 
   computed: {
 
+  },
+
+  methods: {
+    updateNo (val, field) {
+      if(!Array.isArray(field)){
+        field = [field]
+      }
+      field.forEach(e => {
+        if(!val && this.editedItem.shipSafety[e]) {
+          this.editedItem.shipSafety[e] = null
+        }
+      })
+    },
   }
 }
 </script>

@@ -632,7 +632,6 @@
   </v-container>
   </v-card-text>
   <FormSubmitButtons
-  :disabled="!valid"
   :formState="formState"
   @create-item="createItem"
   @update-item="updateItem"
@@ -656,8 +655,6 @@ export default {
 
   data () {
     return {
-      valid: true,
-
       // validation rules
       nameRules: [
         v => !!v || 'Name is required',
