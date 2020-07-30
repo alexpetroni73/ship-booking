@@ -261,8 +261,8 @@ const typeDef = `
     waterSkis: Boolean
     waterSkisNo: Int
 
-    wakeboards: Boolean
-    wakeboardsNo: Int
+    waveboards: Boolean
+    waveboardsNo: Int
 
     waterSlide: Boolean
     waterSlideLength: Int
@@ -312,8 +312,8 @@ const typeDef = `
     waterSkis: Boolean
     waterSkisNo: Int
 
-    wakeboards: Boolean
-    wakeboardsNo: Int
+    waveboards: Boolean
+    waveboardsNo: Int
 
     waterSlide: Boolean
     waterSlideLength: Int

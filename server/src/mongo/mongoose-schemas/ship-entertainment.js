@@ -51,10 +51,10 @@ module.exports = {
   type: Number,
   },
 
-  wakeboards: {
+  waveboards: {
    type: Boolean,
   },
-  wakeboardsNo: {
+  waveboardsNo: {
   type: Number,
   },
 

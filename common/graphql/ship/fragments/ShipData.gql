@@ -113,8 +113,8 @@ fragment ShipData on Ship{
     waterSkis
     waterSkisNo
 
-    wakeboards
-    wakeboardsNo
+    waveboards
+    waveboardsNo
 
     waterSlide
     waterSlideLength

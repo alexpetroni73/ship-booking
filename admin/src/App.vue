@@ -75,4 +75,11 @@ import Drawer from '@/views/dashboard/components/core/Drawer'
   width: 90px;
   height: 90px;
 }
+
+.formError{
+  font-size: 0.75em;
+  color: red;
+  margin-top: -1em;
+  display: block;
+}
 </style>

@@ -2,6 +2,7 @@
   <v-card flat>
     <v-card-text>
   <v-container>
+    <ValidationObserver ref="formValidator">
     <v-form
       ref="form"
       v-model="valid"
@@ -36,6 +37,7 @@
       sm="12"
       md="2"
       >
+      <ValidationProvider name="Communication Type" :rules="{ required: editedItem.shipEntertainment.satelliteCommunication }" v-slot="{ errors }">
       <v-select
        label="Select type"
        :items="satelliteCommunicationsTypesList"
@@ -43,6 +45,8 @@
        item-text="name"
        item-value="code"
       ></v-select>
+      <span class="formError">{{ errors[0] }}</span>
+    </ValidationProvider>
       </v-col>
       <v-col sm="12" dense>
         <v-divider />
@@ -146,12 +150,16 @@
         sm="12"
         md="2"
         >
+        <ValidationProvider name="Paddle boards No." :rules="{ required: editedItem.shipEntertainment.paddleBoards, integer: true }" v-slot="{ errors }">
         <v-text-field
          v-model.number="editedItem.shipEntertainment.paddleBoardsNo"
-         label="Paddle boards No."
+         label="Paddle boards No.*"
          v-show="editedItem.shipEntertainment.paddleBoards"
          type="number"
+         min="1"
         ></v-text-field>
+        <span class="formError">{{ errors[0] }}</span>
+      </ValidationProvider>
         </v-col>
 
 
@@ -170,12 +178,16 @@
         sm="12"
         md="2"
         >
+        <ValidationProvider name="Seabobs No." :rules="{ required: editedItem.shipEntertainment.paddleBoards, integer: true }" v-slot="{ errors }">
         <v-text-field
          v-model.number="editedItem.shipEntertainment.seabobsNo"
-         label="Seabobs No."
+         label="Seabobs No.*"
          v-show="editedItem.shipEntertainment.seabobs"
          type="number"
+         min="1"
         ></v-text-field>
+        <span class="formError">{{ errors[0] }}</span>
+      </ValidationProvider>
         </v-col>
 
         <v-col
@@ -193,14 +205,17 @@
         sm="12"
         md="2"
         >
+        <ValidationProvider name="Water Skis No." :rules="{ required: editedItem.shipEntertainment.waterSkis, integer: true }" v-slot="{ errors }">
         <v-text-field
          v-model.number="editedItem.shipEntertainment.waterSkisNo"
-         label="Water Skis No."
+         label="Water Skis No.*"
          v-show="editedItem.shipEntertainment.waterSkis"
          type="number"
+         min="1"
         ></v-text-field>
+        <span class="formError">{{ errors[0] }}</span>
+      </ValidationProvider>
         </v-col>
-
 
 
         <v-col
@@ -208,9 +223,9 @@
         md="2"
         >
         <v-checkbox
-         v-model="editedItem.shipEntertainment.wakeboards"
-         label="Wakeboards"
-         @change="updateNo($event, 'wakeboardsNo')"
+         v-model="editedItem.shipEntertainment.waveboards"
+         label="Waveboards"
+         @change="updateNo($event, 'waveboardsNo')"
         ></v-checkbox>
         </v-col>
 
@@ -218,12 +233,16 @@
         sm="12"
         md="2"
         >
+        <ValidationProvider name="Waveboards No." :rules="{ required: editedItem.shipEntertainment.waveboards, integer: true }" v-slot="{ errors }">
         <v-text-field
-         v-model.number="editedItem.shipEntertainment.wakeboardsNo"
-         label="Wakeboards No."
-         v-show="editedItem.shipEntertainment.wakeboards"
+         v-model.number="editedItem.shipEntertainment.waveboardsNo"
+         label="Waveboards No.*"
+         v-show="editedItem.shipEntertainment.waveboards"
          type="number"
+         min="1"
         ></v-text-field>
+        <span class="formError">{{ errors[0] }}</span>
+      </ValidationProvider>
         </v-col>
 
 
@@ -242,14 +261,17 @@
         sm="12"
         md="2"
         >
+        <ValidationProvider name="Length" :rules="{ required: editedItem.shipEntertainment.waterSlide, floatNum: true }" v-slot="{ errors }">
         <v-text-field
          v-model.number="editedItem.shipEntertainment.waterSlideLength"
-         label="Waterslide Length (m)"
+         label="Waterslide Length* (m)"
          v-show="editedItem.shipEntertainment.waterSlide"
          type="number"
          persistent-hint
          :hint="metersToFeet(editedItem.shipEntertainment.waterSlideLength)"
         ></v-text-field>
+        <span class="formError">{{ errors[0] }}</span>
+      </ValidationProvider>
         </v-col>
 
 
@@ -268,12 +290,16 @@
         sm="12"
         md="2"
         >
+        <ValidationProvider name="Bananas No." :rules="{ required: editedItem.shipEntertainment.bananas, integer: true }" v-slot="{ errors }">
         <v-text-field
          v-model.number="editedItem.shipEntertainment.bananasNo"
-         label="Bananas No."
+         label="Bananas No.*"
          v-show="editedItem.shipEntertainment.bananas"
          type="number"
+         min="1"
         ></v-text-field>
+        <span class="formError">{{ errors[0] }}</span>
+        </ValidationProvider>
         </v-col>
 
 
@@ -292,12 +318,16 @@
         sm="12"
         md="2"
         >
+        <ValidationProvider name="Surfboards No." :rules="{ required: editedItem.shipEntertainment.surfboards, integer: true }" v-slot="{ errors }">
         <v-text-field
          v-model.number="editedItem.shipEntertainment.surfboardsNo"
-         label="Surfboards No."
+         label="Surfboards No.*"
          v-show="editedItem.shipEntertainment.surfboards"
          type="number"
+         min="1"
         ></v-text-field>
+        <span class="formError">{{ errors[0] }}</span>
+        </ValidationProvider>
         </v-col>
 
 
@@ -316,12 +346,16 @@
         sm="12"
         md="2"
         >
+        <ValidationProvider name="Kayacs No." :rules="{ required: editedItem.shipEntertainment.kayacs, integer: true }" v-slot="{ errors }">
         <v-text-field
          v-model.number="editedItem.shipEntertainment.kayacsNo"
-         label="Kayacs No."
+         label="Kayacs No.*"
          v-show="editedItem.shipEntertainment.kayacs"
          type="number"
+         min="1"
         ></v-text-field>
+        <span class="formError">{{ errors[0] }}</span>
+        </ValidationProvider>
         </v-col>
 
         <v-col
@@ -339,13 +373,15 @@
         sm="12"
         md="2"
         >
+        <ValidationProvider name="Sailing Dinghies Type" :rules="{ required: editedItem.shipEntertainment.sailingDinghies }" v-slot="{ errors }">
         <v-text-field
          v-model="editedItem.shipEntertainment.sailingDinghiesType"
-         label="Sailing Dinghies Type"
+         label="Sailing Dinghies Type*"
          v-show="editedItem.shipEntertainment.sailingDinghies"
-         type="number"
-        ></v-text-field>
-        </v-col>
+         ></v-text-field>
+         <span class="formError">{{ errors[0] }}</span>
+         </ValidationProvider>
+         </v-col>
 
         <v-col
         sm="12"
@@ -373,12 +409,16 @@
         sm="12"
         md="2"
         >
+        <ValidationProvider name="No. of snorkeling sets" :rules="{ required: editedItem.shipEntertainment.snorkelingEquipment, integer: true }" v-slot="{ errors }">
         <v-text-field
          v-model.number="editedItem.shipEntertainment.snorkelingEquipmentNo"
-         label="No. of snorkeling sets"
+         label="No. of snorkeling sets*"
          v-show="editedItem.shipEntertainment.snorkelingEquipment"
          type="number"
+         min="1"
         ></v-text-field>
+        <span class="formError">{{ errors[0] }}</span>
+        </ValidationProvider>
         </v-col>
 
         <v-col
@@ -395,12 +435,16 @@
         sm="12"
         md="2"
         >
+        <ValidationProvider name="No. of diving sets" :rules="{ required: editedItem.shipEntertainment.divingEquipment, integer: true }" v-slot="{ errors }">
         <v-text-field
          v-model.number="editedItem.shipEntertainment.divingEquipmentNo"
-         label="No. of diving sets"
+         label="No. of diving sets*"
          v-show="editedItem.shipEntertainment.divingEquipment"
          type="number"
+         min="1"
         ></v-text-field>
+        <span class="formError">{{ errors[0] }}</span>
+        </ValidationProvider>
         </v-col>
 
       </v-row>
@@ -497,6 +541,7 @@
     </v-row>
 
   </v-form>
+  </ValidationObserver>
   </v-container>
   </v-card-text>
   <FormSubmitButtons
@@ -693,6 +738,10 @@ export default {
   },
 
   methods: {
+    async validateForm () {
+      return await this.$refs.formValidator.validate()
+    },
+
     getDefaultTender () {
       return { type: '', length: null }
     },

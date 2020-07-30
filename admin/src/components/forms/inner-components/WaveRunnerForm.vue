@@ -5,36 +5,49 @@
         WaveRunnner {{ itemNo }}
       </v-col>
       <v-col sm="3">
+        <ValidationProvider name="Maker" rules="required" v-slot="{ errors }">
         <v-text-field
-        label="Maker"
+        label="Maker*"
         v-model="item.maker"
         />
+        <span class="formError">{{ errors[0] }}</span>
+        </ValidationProvider>
     </v-col>
+
     <v-col sm="2">
+      <ValidationProvider name="Length" rules="required|floatNum" v-slot="{ errors }">
        <v-text-field
-       label="Length (m)"
+       label="Length* (m)"
        type="number"
        v-model.number="item.length"
        persistent-hint
        :hint="metersToFeet(item.length)"
        />
+       <span class="formError">{{ errors[0] }}</span>
+       </ValidationProvider>
      </v-col>
 
      <v-col sm="2">
+       <ValidationProvider name="Power" rules="required|floatNum" v-slot="{ errors }">
         <v-text-field
-        label="Power (BHP)"
+        label="Power* (BHP)"
         type="number"
         v-model.number="item.power"
         />
+        <span class="formError">{{ errors[0] }}</span>
+        </ValidationProvider>
       </v-col>
 
      <v-col sm="2">
+       <ValidationProvider name="No. pax" rules="required|integer" v-slot="{ errors }">
         <v-select
-        label="No. pax"
+        label="No. pax*"
         type="number"
         v-model.number="item.pax"
         :items="paxArr"
         />
+        <span class="formError">{{ errors[0] }}</span>
+        </ValidationProvider>
       </v-col>
     </v-row>
   </v-card>

@@ -10,19 +10,25 @@
     </template>
 
       <v-container>
+        <ValidationObserver ref="formValidator">
+        <v-form>
        <v-row>
          <v-col
          sm="12"
          md="4"
          >
-           <v-text-field v-model="editedItem.name" label="Name of Cabin"></v-text-field>
+         <ValidationProvider name="Name" rules="required" v-slot="{ errors }">
+           <v-text-field v-model="editedItem.name" label="Name of Cabin*">
+           </v-text-field>
+           <span class="formError">{{ errors[0] }}</span>
+         </ValidationProvider>
          </v-col>
 
          <v-col
          sm="6"
          md="2"
          >
-         <v-radio-group v-model="editedItem.type" class="mt-0">
+         <v-radio-group v-model="editedItem.type" class="mt-0" @change="onTypeChanged">
            <template v-slot:label>
             Type of Cabin
           </template>
@@ -53,19 +59,26 @@
          sm="3"
          md="2"
          >
-           <v-select v-model.number="editedItem.capacity" label="No of pax" :items="paxItems"></v-select>
+         <ValidationProvider rules="required" v-slot="{ errors }">
+           <v-select v-model.number="editedItem.capacity" label="No of pax*" :items="paxItems"></v-select>
+           <span class="formError">{{ errors[0] }}</span>
+         </ValidationProvider>
          </v-col>
 
          <v-col
          sm="3"
          md="2"
          >
+         <ValidationProvider name="Size of Cabin" rules="required|floatNum" v-slot="{ errors }">
            <v-text-field
            v-model.number="editedItem.surface"
-           label="Size of Cabin (sqm)"
+           label="Size of Cabin* (sqm)"
            persistent-hint
+           type="number"
            :hint="areaMetersToFeet(editedItem.surface)"
            />
+           <span class="formError">{{ errors[0] }}</span>
+         </ValidationProvider>
          </v-col>
 
          <v-col
@@ -101,24 +114,30 @@
      <v-row>
 
        <v-col sm="4" md="3">
+         <ValidationProvider name="Bed Type" rules="required" v-slot="{ errors }">
          <v-select
          v-model="editedItem.bedding"
-         label="Bed"
+         label="Bed*"
          :items="bedsTypesList"
          item-text="name"
          item-value="code"
          ></v-select>
+         <span class="formError">{{ errors[0] }}</span>
+       </ValidationProvider>
        </v-col>
 
 
        <v-col sm="4" md="3">
+         <ValidationProvider name="Pullman bed" rules="required" v-slot="{ errors }">
          <v-select
          v-model="editedItem.pullmanBedding"
-         label="Pullman bed"
+         label="Pullman bed*"
          :items="pullmanBedsTypesList"
          item-text="name"
          item-value="code"
          ></v-select>
+         <span class="formError">{{ errors[0] }}</span>
+       </ValidationProvider>
        </v-col>
 
      <v-col sm="4" md="2">
@@ -231,13 +250,15 @@
      </v-col>
      </template>
    </v-row> -->
+     </v-form>
+    </ValidationObserver>
+
      </v-container>
 
     <FormSubmitButtons
     :formState="formState"
     @update-item="updateItem"
     @create-item="createItem"
-    :disabled="!enableSubmit"
     />
   </base-material-card>
 </template>
@@ -304,6 +325,10 @@ export default {
   },
 
   methods: {
+    async validateForm () {
+      return await this.$refs.formValidator.validate()
+    },
+
     showList () {
       this.$emit('show-list')
     },
@@ -311,6 +336,11 @@ export default {
     areaMetersToFeet (val) {
       return areaMetersToFeet(val)
     },
+
+    onTypeChanged () {
+      console.log('ch')
+      this.editedItem.capacity = null
+    }
   },
 
   watch: {

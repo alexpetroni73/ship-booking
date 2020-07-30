@@ -5,14 +5,17 @@
         No. {{ itemNo }}
       </v-col>
       <v-col sm="9">
+        <ValidationProvider name="Nitrox Type" rules="required" v-slot="{ errors }">
       <v-select
-         label="Type"
+         label="Type*"
          :items="nitroxOnBoardTypesList"
          item-text="name"
          item-value="code"
          v-model="item.type"
          class="d-inline-flex"
        />
+       <span class="formError">{{ errors[0] }}</span>
+     </ValidationProvider>
     </v-col>
     </v-row>
   </v-card>

@@ -73,21 +73,23 @@ export default {
   },
 
   methods: {
-    createItem () {
-      if(!this.valid) {
-        console.log('invalid')
-        return this.$emit('invalid-form')
-      }
-      this.$emit('create-item', this.editedItem)
+    // hook for validation
+    async validateForm () {
+      return true
     },
 
-    updateItem () {
-      if(!this.valid) {
-        console.log('invalid')
-        return this.$emit('invalid-form')
+    async createItem () {
+      const valid = await this.validateForm()
+      if(valid) {
+        this.$emit('create-item', this.editedItem)
       }
-      console.log('update %o', this.editedItem)
-      this.$emit('update-item', this.editedItem)
+    },
+
+    async updateItem () {
+      const valid = await this.validateForm()
+      if(valid) {
+        this.$emit('update-item', this.editedItem)
+      }
     },
 
     deleteItem () {

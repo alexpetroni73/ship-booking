@@ -17,8 +17,8 @@ export default {
   waterSkis: false,
   waterSkisNo: null,
 
-  wakeboards: false,
-  wakeboardsNo: null,
+  waveboards: false,
+  waveboardsNo: null,
 
   waterSlide: false,
   waterSlideLength: null,

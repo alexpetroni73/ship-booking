@@ -2,6 +2,7 @@
   <v-card flat>
     <v-card-text>
   <v-container>
+    <ValidationObserver ref="formValidator">
     <v-form
       ref="form"
       v-model="valid"
@@ -23,24 +24,34 @@
         sm="12"
         md="2"
         >
+        <ValidationProvider name="Lifejackets No." :rules="{ required: editedItem.shipSafety.lifejackets, integer: true }" v-slot="{ errors }">
         <v-text-field
          v-model.number="editedItem.shipSafety.lifejacketsNo"
-         label="Lifejackets No."
+         label="Lifejackets No.*"
          required
          v-show="editedItem.shipSafety.lifejackets"
+         type="number"
+         min="1"
         ></v-text-field>
+        <span class="formError">{{ errors[0] }}</span>
+      </ValidationProvider>
         </v-col>
 
         <v-col
         sm="12"
         md="2"
         >
+        <ValidationProvider name="Lifejackets Kids No." :rules="{ required: editedItem.shipSafety.lifejackets, integerOrZero: true }" v-slot="{ errors }">
         <v-text-field
          v-model.number="editedItem.shipSafety.lifejacketsNoKids"
-         label="Lifejackets Kids No."
+         label="Lifejackets Kids No.*"
          required
+         type="number"
+         min="0"
          v-show="editedItem.shipSafety.lifejackets"
         ></v-text-field>
+        <span class="formError">{{ errors[0] }}</span>
+      </ValidationProvider>
         </v-col>
 
 
@@ -81,12 +92,17 @@
         sm="12"
         md="2"
         >
+        <ValidationProvider name="Liferafts No." :rules="{ required: editedItem.shipSafety.liferafts, integer: true }" v-slot="{ errors }">
         <v-text-field
          v-model.number="editedItem.shipSafety.liferaftsNo"
-         label="Liferafts No."
+         label="Liferafts No.*"
          required
+         type="number"
+         min="0"
          v-show="editedItem.shipSafety.liferafts"
         ></v-text-field>
+        <span class="formError">{{ errors[0] }}</span>
+      </ValidationProvider>
         </v-col>
 
         <v-col
@@ -124,12 +140,17 @@
         sm="12"
         md="2"
         >
+        <ValidationProvider name="Liferafts No." :rules="{ required: editedItem.shipSafety.lifebuoys, integer: true }" v-slot="{ errors }">
         <v-text-field
          v-model.number="editedItem.shipSafety.lifebuoysNo"
-         label="Lifebuoys No."
+         label="Lifebuoys No.*"
          required
+         type="number"
+         min="0"
         v-show="editedItem.shipSafety.lifebuoys"
         ></v-text-field>
+        <span class="formError">{{ errors[0] }}</span>
+      </ValidationProvider>
         </v-col>
 
         <v-col
@@ -168,12 +189,17 @@
         sm="12"
         md="2"
         >
+        <ValidationProvider name="Rescue Boats No." :rules="{ required: editedItem.shipSafety.rescueBoats, integer: true }" v-slot="{ errors }">
         <v-text-field
          v-model.number="editedItem.shipSafety.rescueBoatsNo"
-         label="Rescue Boats No."
+         label="Rescue Boats No.*"
          required
+         type="number"
+         min="0"
          v-show="editedItem.shipSafety.rescueBoats"
         ></v-text-field>
+        <span class="formError">{{ errors[0] }}</span>
+      </ValidationProvider>
         </v-col>
 
         <v-col
@@ -211,6 +237,7 @@
     </v-row>
 
   </v-form>
+  </ValidationObserver>
   </v-container>
   </v-card-text>
   <FormSubmitButtons
@@ -247,6 +274,10 @@ export default {
   },
 
   methods: {
+    async validateForm () {
+      return await this.$refs.formValidator.validate()
+    },
+
     updateNo (val, field) {
       if(!Array.isArray(field)){
         field = [field]

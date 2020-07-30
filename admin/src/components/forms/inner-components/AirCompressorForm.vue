@@ -5,11 +5,14 @@
         Air Compressor {{ itemNo }}
       </v-col>
     <v-col sm="4">
+      <ValidationProvider name="Capacity" rules="required|floatNum" v-slot="{ errors }">
        <v-text-field
-       label="Capacity"
+       label="Capacity*"
        type="number"
        v-model.number="item.capacity"
        />
+       <span class="formError">{{ errors[0] }}</span>
+       </ValidationProvider>
      </v-col>
     </v-row>
   </v-card>

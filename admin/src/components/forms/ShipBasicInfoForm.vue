@@ -2,46 +2,52 @@
   <v-card flat>
     <v-card-text>
   <v-container>
-    <v-form
-      ref="form"
-      v-model="valid"
-    >
+    <ValidationObserver ref="formValidator">
+    <v-form>
       <v-row>
         <v-col
         sm="12"
         md="3"
         >
+        <ValidationProvider name="Name" rules="required" v-slot="{ errors }">
           <v-text-field
             v-model="editedItem.name"
-            label="Name"
-             :rules="nameRules"
+            label="Name*"
             required
           ></v-text-field>
+          <span class="formError">{{ errors[0] }}</span>
+        </ValidationProvider>
         </v-col>
 
         <v-col
         sm="12"
         md="3"
         >
+        <ValidationProvider name="Yard" rules="required" v-slot="{ errors }">
           <v-text-field
             v-model="editedItem.shipSpecifications.yard"
-            label="Yard"
+            label="Yard*"
             required
           ></v-text-field>
+          <span class="formError">{{ errors[0] }}</span>
+          </ValidationProvider>
         </v-col>
 
         <v-col
         sm="12"
         md="3"
         >
+        <ValidationProvider name="Country" rules="required" v-slot="{ errors }">
           <v-select
             v-model="editedItem.shipSpecifications.country"
-            label="Country"
+            label="Country*"
             :items="countriesList"
             item-text="name"
             item-value="code"
             required
           ></v-select>
+          <span class="formError">{{ errors[0] }}</span>
+          </ValidationProvider>
         </v-col>
 
         <v-col
@@ -57,12 +63,15 @@
         sm="12"
         md="3"
         >
+        <ValidationProvider name="Built" rules="required" v-slot="{ errors }">
         <v-text-field
          v-model.number="editedItem.shipSpecifications.built"
-         label="Built"
+         label="Built*"
          hint="year"
          required
         ></v-text-field>
+        <span class="formError">{{ errors[0] }}</span>
+        </ValidationProvider>
         </v-col>
 
         <v-col
@@ -81,14 +90,17 @@
         sm="12"
         md="3"
         >
+        <ValidationProvider name="Flag" rules="required" v-slot="{ errors }">
           <v-autocomplete
             v-model="editedItem.shipSpecifications.flag"
-            label="Flag"
+            label="Flag*"
             :items="countriesList"
             item-text="name"
             item-value="code"
             required
           ></v-autocomplete>
+          <span class="formError">{{ errors[0] }}</span>
+          </ValidationProvider>
         </v-col>
 
 
@@ -110,52 +122,65 @@
         sm="12"
         md="3"
         >
+        <ValidationProvider name="Length" rules="required|floatNum" v-slot="{ errors }">
         <v-text-field
          v-model.number="editedItem.shipSpecifications.length"
-         label="Length (m)"
+         label="Length* (m)"
+         type="number"
          required
          persistent-hint
          :hint="metersToFeet(editedItem.shipSpecifications.length)"
         ></v-text-field>
+        <span class="formError">{{ errors[0] }}</span>
+      </ValidationProvider>
         </v-col>
 
         <v-col
         sm="12"
         md="3"
         >
+        <ValidationProvider name="Breadth" rules="required|floatNum" v-slot="{ errors }">
         <v-text-field
          v-model.number="editedItem.shipSpecifications.breadth"
-         label="Breadth (m)"
+         label="Breadth* (m)"
          persistent-hint
          :hint="metersToFeet(editedItem.shipSpecifications.breadth)"
          required
         ></v-text-field>
+        <span class="formError">{{ errors[0] }}</span>
+      </ValidationProvider>
         </v-col>
 
         <v-col
         sm="12"
         md="2"
         >
+        <ValidationProvider name="Max Draft" rules="required|floatNum" v-slot="{ errors }">
         <v-text-field
          v-model.number="editedItem.shipSpecifications.maxDraft"
-         label="Max Draft (m)"
+         label="Max Draft* (m)"
          persistent-hint
          :hint="metersToFeet(editedItem.shipSpecifications.maxDraft)"
          required
         ></v-text-field>
+        <span class="formError">{{ errors[0] }}</span>
+      </ValidationProvider>
         </v-col>
 
         <v-col
         sm="12"
         md="2"
         >
+        <ValidationProvider name="Height" rules="required|floatNum" v-slot="{ errors }">
         <v-text-field
          v-model.number="editedItem.shipSpecifications.height"
-         label="Height (m)"
+         label="Height* (m)"
          persistent-hint
          :hint="metersToFeet(editedItem.shipSpecifications.height) + ' (hull only, without masts)'"
          required
         ></v-text-field>
+        <span class="formError">{{ errors[0] }}</span>
+      </ValidationProvider>
         </v-col>
 
 
@@ -163,11 +188,14 @@
         sm="12"
         md="2"
         >
+        <ValidationProvider name="GRT" rules="required" v-slot="{ errors }">
         <v-text-field
          v-model.number="editedItem.shipSpecifications.grt"
-         label="GRT"
+         label="GRT*"
          required
         ></v-text-field>
+        <span class="formError">{{ errors[0] }}</span>
+      </ValidationProvider>
         </v-col>
 
         <!-- ===============================  type , materials,  =============================== -->
@@ -175,15 +203,18 @@
         sm="12"
         md="3"
         >
+        <ValidationProvider name="Type" rules="required" v-slot="{ errors }">
         <v-select
           v-model="editedItem.shipSpecifications.shipType"
           :items="shipTypesList"
           item-text="name"
           item-value="code"
-          label="Type"
+          label="Type*"
           persistent-hint
           :hint="superYachtHint"
         ></v-select>
+        <span class="formError">{{ errors[0] }}</span>
+      </ValidationProvider>
         </v-col>
 
 
@@ -191,37 +222,46 @@
         sm="12"
         md="3"
         >
+        <ValidationProvider name="Hull Material" rules="required" v-slot="{ errors }">
         <v-select
           v-model="editedItem.shipSpecifications.hullMaterial"
           :items="hullMaterialsList"
           item-text="name"
           item-value="code"
-          label="Hull Material"
+          label="Hull Material*"
         ></v-select>
+        <span class="formError">{{ errors[0] }}</span>
+      </ValidationProvider>
         </v-col>
 
         <v-col
         sm="12"
         md="3"
         >
+        <ValidationProvider name="Superstructure" rules="required" v-slot="{ errors }">
         <v-select
           v-model="editedItem.shipSpecifications.superstructure"
           :items="hullMaterialsList"
           item-text="name"
           item-value="code"
-          label="Superstructure"
+          label="Superstructure*"
         ></v-select>
+        <span class="formError">{{ errors[0] }}</span>
+      </ValidationProvider>
         </v-col>
 
         <v-col
         sm="12"
         md="3"
         >
+        <ValidationProvider name="No. of decks" rules="required" v-slot="{ errors }">
         <v-text-field
          v-model.number="editedItem.shipSpecifications.noOfDecks"
-         label="No. of decks"
+         label="No. of decks*"
          required
         ></v-text-field>
+        <span class="formError">{{ errors[0] }}</span>
+      </ValidationProvider>
         </v-col>
     </v-row>
 
@@ -231,24 +271,30 @@
           sm="12"
           md="3"
           >
+          <ValidationProvider name="Hull Type" rules="required" v-slot="{ errors }">
           <v-select
             v-model="editedItem.shipSpecifications.hullType"
             :items="hullTypesList"
             item-text="name"
             item-value="code"
-            label="Hull Type"
+            label="Hull Type*"
           ></v-select>
+          <span class="formError">{{ errors[0] }}</span>
+        </ValidationProvider>
         </v-col>
 
           <v-col
           sm="12"
           md="2"
           >
+          <ValidationProvider name="No. Of Masts" rules="required" v-slot="{ errors }">
           <v-select
             v-model="editedItem.shipSpecifications.noOfMasts"
             :items="[1, 2, 3, 4, 5]"
-            label="No. Of Masts"
+            label="No. Of Masts*"
           ></v-select>
+          <span class="formError">{{ errors[0] }}</span>
+        </ValidationProvider>
         </v-col>
 
         <v-col md="12"></v-col>
@@ -261,11 +307,14 @@
       sm="12"
       md="2"
       >
+      <ValidationProvider name="Engine(s) No." rules="required" v-slot="{ errors }">
       <v-select
         v-model="editedItem.shipSpecifications.noOfEngines"
         :items="[1, 2, 3]"
-        label="Engine(s) No."
+        label="Engine(s) No.*"
       ></v-select>
+      <span class="formError">{{ errors[0] }}</span>
+    </ValidationProvider>
       </v-col>
 
 
@@ -273,66 +322,84 @@
       sm="12"
       md="3"
       >
+      <ValidationProvider name="Maker*" rules="required" v-slot="{ errors }">
       <v-text-field
        v-model="editedItem.shipSpecifications.engineMaker"
-       label="Maker"
+       label="Maker*"
        required
       ></v-text-field>
+      <span class="formError">{{ errors[0] }}</span>
+    </ValidationProvider>
       </v-col>
 
       <v-col
       sm="12"
       md="2"
       >
+      <ValidationProvider name="Power" rules="required" v-slot="{ errors }">
       <v-text-field
        v-model.number="editedItem.shipSpecifications.power"
-       label="Power (BHP)"
+       label="Power* (BHP)"
        required
       ></v-text-field>
+      <span class="formError">{{ errors[0] }}</span>
+    </ValidationProvider>
       </v-col>
 
       <v-col
       sm="12"
       md="2"
       >
+      <ValidationProvider name="Cruising Speed" rules="required" v-slot="{ errors }">
       <v-text-field
        v-model.number="editedItem.shipSpecifications.cruisingSpeed"
-       label="Cruising Speed (knots)"
+       label="Cruising Speed* (knots)"
        required
       ></v-text-field>
+      <span class="formError">{{ errors[0] }}</span>
+    </ValidationProvider>
       </v-col>
 
       <v-col
       sm="12"
       md="2"
       >
+      <ValidationProvider name="Maximum Speed" rules="required" v-slot="{ errors }">
       <v-text-field
        v-model.number="editedItem.shipSpecifications.maximumSpeed"
-       label="Maximum Speed (knots)"
+       label="Maximum Speed* (knots)"
        required
       ></v-text-field>
+      <span class="formError">{{ errors[0] }}</span>
+    </ValidationProvider>
       </v-col>
 
       <v-col
       sm="12"
       md="2"
       >
+      <ValidationProvider name="Fuel Capacity" rules="required" v-slot="{ errors }">
       <v-text-field
        v-model.number="editedItem.shipSpecifications.fuelCapacity"
-       label="Fuel Capacity (ltrs)"
+       label="Fuel Capacity* (ltrs)"
        required
       ></v-text-field>
+      <span class="formError">{{ errors[0] }}</span>
+    </ValidationProvider>
       </v-col>
 
       <v-col
       sm="12"
       md="2"
       >
+      <ValidationProvider name="Autonomy" rules="required" v-slot="{ errors }">
       <v-text-field
        v-model.number="editedItem.shipSpecifications.autonomy"
-       label="Autonomy (days)"
+       label="Autonomy* (days)"
        required
       ></v-text-field>
+      <span class="formError">{{ errors[0] }}</span>
+    </ValidationProvider>
       </v-col>
 
 
@@ -351,7 +418,7 @@
       md="2"
       v-if="editedItem.shipSpecifications.hotWater"
       >
-
+      <ValidationProvider name="Hot water type" :rules="{ required: editedItem.shipSpecifications.hotWater }" v-slot="{ errors }">
       <v-select
         v-model="editedItem.shipSpecifications.hotWaterType"
         :items="hotWaterTypesList"
@@ -359,6 +426,8 @@
         item-value="code"
         label="Hot water type"
       ></v-select>
+      <span class="formError">{{ errors[0] }}</span>
+    </ValidationProvider>
       </v-col>
 
 
@@ -377,7 +446,7 @@
       md="2"
       v-if="editedItem.shipSpecifications.airConditioning"
       >
-
+      <ValidationProvider name="Air conditioning type" :rules="{ required: editedItem.shipSpecifications.airConditioning }" v-slot="{ errors }">
       <v-select
         v-model="editedItem.shipSpecifications.airConditioningType"
         :items="airConditioningTypesList"
@@ -385,6 +454,8 @@
         item-value="code"
         label="Air conditioning type"
       ></v-select>
+      <span class="formError">{{ errors[0] }}</span>
+    </ValidationProvider>
       </v-col>
     </v-row>
 
@@ -405,11 +476,14 @@
       sm="12"
       md="2"
       >
+      <ValidationProvider name="Capacity" :rules="{ required: editedItem.shipSpecifications.waterMaker }" v-slot="{ errors }">
       <v-text-field
        v-model.number="editedItem.shipSpecifications.waterMakerCapacity"
        label="Capacity (ltrs)"
        required
       ></v-text-field>
+      <span class="formError">{{ errors[0] }}</span>
+    </ValidationProvider>
       </v-col>
 
       <v-col
@@ -427,7 +501,7 @@
       md="2"
       v-if="editedItem.shipSpecifications.thruster"
       >
-
+      <ValidationProvider name="Thruster type" :rules="{ required: editedItem.shipSpecifications.thruster }" v-slot="{ errors }">
       <v-select
         v-model="editedItem.shipSpecifications.thrusterType"
         :items="thrustersTypesList"
@@ -435,6 +509,8 @@
         item-value="code"
         label="Thruster type"
       ></v-select>
+      <span class="formError">{{ errors[0] }}</span>
+    </ValidationProvider>
       </v-col>
 
 
@@ -453,7 +529,7 @@
         md="2"
         v-if="editedItem.shipSpecifications.stabilizers"
         >
-
+        <ValidationProvider name="Stabilizers type" :rules="{ required: editedItem.shipSpecifications.stabilizers }" v-slot="{ errors }">
         <v-select
           v-model="editedItem.shipSpecifications.stabilizersType"
           :items="stabilizersTypesList"
@@ -461,6 +537,8 @@
           item-value="code"
           label="Stabilizers type"
         ></v-select>
+        <span class="formError">{{ errors[0] }}</span>
+      </ValidationProvider>
         </v-col>
 
     </v-row>
@@ -472,25 +550,29 @@
       sm="12"
       md="3"
       >
+      <ValidationProvider name="Operating Licence" rules="required" v-slot="{ errors }">
       <v-select
         v-model="editedItem.shipSpecifications.operatingLicense"
         :items="operatingLicenseTypesList"
         item-text="name"
         item-value="code"
-        label="Operating Licence"
+        label="Operating Licence*"
       ></v-select>
+      <span class="formError">{{ errors[0] }}</span>
+    </ValidationProvider>
       </v-col>
 
       <v-col
       sm="12"
       md="3"
       >
+      <ValidationProvider name="Select" rules="required" v-slot="{ errors }">
       <v-select
         v-model="editedItem.shipSpecifications.designation"
         :items="designationTypesList"
         item-text="name"
         item-value="code"
-        label="Select What Qualify Best Your Boat"
+        label="Select What Best Qualifies Your Boat*"
         multiple
       >
         <template v-slot:selection="{ item, index }">
@@ -502,18 +584,22 @@
       </template>
 
     </v-select>
+    <span class="formError">{{ errors[0] }}</span>
+  </ValidationProvider>
       </v-col>
 
       <v-col
       sm="12"
       md="3"
       >
+      <ValidationProvider name="Available For" rules="required" v-slot="{ errors }">
+
       <v-select
         v-model="editedItem.shipSpecifications.availableFor"
         :items="availableForTypesList"
         item-text="name"
         item-value="code"
-        label="Available For"
+        label="Available For*"
        multiple
       >
 
@@ -525,17 +611,23 @@
       >(+{{ editedItem.shipSpecifications.availableFor.length - 1 }} others)</span>
     </template>
   </v-select>
+  <span class="formError">{{ errors[0] }}</span>
+</ValidationProvider>
       </v-col>
 
       <v-col
       sm="12"
       md="2"
       >
+      <ValidationProvider name="Crew No." rules="required" v-slot="{ errors }">
+
       <v-text-field
        v-model.number="editedItem.shipSpecifications.crewNo"
-       label="Crew No."
+       label="Crew No.*"
        required
       ></v-text-field>
+      <span class="formError">{{ errors[0] }}</span>
+    </ValidationProvider>
       </v-col>
       <v-col sm="12" dense><v-divider></v-divider></v-col>
 
@@ -629,6 +721,7 @@
       </v-col>
     </v-row>
   </v-form>
+  </ValidationObserver>
   </v-container>
   </v-card-text>
   <FormSubmitButtons
@@ -690,6 +783,10 @@ export default {
   },
 
   methods: {
+    async validateForm () {
+      return await this.$refs.formValidator.validate()
+    },
+
     metersToFeet (val) {
       return metersToFeet(val)
     }
