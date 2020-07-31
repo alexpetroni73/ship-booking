@@ -82,13 +82,17 @@
 
 
 
-      <div>
-        <AttachmentsSelectDialog
+      <div class="fileUploadsSelectorContainer">
+        <FileUploadsSelector
+        :multiple="multiple"
+        @files-uploaded="onFilesUploaded"
+        />
+        <!-- <AttachmentsSelectDialog
         :selectSingleImageBtnText="selectSingleImageBtnText"
         :selectMultipleImagesBtnText="selectMultipleImagesBtnText"
         :multiple="multiple"
         @change="onFileSelect"
-        />
+        /> -->
     </div>
 
     <ConfirmationDialog
@@ -103,7 +107,8 @@
 <script>
 import ImgTransf from '@common/components/img/ImgTransf'
 import ConfirmationDialog from '@common/components/ConfirmationDialog'
-import AttachmentsSelectDialog from '@/components/selectors/AttachmentsSelectDialog'
+// import AttachmentsSelectDialog from '@/components/selectors/AttachmentsSelectDialog'
+import FileUploadsSelector from '@/components/selectors/FileUploadsSelector'
 
 
 export default {
@@ -136,7 +141,8 @@ export default {
   components: {
     ImgTransf,
     ConfirmationDialog,
-    AttachmentsSelectDialog,
+  //  AttachmentsSelectDialog,
+    FileUploadsSelector,
   },
 
   data () {
@@ -189,6 +195,13 @@ export default {
     onDeleteCancel () {
       this.imgToDelete = null
     },
+
+    onFilesUploaded (result) {
+      if(!result.files) return
+      let filesPath = result.files.map(e => e.filePath)
+      let files = this.multiple ? [...this.item, ...filesPath] : filesPath[0]
+      this.$emit('input', files)
+    }
   }
 }
 </script>
@@ -205,5 +218,9 @@ export default {
   padding-right: 1em;
   padding-bottom: 1em;
   margin-right: 1em;
+}
+
+.fileUploadsSelectorContainer {
+  max-width: 250px;
 }
 </style>

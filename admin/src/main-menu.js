@@ -3,7 +3,7 @@ let items = [
   { icon: 'mdi-ship-wheel', title: 'Ships', to: '/ships' },
   { icon: 'mdi-map-clock-outline', title: 'Cruises', to: '/cruises' },
   { icon: 'mdi-map-marker-path', title: 'Itineraries', to: '/itineraries' },
-  { icon: 'mdi-image-multiple', title: 'Media', to: '/media' },
+  // { icon: 'mdi-image-multiple', title: 'Media', to: '/media' },
   { icon: 'mdi-cash-multiple', title: 'Orders', to: '/orders' },
   { icon: 'mdi-account-multiple-outline', title: 'Clients', to: '/clients' },
   { icon: 'mdi-cogs', title: 'Settings', to: '/settings' },
@@ -14,7 +14,7 @@ let items = [
   //   to: '/',
   // },
 ]
-console.log('process.env.NODE_ENV %s', process.env.NODE_ENV)
+
 if(process.env.NODE_ENV == 'development'){
   items.push(
     {

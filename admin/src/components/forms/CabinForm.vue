@@ -1,5 +1,5 @@
 <template>
-  <base-material-card class="px-5 py-3">
+  <base-material-card class="py-3">
     <template v-slot:heading>
       <FormTopBar
         addNewTitle="Add New Cabin"

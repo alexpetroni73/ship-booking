@@ -91,6 +91,11 @@
       <v-tab-item
       value="tab-accomodation"
       >
+      <CabinsGeneralDataForm
+      :item="shipCabinsGeneralData(item)"
+      v-bind="modelState"
+      v-on="crudEvents"
+      />
         <CabinsEditor
         :id="id"
         :activ="cabinActiv"
@@ -110,6 +115,7 @@ import ShipBasicInfoForm from '@/components/forms/ShipBasicInfoForm'
 import ShipSafetyForm from '@/components/forms/ShipSafetyForm'
 import ShipEntertainmentForm from '@/components/forms/ShipEntertainmentForm'
 // import ShipFeaturesFormContainer from '@/components/forms/ShipFeaturesFormContainer'
+import CabinsGeneralDataForm from '@/components/forms/CabinsGeneralDataForm'
 import ShipMediaForm from '@/components/forms/ShipMediaForm'
 import CabinsEditor from '@/components/editors/CabinsEditor'
 
@@ -139,6 +145,7 @@ export default {
     // ShipFeaturesFormContainer,
     ShipMediaForm,
     CabinsEditor,
+    CabinsGeneralDataForm,
   },
 
   data: function () {
@@ -213,6 +220,20 @@ export default {
         image: '',
         gallery: [],
       }
+      return mergeObjectsToLeft(data, item)
+    },
+
+    shipCabinsGeneralData (item) {
+      let data = {
+        shipSpecifications: {
+          maxCapacity: null,
+          maxCapacityCabins: null,
+          dayTrips: null,
+          atBerth: null,
+          noOfCabins: null,
+        }
+      }
+      console.log('shipCabinsGeneralData %o', mergeObjectsToLeft(data, item))
       return mergeObjectsToLeft(data, item)
     },
 

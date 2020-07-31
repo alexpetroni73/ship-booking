@@ -35,8 +35,6 @@
             :path="item.image"
             :transformation="[{ar:1-1},{w:150}]"
           />
-
-          <v-img :src="item.avatar"></v-img>
         </v-list-item-avatar>
 
         <v-list-item-content>
@@ -131,7 +129,7 @@ export default {
 
     cabinExcerpt (item, index) {
       let type = this.cabinTypeName(item.type)
-      return  `${index + 1} ${item.name}, ${type}, ${item.capacity} pax, ${item.surface} sqm `
+      return  `${index + 1}     ${item.name}, ${type}, ${item.capacity} pax, ${item.surface} sqm `
     },
 
     cabinTypeName (code) {

@@ -60,35 +60,47 @@ export default {
       errors: [],
       counter: 0,
       loading: false,
+      uploadResults: [],
     }
   },
 
   methods: {
     async uploadFiles(files) {
       if(files && files.length){
-
-        this.errors = []
-        this.counter = 0
-        this.loading = true
-
-        let decreaseCounter = this.decreaseCounter
-        let errors = this.errors
-
-        this.counter = files.length
-
+        this.prepareFilesUpload(files.length)
         files.forEach(e => {
           imagekit.upload({
             file: e,
             fileName : e.name,
           },
-          function(err) {
-            if(err) {
-              errors.push(err.message)
-            }
-            decreaseCounter()
-        })
+          this.onFileUploadComplete // callback
+        )
       })
       }
+    },
+
+    prepareFilesUpload (counter = 0) {
+      this.errors = []
+      this.counter = counter
+      this.loading = true
+      this.uploadResults = []
+    },
+
+    resetToInitialState () {
+      this.files = []
+      this.errors = []
+      this.counter = 0
+      this.loading = false
+      this.uploadResults = []
+    },
+
+    onFileUploadComplete (error, result) {
+      if(error){
+        this.errors.push(error.message)
+      } else {
+        this.uploadResults.push(result)
+      }
+      this.decreaseCounter()
     },
 
     decreaseCounter () {
@@ -99,11 +111,8 @@ export default {
     },
 
     uploadCompleted () {
-      this.loading = false
-      if(this.errors.length < this.files.length){
-        this.$emit('files-uploaded')
-      }
-      this.files = []
+      this.$emit('files-uploaded', {files: this.uploadResults, errors: this.errors})
+      this.resetToInitialState()
       this.$refs.fileInput.blur()
     },
   },
